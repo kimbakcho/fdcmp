@@ -33,7 +33,7 @@ class MPListener(ConnectionListener):
         pass
 
     def on_message(self, frame):
-        mplMessageQueue.put(frame)
+        mplMessageQueue.put(frame.body)
 
     def on_receipt(self, frame):
         pass

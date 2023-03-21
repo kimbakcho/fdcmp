@@ -1,20 +1,15 @@
-from django.shortcuts import render
-
-# Create your views here.
 from typing import List
 
-from bFdcEqp.Dto.FdcEqpLogicReqDto import FdcEqpLogicReqDto
-from bFdcEqp.Dto.FdcEqpLogicResDto import FdcEqpLogicResDto
-from bFdcEqp.Dto.FdcEqpReqDto import FdcEqpReqDto
-import environ
+from bFdc.Eqp.Dto.FdcEqpLogicReqDto import FdcEqpLogicReqDto
+from bFdc.Eqp.Dto.FdcEqpLogicResDto import FdcEqpLogicResDto
+from bFdc.Eqp.Dto.FdcEqpReqDto import FdcEqpReqDto
+from bFdc.Eqp.Dto.FdcEqpResDto import FdcEqpResDto
+
+from fdcmp.settings import env
+
 import requests
 
-from bFdcEqp.Dto.FdcEqpResDto import FdcEqpResDto
 
-env = environ.Env()
-
-
-# Create your views here.
 class FdcEqpUseCase:
 
     @staticmethod
@@ -32,4 +27,3 @@ class FdcEqpUseCase:
         for item in res.json():
             result.append(FdcEqpLogicResDto(**item))
         return result
-

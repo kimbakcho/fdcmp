@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BfdcmpConfig(AppConfig):
+class CommandConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'bFdcMp'
+    name = 'command'

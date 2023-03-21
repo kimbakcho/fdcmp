@@ -84,9 +84,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "corsheaders",
-    'bFdcMp',
-    'bFdcEqp',
-    'init',
+    'bFdc',
+    'command',
     'mpl'
 ]
 
