@@ -1,17 +1,24 @@
-import logging
+import json
+import threading
 import traceback
-from multiprocessing import Queue, Process, current_process
+from multiprocessing import Queue, Process, current_process, Pool, Lock
 from environ import environ
 import time
 
+from bFdc.MP.UseCase import FdcMpUseCase
+from command.value import SystemCommand
 from fdcmp.settings import BASE_DIR
-from mpl.Process.MPLWorker import MPLWorker
+from mpl.Process.MPLWorker import MPLWorker, MPLParserUtil
 
 mplMessageQueue = Queue()
 
 env = environ.Env()
 
 workProcesses = list()
+
+commandMessageQueue = Queue()
+
+mpUseCase = FdcMpUseCase()
 
 
 def mplPWorker(q: Queue, c: Queue):
@@ -23,31 +30,38 @@ def mplPWorker(q: Queue, c: Queue):
     handler.setFormatter(formatter)
     loggerMpl.addHandler(handler)
     try:
-        mplWorker = MPLWorker(q, c)
+        mpl_state = MPLParserUtil()
+        mplWorker = MPLWorker(q, c, mpl_state)
         while True:
-            if not q.empty():
-                try:
-                    message = q.get()
-                    mplWorker.context.set_message(message.body)
-                    mplWorker.messageParser(message.body)
-                    while not c.empty():
-                        command = c.get()
-                        mplWorker.context.set_message(command.body)
-                        mplWorker.commandParser(command.body)
-                        mplWorker.loggerMpl.info(f'command[{current_process().name}]={command}')
-                except Exception as e:
-                    mplWorker.loggerMpl.error(e.__str__())
-                    mplWorker.loggerMpl.error(traceback.print_stack())
-            else:
-                time.sleep(0.1)
+            try:
+                if not q.empty():
+                    try:
+                        message = q.get()
+                        mplWorker.context.set_message(message)
+                        mplWorker.messageParser(message)
+                    except Exception as e:
+                        mplWorker.loggerMpl.error(e.__str__())
+                        mplWorker.loggerMpl.error(traceback.print_stack())
+                while not c.empty():
+                    command = c.get()
+                    mplWorker.context.set_message(command)
+                    mplWorker.commandParser(command)
+                    mplWorker.loggerMpl.info(f'command[{current_process().name}]={command}')
+                else:
+                    time.sleep(0.1)
+            except Exception as e:
+                loggerMpl.error(e.__str__())
+                loggerMpl.error(traceback.print_stack())
     except Exception as e:
         loggerMpl.error(e.__str__())
         loggerMpl.error(traceback.print_stack())
 
 
 def mplThWorker():
+    commandMessageQueue.put(json.dumps({"command": SystemCommand.systemInit.value}))
     for p in range(env("MPL_WORKER", int)):
-        commandMessageQueue = Queue()
-        process = Process(target=mplPWorker, args=(mplMessageQueue, commandMessageQueue,), daemon=True)
+        process = Process(target=mplPWorker, args=(mplMessageQueue, commandMessageQueue),
+                          daemon=True,
+                          name=f'{p}')
         workProcesses.append({"process": process, "commandQueue": commandMessageQueue})
         process.start()

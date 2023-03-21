@@ -1,15 +1,20 @@
+import json
+import multiprocessing
+
 from environ import environ
 
-from fdcmp.settings import BASE_DIR
+from bFdc.Eqp.UseCase import FdcEqpUseCase
+from bFdc.MP.UseCase import FdcMpUseCase
+
+from fdcmp.settings import BASE_DIR, env
 from multiprocessing import Queue
 from FDCContext.context import Context
-import requests
 
-env = environ.Env()
+from mpl.Process.MPLParserUtil import MPLParserUtil
 
 
 class MPLWorker:
-    def __init__(self, q: Queue, c: Queue) -> None:
+    def __init__(self, q: Queue, c: Queue, mplParserUtil: MPLParserUtil) -> None:
         import logging
         self.q = q
         self.c = c
@@ -20,26 +25,23 @@ class MPLWorker:
         handler.setFormatter(formatter)
         self.loggerMpl.addHandler(handler)
         self.context = Context()
-        self.__initCompile()
-
-    def __initCompile(self):
-        self.comPilePythons = list()
-        r = requests.get(f"{env('BFDC_URL')}/mp/mpl/")
-        mplItems = r.json()
-        for item in mplItems:
-            if item["logicCode"] is not None:
-                com = compile(item["logicCode"], '<string>', mode='exec')
-                self.comPilePythons.append({"compilePy": com, "name": item["name"], "id": item["id"]})
+        self.mplParserUtil = mplParserUtil
 
     def messageParser(self, message: str):
-        for logicItem in self.comPilePythons:
-            com = logicItem.get("compilePy")
-            exec(com, None, locals())
-            runResult = locals().get("run")(self.context)
-            self.context.__dict__.setdefault(logicItem.get("name"), runResult)
+        for logicItem in self.mplParserUtil.getMpLogics():
+            if logicItem["compile"] is not None:
+                exec(logicItem["compile"], None, locals())
+                runResult = locals().get("run")(self.context)
+                self.context.mp[logicItem['name']] = runResult
+                print(f'{multiprocessing.current_process().name} {self.context.mp["EqpCode"]}')
+
+        if self.mplParserUtil.getEqps().keys() in self.context.mp["EqpCode"]:
+            eqp = self.mplParserUtil.getEqps().get(self.context.mp["EqpCode"])
+            eqp.getModule()
+            pass
+
 
     def commandParser(self, message: str):
-        if message is "MPLogicReload":
-            self.__initCompile()
-
-
+        message = json.loads(message)
+        pass
+        # if message['command'] == SystemCommand.systemInit.value:
