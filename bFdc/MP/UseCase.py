@@ -12,3 +12,5 @@ class FdcMpUseCase:
         for item in r.json():
             result.append(MPLResDto(**item))
         return result
+
+

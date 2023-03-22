@@ -1,32 +1,220 @@
-2023-03-21 17:10:45,273 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:10:45,274 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:10:45,274 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/EAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:10:45,279 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:316', 'version': '1.1'}],body=}
-2023-03-21 17:10:45,281 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:10:45,281 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:10:45,281 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:10:45,289 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:317', 'version': '1.1'}],body=}
-2023-03-21 17:10:48,811 INFO [mpl] [MPLProcessWorker.py:51] - command[0]={"command": "systemInit"}
-2023-03-21 17:10:48,811 INFO [mpl] [MPLProcessWorker.py:51] - command[0]={"command": "systemInit"}
-2023-03-21 17:11:45,121 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:11:45,121 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:11:45,122 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/EAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:11:45,124 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:318', 'version': '1.1'}],body=}
-2023-03-21 17:11:45,125 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:11:45,125 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:11:45,125 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:11:45,128 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:319', 'version': '1.1'}],body=}
-2023-03-21 17:11:48,761 INFO [mpl] [MPLProcessWorker.py:51] - command[2]={"command": "systemInit"}
-2023-03-21 17:11:48,761 INFO [mpl] [MPLProcessWorker.py:51] - command[2]={"command": "systemInit"}
-2023-03-21 17:12:50,913 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:12:50,914 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:12:50,914 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/EAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:12:50,917 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
-2023-03-21 17:12:50,917 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
-2023-03-21 17:12:50,918 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
-2023-03-21 17:12:50,919 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:320', 'version': '1.1'}],body=}
-2023-03-21 17:12:50,922 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:321', 'version': '1.1'}],body=}
-2023-03-21 17:12:54,374 INFO [mpl] [MPLProcessWorker.py:51] - command[0]={"command": "systemInit"}
-2023-03-21 17:12:54,374 INFO [mpl] [MPLProcessWorker.py:51] - command[0]={"command": "systemInit"}
-2023-03-21 17:27:51,120 ERROR [mpl] [MPLCommandListener.py:55] - on_Mpl_Command_receiver_loop_completed = None
-2023-03-21 17:27:51,121 INFO [mpl] [MPLCommandListener.py:26] - on_Mpl_Command_disconnected
+2023-03-22 16:19:39,912 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:19:39,913 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:19:39,913 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/EAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:19:39,916 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:19:39,916 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:19:39,917 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:19:39,917 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:324', 'version': '1.1'}],body=}
+2023-03-22 16:19:39,920 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:325', 'version': '1.1'}],body=}
+2023-03-22 16:19:43,638 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 16:27:59,464 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:27:59,465 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:27:59,465 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/EAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:27:59,474 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:326', 'version': '1.1'}],body=}
+2023-03-22 16:27:59,475 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:27:59,475 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:27:59,476 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:27:59,488 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:327', 'version': '1.1'}],body=}
+2023-03-22 16:28:03,472 INFO [mpl] [MPLProcessWorker.py:56] - command[4]={"command": "systemInit"}
+2023-03-22 16:34:57,730 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:34:57,731 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:34:57,731 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:34:57,738 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:328', 'version': '1.1'}],body=}
+2023-03-22 16:34:57,739 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:34:57,739 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:34:57,740 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:34:57,748 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:329', 'version': '1.1'}],body=}
+2023-03-22 16:35:01,432 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 16:46:26,152 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:46:26,153 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:46:26,153 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:46:26,156 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:330', 'version': '1.1'}],body=}
+2023-03-22 16:46:26,157 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:46:26,157 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:46:26,158 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:46:26,163 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:331', 'version': '1.1'}],body=}
+2023-03-22 16:46:29,726 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 16:48:36,673 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:48:36,674 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:48:36,674 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:48:36,677 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:48:36,678 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:48:36,678 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:48:36,679 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:332', 'version': '1.1'}],body=}
+2023-03-22 16:48:36,680 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:333', 'version': '1.1'}],body=}
+2023-03-22 16:48:40,632 INFO [mpl] [MPLProcessWorker.py:56] - command[4]={"command": "systemInit"}
+2023-03-22 16:51:44,590 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:51:44,590 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:51:44,591 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:51:44,594 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:51:44,594 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:51:44,595 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:51:44,596 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:334', 'version': '1.1'}],body=}
+2023-03-22 16:51:44,598 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:335', 'version': '1.1'}],body=}
+2023-03-22 16:51:52,772 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:51:52,773 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:51:52,774 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:51:52,777 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:51:52,778 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:51:52,778 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:51:52,812 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:336', 'version': '1.1'}],body=}
+2023-03-22 16:51:52,813 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:337', 'version': '1.1'}],body=}
+2023-03-22 16:51:56,267 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 16:52:05,222 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:52:05,222 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:52:05,222 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:52:05,225 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:338', 'version': '1.1'}],body=}
+2023-03-22 16:52:05,225 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:52:05,226 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:52:05,226 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:52:05,229 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:339', 'version': '1.1'}],body=}
+2023-03-22 16:52:08,714 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 16:53:54,894 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:53:54,894 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:53:54,895 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:53:54,897 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:53:54,898 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:53:54,898 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:53:54,899 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:340', 'version': '1.1'}],body=}
+2023-03-22 16:53:54,901 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:341', 'version': '1.1'}],body=}
+2023-03-22 16:53:58,564 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 16:54:07,904 ERROR [mpl] [MPLWorker.py:41] - syntax error: line 1, column 0
+2023-03-22 16:54:07,924 ERROR [mpl] [MPLWorker.py:42] - None
+2023-03-22 16:54:39,649 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:54:39,649 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:54:39,650 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:54:39,653 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:54:39,653 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:54:39,654 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:342', 'version': '1.1'}],body=}
+2023-03-22 16:54:39,655 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:54:39,657 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:343', 'version': '1.1'}],body=}
+2023-03-22 16:54:43,223 INFO [mpl] [MPLProcessWorker.py:56] - command[2]={"command": "systemInit"}
+2023-03-22 16:59:46,233 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:59:46,234 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:59:46,235 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:59:46,237 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 16:59:46,238 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 16:59:46,238 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 16:59:46,239 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:344', 'version': '1.1'}],body=}
+2023-03-22 16:59:46,240 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:345', 'version': '1.1'}],body=}
+2023-03-22 16:59:51,354 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 17:00:07,081 ERROR [mpl] [MPLWorker.py:42] - 'in <string>' requires string as left operand, not dict_keys
+2023-03-22 17:00:07,088 ERROR [mpl] [MPLWorker.py:43] - None
+2023-03-22 17:01:12,297 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:01:12,297 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:01:12,298 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:01:12,301 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:01:12,301 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:01:12,302 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:01:12,302 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:346', 'version': '1.1'}],body=}
+2023-03-22 17:01:12,305 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:347', 'version': '1.1'}],body=}
+2023-03-22 17:01:16,009 INFO [mpl] [MPLProcessWorker.py:56] - command[3]={"command": "systemInit"}
+2023-03-22 17:01:16,190 ERROR [mpl] [MPLEqp.py:33] - FdcEqpModuleResDto.__init__() got an unexpected keyword argument 'eqpName'
+2023-03-22 17:01:16,197 ERROR [mpl] [MPLEqp.py:34] - None
+2023-03-22 17:02:05,973 ERROR [mpl] [MPLWorker.py:42] - syntax error: line 1, column 0
+2023-03-22 17:02:05,982 ERROR [mpl] [MPLWorker.py:43] - None
+2023-03-22 17:02:20,270 ERROR [mpl] [MPLWorker.py:42] - syntax error: line 1, column 0
+2023-03-22 17:02:20,279 ERROR [mpl] [MPLWorker.py:43] - None
+2023-03-22 17:02:40,052 ERROR [mpl] [MPLEqp.py:33] - FdcEqpModuleResDto.__init__() got an unexpected keyword argument 'eqpName'
+2023-03-22 17:02:40,061 ERROR [mpl] [MPLEqp.py:34] - None
+2023-03-22 17:03:50,957 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:03:50,957 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:03:50,958 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:03:50,960 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:03:50,961 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:348', 'version': '1.1'}],body=}
+2023-03-22 17:03:50,961 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:03:50,962 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:03:50,969 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:349', 'version': '1.1'}],body=}
+2023-03-22 17:03:54,430 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 17:04:14,348 ERROR [mpl] [MPLEqp.py:34] - FdcEqpModuleResDto.__init__() got an unexpected keyword argument 'eqpName'
+2023-03-22 17:04:14,727 ERROR [mpl] [MPLEqp.py:35] - None
+2023-03-22 17:10:58,410 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:10:58,411 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:10:58,412 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:10:58,415 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:350', 'version': '1.1'}],body=}
+2023-03-22 17:10:58,416 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:10:58,417 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:10:58,418 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:10:58,420 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:351', 'version': '1.1'}],body=}
+2023-03-22 17:11:03,190 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 17:11:46,796 ERROR [mcp] [MCPEqpModule.py:44] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:11:46,815 ERROR [mcp] [MCPEqpModule.py:45] - None
+2023-03-22 17:11:46,862 ERROR [mcp] [MCPEqpModule.py:59] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:11:46,864 ERROR [mcp] [MCPEqpModule.py:60] - None
+2023-03-22 17:11:46,891 ERROR [mcp] [MCPEqpModule.py:75] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:11:46,893 ERROR [mcp] [MCPEqpModule.py:76] - None
+2023-03-22 17:12:31,745 ERROR [mcp] [MCPEqpModule.py:44] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:12:31,756 ERROR [mcp] [MCPEqpModule.py:45] - None
+2023-03-22 17:12:31,780 ERROR [mcp] [MCPEqpModule.py:59] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:12:31,782 ERROR [mcp] [MCPEqpModule.py:60] - None
+2023-03-22 17:13:04,015 ERROR [mcp] [MCPEqpModule.py:75] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:13:32,506 ERROR [mcp] [MCPEqpModule.py:76] - None
+2023-03-22 17:13:38,605 ERROR [mcp] [MCPEqpModule.py:44] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:13:38,607 ERROR [mcp] [MCPEqpModule.py:45] - None
+2023-03-22 17:13:38,637 ERROR [mcp] [MCPEqpModule.py:59] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:13:38,639 ERROR [mcp] [MCPEqpModule.py:60] - None
+2023-03-22 17:15:45,052 ERROR [mcp] [MCPEqpModule.py:44] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:15:45,065 ERROR [mcp] [MCPEqpModule.py:45] - None
+2023-03-22 17:15:45,116 ERROR [mcp] [MCPEqpModule.py:59] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:15:45,119 ERROR [mcp] [MCPEqpModule.py:60] - None
+2023-03-22 17:16:11,823 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:16:11,824 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:16:11,824 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:16:11,828 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:16:11,829 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:16:11,831 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:16:11,830 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:352', 'version': '1.1'}],body=}
+2023-03-22 17:16:11,832 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:353', 'version': '1.1'}],body=}
+2023-03-22 17:16:15,819 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 17:16:22,866 ERROR [mcp] [MCPEqpModule.py:44] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:16:22,872 ERROR [mcp] [MCPEqpModule.py:45] - None
+2023-03-22 17:16:22,897 ERROR [mcp] [MCPEqpModule.py:59] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:16:22,899 ERROR [mcp] [MCPEqpModule.py:60] - None
+2023-03-22 17:17:03,705 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:17:03,706 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:17:03,707 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:17:03,710 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:17:03,711 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:17:03,712 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:17:03,713 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:354', 'version': '1.1'}],body=}
+2023-03-22 17:17:03,719 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:355', 'version': '1.1'}],body=}
+2023-03-22 17:17:08,134 INFO [mpl] [MPLProcessWorker.py:56] - command[0]={"command": "systemInit"}
+2023-03-22 17:17:11,864 ERROR [mcp] [MCPEqpEvent.py:35] - FdcMcpEventLVResDto.__init__() got an unexpected keyword argument 'id'
+2023-03-22 17:17:11,874 ERROR [mcp] [MCPEqpEvent.py:36] - None
+2023-03-22 17:17:14,867 ERROR [mcp] [MCPEqpModule.py:75] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:17:14,874 ERROR [mcp] [MCPEqpModule.py:76] - None
+2023-03-22 17:17:40,991 ERROR [mcp] [MCPEqpEvent.py:35] - FdcMcpEventLVResDto.__init__() got an unexpected keyword argument 'id'
+2023-03-22 17:17:41,002 ERROR [mcp] [MCPEqpEvent.py:36] - None
+2023-03-22 17:17:51,686 ERROR [mcp] [MCPEqpModule.py:75] - Expecting value: line 1 column 1 (char 0)
+2023-03-22 17:17:51,688 ERROR [mcp] [MCPEqpModule.py:76] - None
+2023-03-22 17:18:03,814 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:18:03,814 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:18:03,815 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:18:03,818 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:356', 'version': '1.1'}],body=}
+2023-03-22 17:18:03,818 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:18:03,819 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:18:03,819 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:18:03,822 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:357', 'version': '1.1'}],body=}
+2023-03-22 17:18:07,583 INFO [mpl] [MPLProcessWorker.py:56] - command[1]={"command": "systemInit"}
+2023-03-22 17:18:30,597 ERROR [mcp] [MCPEqpEvent.py:35] - FdcMcpEventLVResDto.__init__() got an unexpected keyword argument 'id'
+2023-03-22 17:18:30,605 ERROR [mcp] [MCPEqpEvent.py:36] - None
+2023-03-22 17:19:02,265 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:19:02,266 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:19:02,267 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:19:02,270 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:358', 'version': '1.1'}],body=}
+2023-03-22 17:19:02,272 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:19:02,272 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:19:02,273 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:19:02,277 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:359', 'version': '1.1'}],body=}
+2023-03-22 17:19:06,943 INFO [mpl] [MPLProcessWorker.py:56] - command[2]={"command": "systemInit"}
+2023-03-22 17:19:07,328 ERROR [mcp] [MCPEqpEvent.py:35] - FdcMcpEventLVResDto.__init__() got an unexpected keyword argument 'id'
+2023-03-22 17:19:07,336 ERROR [mcp] [MCPEqpEvent.py:36] - None
+2023-03-22 17:20:01,295 INFO [mpl] [MPListener.py:14] - on_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:20:01,296 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:20:01,297 ERROR [mpl] [MPListener.py:46] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/topic/TESTEAP.FDC', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:20:01,300 INFO [mpl] [MPListener.py:18] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:360', 'version': '1.1'}],body=}
+2023-03-22 17:20:01,301 INFO [mpl] [MPLCommandListener.py:14] - on_Mpl_Command_connecting = ('10.20.10.114', 61613)
+2023-03-22 17:20:01,301 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-22 17:20:01,302 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
+2023-03-22 17:20:01,304 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:361', 'version': '1.1'}],body=}
+2023-03-22 17:20:05,899 INFO [mpl] [MPLProcessWorker.py:56] - command[3]={"command": "systemInit"}

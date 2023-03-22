@@ -86,7 +86,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'bFdc',
     'command',
-    'mpl'
+    'mpl',
+    'mcp'
 ]
 
 MIDDLEWARE = [

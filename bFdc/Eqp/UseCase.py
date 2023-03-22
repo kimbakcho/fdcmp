@@ -1,9 +1,9 @@
 from typing import List
 
-from bFdc.Eqp.Dto.FdcEqpLogicReqDto import FdcEqpLogicReqDto
-from bFdc.Eqp.Dto.FdcEqpLogicResDto import FdcEqpLogicResDto
-from bFdc.Eqp.Dto.FdcEqpReqDto import FdcEqpReqDto
-from bFdc.Eqp.Dto.FdcEqpResDto import FdcEqpResDto
+from bFdc.Eqp.Dto.FdcEqpLogic import FdcEqpLogicReqDto, FdcEqpLogicResDto
+
+from bFdc.Eqp.Dto.FdcEqp import FdcEqpResDto, FdcEqpReqDto
+from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto, FdcEqpModuleReqDto
 
 from fdcmp.settings import env
 
@@ -26,4 +26,12 @@ class FdcEqpUseCase:
         result = list()
         for item in res.json():
             result.append(FdcEqpLogicResDto(**item))
+        return result
+
+    @staticmethod
+    def getEqpModuleList(reqDto: FdcEqpModuleReqDto) -> list[FdcEqpModuleResDto]:
+        res = requests.get(f"{env('BFDC_URL')}/eqp/module/", params=reqDto.__dict__)
+        result = list()
+        for item in res.json():
+            result.append(FdcEqpModuleResDto(**item))
         return result

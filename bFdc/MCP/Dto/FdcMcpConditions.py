@@ -2,14 +2,14 @@ from dataclasses import dataclass
 
 
 @dataclass
-class FdcEqpLogicResDto:
+class ConditionsResDto:
     id: int
-    eqpId: str
     name: str
+    eqpModule: int
     logicCode: str
-    returnType: str
+    isSave: bool
     isBasic: bool
-    orderIdx: int
-    updateTime: str
     testMessage: str
-    eqpName: str
+    orderIdx: int
+    returnType: str
+    updateTime: str

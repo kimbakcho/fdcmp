@@ -1,33 +1,58 @@
-from bFdc.Eqp.Dto.FdcEqpReqDto import FdcEqpReqDto
-from bFdc.Eqp.Dto.FdcEqpResDto import FdcEqpResDto
+import logging
+import threading
+import traceback
+
+from bFdc.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdc.Eqp.UseCase import FdcEqpUseCase
 from bFdc.MP.UseCase import FdcMpUseCase
+from fdcmp.Value import LogicItem
 from fdcmp.settings import env
 from mpl.Process.MPLEqp import MPLEqp
+from fdcmp.Enum import RecvState
 
 
 class MPLParserUtil:
     def __init__(self) -> None:
         super().__init__()
-        self.__mpLogics = []
-
+        self.__mpLogics: list[LogicItem] = list()
         self.__eqp: dict[str, MPLEqp] = dict()
-        self.mpUseCase = FdcMpUseCase()
-        self.eqpUseCase = FdcEqpUseCase()
+        self.__mpUseCase = FdcMpUseCase()
+        self.__eqpUseCase = FdcEqpUseCase()
+        self.__MPLogicState = RecvState.init
+        self.__eqpsGetState = RecvState.init
+        self.__MPLLogicLock = threading.Lock()
+        self.__eqpsLock = threading.Lock()
+        self.__logger = logging.getLogger("mpl")
 
-    def getMpLogics(self):
-        if self.__mpLogics.__len__() == 0:
-
-            for mpl in self.mpUseCase.getMPL():
-                com = None
-                if mpl.logicCode is not None:
-                    com = compile(mpl.logicCode, '<string>', mode='exec')
-                self.__mpLogics.append({"name": mpl.name, "compile": com})
+    def getMpLogics(self) -> list[LogicItem]:
+        try:
+            self.__MPLLogicLock.acquire()
+            if self.__MPLogicState == RecvState.init:
+                for mpl in self.__mpUseCase.getMPL():
+                    if mpl.logicCode is not None:
+                        com = compile(mpl.logicCode, '<string>', mode='exec')
+                        self.__mpLogics.append(LogicItem(mpl.name,com))
+                self.__MPLogicState = RecvState.done
+        except Exception as e:
+            self.__logger.error(e.__str__())
+            self.__logger.error(traceback.print_stack())
+            self.__MPLogicState = RecvState.error
+        finally:
+            self.__MPLLogicLock.release()
         return self.__mpLogics
 
-    def getEqps(self):
-        if self.__eqp.__len__() == 0:
-            eqps = self.eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))
-            for eqp in eqps:
-                self.__eqp[eqp.code] = MPLEqp(eqp)
+    def getEqps(self) -> dict[str, MPLEqp]:
+        try:
+            self.__eqpsLock.acquire()
+            if self.__eqpsGetState == RecvState.init:
+                eqps = self.__eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))
+                for eqp in eqps:
+                    self.__eqp[eqp.code] = MPLEqp(eqp)
+                self.__eqpsGetState = RecvState.done
+        except Exception as e:
+            self.__logger.error(e.__str__())
+            self.__logger.error(traceback.print_stack())
+            self.__eqpsGetState = RecvState.error
+        finally:
+            self.__eqpsLock.release()
         return self.__eqp

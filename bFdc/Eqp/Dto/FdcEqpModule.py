@@ -2,11 +2,16 @@ from dataclasses import dataclass
 
 
 @dataclass
-class FdcEqpResDto:
+class FdcEqpModuleReqDto:
+    eqp: int
+
+
+@dataclass
+class FdcEqpModuleResDto:
     id: int
     code: str
     name: str
+    eqpName: str
+    eqp: int
     updateTime: str
-    process: int
-    core: int
     orderIdx: int

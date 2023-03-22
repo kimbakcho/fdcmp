@@ -8,7 +8,7 @@ import environ
 from mpl.Dto.MessageParserCore import MessageParserCoreResDto
 from mpl.Listener.MPLCommandListener import MPLCommandListener
 from mpl.Listener.MPListener import MPListener
-from mpl.Process.MPLProcessWorker import mplThWorker
+from mpl.Process.MPLProcessWorker import mplProcessWorker
 
 
 class MplConfig(AppConfig):
@@ -41,6 +41,6 @@ class MplConfig(AppConfig):
         m.subscribe(coreInfo["commandSubject"], env('MP_CORE_ID'))
 
 
-        mplThWorker()
+        mplProcessWorker()
 
 
