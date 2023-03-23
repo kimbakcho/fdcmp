@@ -1,19 +1,18 @@
 from typing import List
 
+
 from bFdc.Eqp.Dto.FdcEqpLogic import FdcEqpLogicReqDto, FdcEqpLogicResDto
 
 from bFdc.Eqp.Dto.FdcEqp import FdcEqpResDto, FdcEqpReqDto
 from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto, FdcEqpModuleReqDto
 
-from fdcmp.settings import env
-
 import requests
-
-
+from bFdc import env
 class FdcEqpUseCase:
 
     @staticmethod
     def getEqpList(reqDto: FdcEqpReqDto) -> List[FdcEqpResDto]:
+
         res = requests.get(f"{env('BFDC_URL')}/eqp/eqp/", params=reqDto.__dict__)
         result = list()
         for item in res.json():

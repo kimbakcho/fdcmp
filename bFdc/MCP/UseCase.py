@@ -5,8 +5,7 @@ from bFdc.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdc.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
 from bFdc.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
 from bFdc.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
-from fdcmp.settings import env
-
+from bFdc import env
 
 class FdcMcpUseCase:
     @staticmethod
