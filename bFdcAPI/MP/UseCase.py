@@ -1,8 +1,10 @@
 import requests
 
-from bFdc.MP.Dto.MPLResDto import MPLResDto
+from bFdcAPI.MP.Dto.Core import CoreResDto
+from bFdcAPI.MP.Dto.MBL import MBLResDto
+from bFdcAPI.MP.Dto.MPL import MPLResDto
 
-from bFdc import env
+from bFdcAPI import env
 
 
 class FdcMpUseCase:
@@ -12,4 +14,17 @@ class FdcMpUseCase:
         result = list()
         for item in r.json():
             result.append(MPLResDto(**item))
+        return result
+
+    @staticmethod
+    def getMLB(id: int) -> MBLResDto:
+        r = requests.get(f"{env('BFDC_URL')}/mp/mbl/{id}/")
+        return MBLResDto(**r.json())
+
+    @staticmethod
+    def getCoreList() -> list[CoreResDto]:
+        r = requests.get(f"{env('BFDC_URL')}/mp/core/")
+        result = list()
+        for item in r.json():
+            result.append(CoreResDto(**item))
         return result
