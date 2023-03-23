@@ -7,5 +7,6 @@ class MBLResDto:
     sourceIp: str
     sourcePort: int
     subject: str
+    commandSubject: str
     updateTime: str
     brokerType: str
