@@ -6,6 +6,6 @@ setup(
     description="Fdc Message Parser",
     author="Fdc",
     author_email="XXXX@sfac.co.kr",
-    packages=["bFdc.Eqp", "bFdc.MCP", "bFdc.MP", "bFdc", "FDCContext"],
+    packages=["bFdcAPI.Eqp", "bFdcAPI.MCP", "bFdcAPI.MP", "bFdcAPI", "FDCContext"],
     install_requires=["django-environ"],
 )
