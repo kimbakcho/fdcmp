@@ -10,6 +10,7 @@ from mpl.Listener.MPLCommandListener import MPLCommandListener
 from mpl.Listener.MPListener import MPListener
 from mpl.Process.MPLProcessWorker import mplProcessWorker
 
+from fdcmp.settings import env
 
 class MplConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -18,8 +19,6 @@ class MplConfig(AppConfig):
     def ready(self):
         if 'runserver' not in sys.argv:
             return True
-        env = environ.Env()
-
         r = requests.get(f"{env('BFDC_URL')}/mp/core/{env('MP_CORE_ID')}/")
 
         coreInfo = r.json()
