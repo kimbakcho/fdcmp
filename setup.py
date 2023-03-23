@@ -7,5 +7,5 @@ setup(
     author="Fdc",
     author_email="XXXX@sfac.co.kr",
     packages=["bFdc"],
-    install_requires=[],
+    install_requires=["django-environ"],
 )
