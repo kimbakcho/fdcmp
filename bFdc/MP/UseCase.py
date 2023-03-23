@@ -1,7 +1,8 @@
 import requests
 
 from bFdc.MP.Dto.MPLResDto import MPLResDto
-from bFdc import env
+
+from bFdc.MP import env
 
 
 class FdcMpUseCase:
@@ -12,5 +13,3 @@ class FdcMpUseCase:
         for item in r.json():
             result.append(MPLResDto(**item))
         return result
-
-

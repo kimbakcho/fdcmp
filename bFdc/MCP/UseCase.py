@@ -5,11 +5,14 @@ from bFdc.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdc.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
 from bFdc.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
 from bFdc.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
-from bFdc import env
+
+from bFdc.MCP import env
+
 
 class FdcMcpUseCase:
     @staticmethod
     def getEventList(eqpModule: int) -> list[FdcMcpEventResDto]:
+
         res = requests.get(f"{env('BFDC_URL')}/mcp/event/", params={"eqpModule": eqpModule})
         result: list[FdcMcpEventResDto] = list()
         for item in res.json():
