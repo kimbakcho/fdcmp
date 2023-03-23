@@ -6,14 +6,12 @@ from bFdc.Eqp.Dto.FdcEqp import FdcEqpResDto, FdcEqpReqDto
 from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto, FdcEqpModuleReqDto
 
 import requests
-from bFdc.Eqp import env
 
+from bFdc import env
 
 class FdcEqpUseCase:
-
     @staticmethod
     def getEqpList(reqDto: FdcEqpReqDto) -> List[FdcEqpResDto]:
-
         res = requests.get(f"{env('BFDC_URL')}/eqp/eqp/", params=reqDto.__dict__)
         result = list()
         for item in res.json():

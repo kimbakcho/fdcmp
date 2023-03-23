@@ -2,7 +2,7 @@ import requests
 
 from bFdc.MP.Dto.MPLResDto import MPLResDto
 
-from bFdc.MP import env
+from bFdc import env
 
 
 class FdcMpUseCase:
