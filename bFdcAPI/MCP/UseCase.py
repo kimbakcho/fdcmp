@@ -1,12 +1,12 @@
 import requests
 
-from bFdc.MCP.Dto.FdcMcpConditions import ConditionsResDto
-from bFdc.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
-from bFdc.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
-from bFdc.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
-from bFdc.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
+from bFdcAPI.MCP.Dto.FdcMcpConditions import ConditionsResDto
+from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
+from bFdcAPI.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
+from bFdcAPI.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
+from bFdcAPI.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
 
-from bFdc import env
+from bFdcAPI import env
 
 
 class FdcMcpUseCase:

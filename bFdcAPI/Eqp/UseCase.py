@@ -1,13 +1,13 @@
 from typing import List
 
-from bFdc.Eqp.Dto.FdcEqpLogic import FdcEqpLogicReqDto, FdcEqpLogicResDto
+from bFdcAPI.Eqp.Dto.FdcEqpLogic import FdcEqpLogicReqDto, FdcEqpLogicResDto
 
-from bFdc.Eqp.Dto.FdcEqp import FdcEqpResDto, FdcEqpReqDto
-from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto, FdcEqpModuleReqDto
+from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpResDto, FdcEqpReqDto
+from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto, FdcEqpModuleReqDto
 
 import requests
 
-from bFdc import env
+from bFdcAPI import env
 
 class FdcEqpUseCase:
     @staticmethod

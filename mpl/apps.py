@@ -39,7 +39,6 @@ class MplConfig(AppConfig):
 
         m.subscribe(coreInfo["commandSubject"], env('MP_CORE_ID'))
 
-
         mplProcessWorker()
 
 
