@@ -28,3 +28,8 @@ class FdcMpUseCase:
         for item in r.json():
             result.append(CoreResDto(**item))
         return result
+
+    @staticmethod
+    def getCore(id: int) -> CoreResDto:
+        r = requests.get(f"{env('BFDC_URL')}/mp/core/{id}")
+        return CoreResDto(**r.json())
