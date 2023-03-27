@@ -5,7 +5,7 @@ from mcp.Process.MCPEqpModule import MCPEqpModule
 from FDCContext.context import Context
 
 
-def mcpThreadWorker(eqpModule: MCPEqpModule, context: Context):
+def mcpWorker(eqpModule: MCPEqpModule, context: Context):
     logger = logging.getLogger('mcp')
     try:
         if context.mp["EventCode"] in eqpModule.getEvents().keys():

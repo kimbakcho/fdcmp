@@ -1,8 +1,10 @@
 from dataclasses import dataclass
+from typing import Optional
+
 
 @dataclass
 class FdcEqpReqDto:
-    core: int | None
+    core: Optional[int]
 
 
 @dataclass
