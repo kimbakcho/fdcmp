@@ -1,11 +1,11 @@
 import threading
 import traceback
 
-from bFdc.Eqp.Dto.FdcEqp import FdcEqpResDto
-from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleReqDto
-from bFdc.Eqp.UseCase import FdcEqpUseCase
+from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpResDto
+from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleReqDto
+from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from mcp.Process.MCPEqpModule import MCPEqpModule
-from fdcmp.Enum import RecvState
+from bFdcAPI.Enum import RecvState
 import logging
 
 

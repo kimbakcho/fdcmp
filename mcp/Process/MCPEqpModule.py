@@ -1,15 +1,14 @@
 import threading
 import traceback
 
-from bFdc.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
-from bFdc.Eqp.UseCase import FdcEqpUseCase
+from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
+from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 import logging
 
-from bFdc.MCP.Dto.FdcMcpConditions import ConditionsResDto
-from bFdc.MCP.UseCase import FdcMcpUseCase
+from bFdcAPI.MCP.UseCase import FdcMcpUseCase
 from fdcmp.Value import LogicItem
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
-from fdcmp.Enum import RecvState
+from bFdcAPI.Enum import RecvState
 from mcp.Process.McpEqpTraceGroup import McpEqpTraceGroup
 
 

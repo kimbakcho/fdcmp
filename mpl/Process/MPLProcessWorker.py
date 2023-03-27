@@ -6,7 +6,7 @@ from multiprocessing import Queue, Process, current_process, Pool, Lock
 from environ import environ
 import time
 
-from bFdc.MP.UseCase import FdcMpUseCase
+from bFdcAPI.MP.UseCase import FdcMpUseCase
 from command.value import SystemCommand
 from fdcmp.settings import BASE_DIR
 from mpl.Process.MPLWorker import MPLWorker, MPLParserUtil

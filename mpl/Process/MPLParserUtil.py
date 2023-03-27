@@ -2,13 +2,13 @@ import logging
 import threading
 import traceback
 
-from bFdc.Eqp.Dto.FdcEqp import FdcEqpReqDto
-from bFdc.Eqp.UseCase import FdcEqpUseCase
-from bFdc.MP.UseCase import FdcMpUseCase
+from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
+from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
+from bFdcAPI.MP.UseCase import FdcMpUseCase
 from fdcmp.Value import LogicItem
 from fdcmp.settings import env
 from mpl.Process.MPLEqp import MPLEqp
-from fdcmp.Enum import RecvState
+from bFdcAPI.Enum import RecvState
 
 
 class MPLParserUtil:

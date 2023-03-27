@@ -2,9 +2,9 @@ import logging
 import threading
 import traceback
 
-from bFdc.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
-from bFdc.MCP.UseCase import FdcMcpUseCase
-from fdcmp.Enum import RecvState
+from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
+from bFdcAPI.MCP.UseCase import FdcMcpUseCase
+from bFdcAPI.Enum import RecvState
 from fdcmp.Value import LogicItem
 
 
