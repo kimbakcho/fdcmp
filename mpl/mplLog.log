@@ -218,3 +218,201 @@
 2023-03-22 17:20:01,302 ERROR [mpl] [MPLCommandListener.py:48] - on_Mpl_Command_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommand', 'id': '1', 'ack': 'auto'}],body=}
 2023-03-22 17:20:01,304 INFO [mpl] [MPLCommandListener.py:18] - on_Mpl_Command_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:361', 'version': '1.1'}],body=}
 2023-03-22 17:20:05,899 INFO [mpl] [MPLProcessWorker.py:56] - command[3]={"command": "systemInit"}
+2023-03-27 13:29:19,687 INFO [mpl] [MPListener.py:16] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 13:29:19,688 ERROR [mpl] [MPListener.py:52] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 13:29:19,691 INFO [mpl] [MPListener.py:20] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:383', 'version': '1.1'}],body=}
+2023-03-27 13:29:20,336 ERROR [mpl] [MPListener.py:52] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 13:29:20,395 ERROR [mpl] [MPListener.py:59] - on_receiver_loop_completed = None
+2023-03-27 13:29:20,395 INFO [mpl] [MPListener.py:28] - on_disconnected
+2023-03-27 13:29:21,984 ERROR [mpl] [MPListener.py:52] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:04:10,662 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:04:10,662 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:04:10,663 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:04:10,663 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:04:10,722 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:384', 'version': '1.1'}],body=}
+2023-03-27 14:09:48,244 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:09:48,244 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:09:48,245 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:09:48,245 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:09:48,251 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:389', 'version': '1.1'}],body=}
+2023-03-27 14:09:59,556 ERROR [mpl] [MPListener.py:75] - on_receiver_loop_completed = None
+2023-03-27 14:09:59,557 INFO [mpl] [MPListener.py:34] - on_disconnected
+2023-03-27 14:10:40,702 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:10:40,703 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:10:40,704 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:10:40,704 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:10:40,714 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:390', 'version': '1.1'}],body=}
+2023-03-27 14:11:54,163 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:11:54,164 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:11:54,164 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:11:54,165 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:11:54,171 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:391', 'version': '1.1'}],body=}
+2023-03-27 14:17:54,954 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:17:54,955 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:17:54,956 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:17:54,956 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:17:54,964 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:392', 'version': '1.1'}],body=}
+2023-03-27 14:18:24,787 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-27 14:18:24,788 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-27 14:18:24,789 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-27 14:18:24,790 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-27 14:18:24,794 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-43591-1674786617513-4:393', 'version': '1.1'}],body=}
+2023-03-27 14:33:34,503 ERROR [mpl] [MPListener.py:75] - on_receiver_loop_completed = None
+2023-03-27 14:33:34,504 INFO [mpl] [MPListener.py:34] - on_disconnected
+2023-03-28 15:08:49,751 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:08:49,752 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:08:49,752 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:08:49,753 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:08:49,819 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:1', 'version': '1.1'}],body=}
+2023-03-28 15:16:48,730 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:16:48,730 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:16:48,731 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:16:48,731 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:16:48,737 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:2', 'version': '1.1'}],body=}
+2023-03-28 15:17:01,308 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:17:01,308 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:17:01,309 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:17:01,309 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:17:01,316 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:3', 'version': '1.1'}],body=}
+2023-03-28 15:17:36,102 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:17:36,103 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:17:36,103 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:17:36,104 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:17:36,110 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:4', 'version': '1.1'}],body=}
+2023-03-28 15:18:27,483 ERROR [mcp] [MCPWorker.py:38] - Apps aren't loaded yet.
+2023-03-28 15:18:27,501 ERROR [mcp] [MCPWorker.py:39] - None
+2023-03-28 15:18:47,730 ERROR [mcp] [MCPWorker.py:38] - Apps aren't loaded yet.
+2023-03-28 15:18:47,733 ERROR [mcp] [MCPWorker.py:39] - None
+2023-03-28 15:26:43,023 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:26:43,024 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:26:43,024 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:26:43,025 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:26:43,033 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:5', 'version': '1.1'}],body=}
+2023-03-28 15:26:59,828 ERROR [mcp] [MCPWorker.py:38] - Apps aren't loaded yet.
+2023-03-28 15:26:59,841 ERROR [mcp] [MCPWorker.py:39] - None
+2023-03-28 15:29:13,935 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:29:13,935 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:29:13,936 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:29:13,936 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:29:13,949 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:6', 'version': '1.1'}],body=}
+2023-03-28 15:36:54,499 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:36:54,500 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:36:54,501 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:36:54,501 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:36:54,508 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:7', 'version': '1.1'}],body=}
+2023-03-28 15:37:19,079 ERROR [mcp] [MCPWorker.py:38] - Apps aren't loaded yet.
+2023-03-28 15:37:19,089 ERROR [mcp] [MCPWorker.py:39] - None
+2023-03-28 15:50:20,856 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:50:20,857 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:50:20,857 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:50:20,858 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:50:20,877 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:8', 'version': '1.1'}],body=}
+2023-03-28 15:50:34,074 ERROR [mcp] [MCPWorker.py:38] - Apps aren't loaded yet.
+2023-03-28 15:50:34,090 ERROR [mcp] [MCPWorker.py:39] - None
+2023-03-28 15:52:15,414 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:52:15,415 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:52:15,415 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:52:15,416 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:52:15,435 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:9', 'version': '1.1'}],body=}
+2023-03-28 15:52:20,043 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:52:20,044 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:52:20,044 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:52:20,045 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:52:20,055 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:10', 'version': '1.1'}],body=}
+2023-03-28 15:55:29,144 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:55:29,145 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:55:29,146 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:55:29,147 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:55:29,157 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:11', 'version': '1.1'}],body=}
+2023-03-28 15:55:35,292 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:55:35,292 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:55:35,293 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:55:35,293 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:55:35,301 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:12', 'version': '1.1'}],body=}
+2023-03-28 15:56:30,151 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:56:30,151 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:56:30,152 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:56:30,152 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:56:30,159 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:13', 'version': '1.1'}],body=}
+2023-03-28 15:56:35,137 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:56:35,137 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:56:35,138 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:56:35,139 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:56:35,146 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:14', 'version': '1.1'}],body=}
+2023-03-28 15:56:41,120 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 15:56:41,120 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 15:56:41,121 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 15:56:41,122 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 15:56:41,123 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:15', 'version': '1.1'}],body=}
+2023-03-28 16:20:28,308 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:20:28,308 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:20:28,309 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:20:28,309 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:20:28,328 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:16', 'version': '1.1'}],body=}
+2023-03-28 16:20:33,511 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:20:33,512 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:20:33,512 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:20:33,513 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:20:33,532 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:17', 'version': '1.1'}],body=}
+2023-03-28 16:20:37,589 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:20:37,590 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:20:37,590 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:20:37,591 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:20:37,603 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:18', 'version': '1.1'}],body=}
+2023-03-28 16:20:41,932 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:20:41,933 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:20:41,933 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:20:41,934 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:20:41,936 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:19', 'version': '1.1'}],body=}
+2023-03-28 16:20:45,732 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:20:45,733 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:20:45,734 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:20:45,734 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:20:45,763 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:20', 'version': '1.1'}],body=}
+2023-03-28 16:27:36,557 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:27:36,558 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:27:36,559 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:27:36,559 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:27:36,566 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:21', 'version': '1.1'}],body=}
+2023-03-28 16:28:48,278 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:28:48,279 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:28:48,279 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:28:48,279 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:28:48,286 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:22', 'version': '1.1'}],body=}
+2023-03-28 16:45:43,744 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 16:45:43,745 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 16:45:43,745 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 16:45:43,746 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 16:45:43,755 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:23', 'version': '1.1'}],body=}
+2023-03-28 17:00:16,127 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:00:16,127 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:00:16,128 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:00:16,128 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:00:16,135 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:24', 'version': '1.1'}],body=}
+2023-03-28 17:00:30,922 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:00:30,922 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:00:30,923 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:00:30,923 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:00:30,931 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:25', 'version': '1.1'}],body=}
+2023-03-28 17:02:01,264 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:02:01,264 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:02:01,265 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:02:01,265 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:02:01,282 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:26', 'version': '1.1'}],body=}
+2023-03-28 17:03:15,521 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:03:15,523 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:03:15,524 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:03:15,525 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:03:15,550 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:27', 'version': '1.1'}],body=}
+2023-03-28 17:10:17,440 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:10:17,441 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:10:17,442 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:10:17,442 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:10:17,450 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:28', 'version': '1.1'}],body=}
+2023-03-28 17:13:02,298 INFO [mpl] [MPListener.py:22] - on_connecting = ('10.20.10.114', 61613)
+2023-03-28 17:13:02,298 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
+2023-03-28 17:13:02,299 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
+2023-03-28 17:13:02,299 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-28 17:13:02,305 INFO [mpl] [MPListener.py:26] - on_connected = {cmd=CONNECTED,headers=[{'server': 'ActiveMQ/5.17.3', 'heart-beat': '0,0', 'session': 'ID:fabweb-45765-1679964917151-3:29', 'version': '1.1'}],body=}
+2023-03-28 17:28:18,499 ERROR [mpl] [MPListener.py:75] - on_receiver_loop_completed = None
+2023-03-28 17:28:18,500 INFO [mpl] [MPListener.py:34] - on_disconnected

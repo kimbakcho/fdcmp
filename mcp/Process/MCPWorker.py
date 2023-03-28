@@ -7,6 +7,7 @@ from FDCContext.context import Context
 
 def mcpWorker(eqpModule: MCPEqpModule, context: Context):
     logger = logging.getLogger('mcp')
+    from mcp.models import EventHistory
     try:
         if context.mp["EventCode"] in eqpModule.getEvents().keys():
             event = eqpModule.getEvents()[context.mp["EventCode"]]
@@ -16,6 +17,14 @@ def mcpWorker(eqpModule: MCPEqpModule, context: Context):
                 if event.name not in context.event.keys():
                     context.event[event.name] = {}
                 context.event[event.name][logicItem.name] = runResult
+            history = EventHistory(eventCode=context.mp["EventCode"],
+                                   eventName=event.name,
+                                   eqpId=eqpModule.eqp,
+                                   eqpCode=context.mp["EqpCode"],
+                                   eqpName=eqpModule.eqpName,
+                                   eqpModuleId=eqpModule.id,
+                                   eqpModuleName=eqpModule.name)
+            history.save()
         if context.mp["TraceGroupCode"] in eqpModule.getTraceGroup().keys():
             traceGroup = eqpModule.getTraceGroup()[context.mp["TraceGroupCode"]]
             for logicItem in traceGroup.getTraceLogic():
@@ -28,7 +37,6 @@ def mcpWorker(eqpModule: MCPEqpModule, context: Context):
             exec(conditions.logicComPile, None, locals())
             runResult = locals().get("run")(context)
             context.conditions[conditions.name] = runResult
-        print("done")
     except Exception as e:
         logger.error(e.__str__())
         logger.error(traceback.print_stack())

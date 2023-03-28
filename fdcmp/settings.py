@@ -14,6 +14,8 @@ import os
 import environ
 from pathlib import Path
 
+import fdcmp.DBRouter
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env.local'))
@@ -27,6 +29,7 @@ env = environ.Env(
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -106,8 +109,7 @@ ROOT_URLCONF = 'fdcmp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,8 +131,32 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'MPL_DB': {
+        'ENGINE': 'djongo',
+        'NAME': 'fdc',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': "10.20.10.114",
+            'port': 5959,
+            'username': "fdc",
+            'password': "fdc",
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-256'
+        },
+        'LOGGING': {
+            'version': 1,
+            'loggers': {
+                'djongo': {
+                    'level': 'DEBUG',
+                    'propagate': False,
+                }
+            },
+        },
     }
 }
+
+DATABASE_ROUTERS = ['fdcmp.DBRouter.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

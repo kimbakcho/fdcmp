@@ -1,20 +1,20 @@
 import sys
 import traceback
-from multiprocessing import Queue, Process, current_process, Pool, Lock
+from multiprocessing import Queue, Process, current_process
+
 
 import stomp
 from environ import environ
 import time
 
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
-from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
-from command.value import SystemCommand
 from fdcmp.settings import BASE_DIR
 from mpl.Listener.MPListener import MPListener
-from mpl.Process.MPLWorker import MPLWorker, MPLParserUtil
+from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
+from django.apps import apps
 import logging
 
 env = environ.Env()
@@ -39,6 +39,9 @@ def setLogger(loggerName: str):
 def mplPWorker(moduleId: int, q: Queue, c: Queue):
     setLogger('mpl')
     setLogger('mcp')
+    apps.populate(['mcp'])
+
+
 
     loggerMpl = logging.getLogger('mpl')
     try:
@@ -93,7 +96,6 @@ def mplProcessWorker():
     for mpEqp in mpEqps.values():
         for module in mpEqp.getModule():
             process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
-                              daemon=True,
                               name=f'{mpEqp.name}_{module.name}')
             workProcesses.append({"process": process, "eqp": f'{mpEqp.name}', "module": f'{module.name}'})
             process.start()

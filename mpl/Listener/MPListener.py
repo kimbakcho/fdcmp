@@ -41,7 +41,7 @@ class MPListener(ConnectionListener):
         pass
 
     def on_message(self, frame):
-        if frame.header['destination'] == self.__core.subject:
+        if frame.headers['destination'] == self.__core.subject:
             context = Context()
             context.set_message(frame.body)
             for logicItem in self.__mplUtil.getMpLogics():
@@ -52,7 +52,7 @@ class MPListener(ConnectionListener):
                     for module in self.__mpEqps.get(context.mp[logicItem.name]).getModule():
                         module.messageQueue.put(frame.body)
                     break
-        elif frame.header['destination'] == self.__core.commandSubject:
+        elif frame.headers['destination'] == self.__core.commandSubject:
             r = json.loads(frame.body)
             for module in self.__mpEqps.get(r["EqpCode"]).getModule():
                 module.commandQueue.put(frame.body)

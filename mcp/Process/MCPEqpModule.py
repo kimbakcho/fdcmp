@@ -17,6 +17,7 @@ class MCPEqpModule:
         self.code = resDto.code
         self.name = resDto.name
         self.eqp = resDto.eqp
+        self.eqpName = resDto.eqpName
         self.id = resDto.id
         self.__resDto = resDto
         self.__eqpUseCase = FdcEqpUseCase()
@@ -53,7 +54,7 @@ class MCPEqpModule:
             if self.__traceGroupRecvState == RecvState.init:
                 for item in self.__fdcMcpUseCase.getTraceGroupList(self.id):
                     self.__traceGroups[item.traceGroupCode] = McpEqpTraceGroup(item)
-                self.__eventsRecvState = RecvState.done
+                self.__traceGroupRecvState = RecvState.done
         except Exception as e:
             self.__loggerMcp.error(e.__str__())
             self.__loggerMcp.error(traceback.print_stack())

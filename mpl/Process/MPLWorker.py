@@ -1,15 +1,11 @@
 import json
-import multiprocessing
-import threading
 import traceback
 
-from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
-from fdcmp.settings import BASE_DIR, env
 from multiprocessing import Queue
 from FDCContext.context import Context
 from mcp.Process.MCPEqpModule import MCPEqpModule
-from mcp.Process.MCPThreadWorker import mcpWorker
+from mcp.Process.MCPWorker import mcpWorker
 
 from mpl.Process.MPLParserUtil import MPLParserUtil
 
@@ -35,7 +31,6 @@ class MPLWorker:
                 runResult = locals().get("run")(self.__context)
                 self.__context.mp[logicItem.name] = runResult
             mcpWorker(self.__module, self.__context)
-            self.__context.set_message(message)
         except Exception as e:
             self.__loggerMpl.error(e.__str__())
             self.__loggerMpl.error(traceback.print_stack())
