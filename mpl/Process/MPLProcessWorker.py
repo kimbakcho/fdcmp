@@ -7,7 +7,7 @@ from django.utils.log import configure_logging
 from environ import environ
 import time
 
-from ESB.Enum import ESBBrokerType
+from ESB.CommandEnum import ESBBrokerType
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
@@ -53,12 +53,15 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
                     except Exception as e:
                         loggerMpl.error(e.__str__())
                         loggerMpl.error(traceback.print_stack())
-                    while not c.empty():
-                        command = c.get()
-                        mplWorker.commandParser(command)
-                        loggerMpl.info(f'command[{current_process().name}]={command}')
-                else:
+
+                while not c.empty():
+                    command = c.get()
+                    mplWorker.commandParser(command)
+                    loggerMpl.info(f'command[{current_process().name}]={command}')
+
+                if q.empty():
                     time.sleep(0.1)
+
             except Exception as e:
                 loggerMpl.error(e.__str__())
                 loggerMpl.error(traceback.format_stack())

@@ -1,5 +1,5 @@
 from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker
-from ESB.Enum import ESBBrokerType
+from ESB.CommandEnum import ESBBrokerType
 from bFdcAPI.MP.Dto.Core import CoreResDto
 
 
