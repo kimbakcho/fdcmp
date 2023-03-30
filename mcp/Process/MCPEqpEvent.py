@@ -1,5 +1,4 @@
 import logging
-import threading
 import traceback
 
 from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
@@ -14,17 +13,16 @@ class MCPEqpEvent:
         self.name = resDto.name
         self.eventCode = resDto.eventCode
         self.eqp = resDto.eqp
+        self.eventType = resDto.eventType
         self.__eqpModule = resDto.eqpModule
         self.__resDto = resDto
         self.__fdcMcpUseCase = FdcMcpUseCase()
         self.__logicsRecvState = RecvState.init
         self.__logics: list[LogicItem] = list()
         self.__loggerMcp = logging.getLogger("mcp")
-        self.__logicsLock = threading.Lock()
 
     def getLogics(self, event: int) -> list[LogicItem]:
         try:
-            self.__logicsLock.acquire()
             if self.__logicsRecvState == RecvState.init:
                 for eventLV in self.__fdcMcpUseCase.getEventLVList(event):
                     if eventLV.logicCode is not None:
@@ -35,7 +33,5 @@ class MCPEqpEvent:
             self.__loggerMcp.error(e.__str__())
             self.__loggerMcp.error(traceback.print_stack())
             self.__logicsRecvState = RecvState.error
-        finally:
-            self.__logicsLock.release()
 
         return self.__logics

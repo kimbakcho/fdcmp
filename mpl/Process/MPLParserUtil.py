@@ -1,5 +1,4 @@
 import logging
-import threading
 import traceback
 
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
@@ -20,13 +19,10 @@ class MPLParserUtil:
         self.__eqpUseCase = FdcEqpUseCase()
         self.__MPLogicState = RecvState.init
         self.__eqpsGetState = RecvState.init
-        self.__MPLLogicLock = threading.Lock()
-        self.__eqpsLock = threading.Lock()
         self.__logger = logging.getLogger("mpl")
 
     def getMpLogics(self) -> list[LogicItem]:
         try:
-            self.__MPLLogicLock.acquire()
             if self.__MPLogicState == RecvState.init:
                 for mpl in self.__mpUseCase.getMPL():
                     if mpl.logicCode is not None:
@@ -35,15 +31,13 @@ class MPLParserUtil:
                 self.__MPLogicState = RecvState.done
         except Exception as e:
             self.__logger.error(e.__str__())
-            self.__logger.error(traceback.print_stack())
+            self.__logger.error(traceback.format_stack())
+            traceback.print_stack()
             self.__MPLogicState = RecvState.error
-        finally:
-            self.__MPLLogicLock.release()
         return self.__mpLogics
 
     def getEqps(self) -> dict[str, MPLEqp]:
         try:
-            self.__eqpsLock.acquire()
             if self.__eqpsGetState == RecvState.init:
                 eqps = self.__eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))
                 for eqp in eqps:
@@ -51,8 +45,8 @@ class MPLParserUtil:
                 self.__eqpsGetState = RecvState.done
         except Exception as e:
             self.__logger.error(e.__str__())
-            self.__logger.error(traceback.print_stack())
+            self.__logger.error(traceback.format_stack())
+            traceback.print_stack()
             self.__eqpsGetState = RecvState.error
-        finally:
-            self.__eqpsLock.release()
+
         return self.__eqp

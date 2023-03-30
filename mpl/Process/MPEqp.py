@@ -1,4 +1,3 @@
-import threading
 import traceback
 
 from bFdcAPI.Enum import RecvState
@@ -19,12 +18,10 @@ class MPEqp:
         self.__modules: list[MPEqpModule] = list()
         self.__moduleRecv = RecvState.init
         self.__eqpUseCase = FdcEqpUseCase()
-        self.__moduleLock = threading.Lock()
         self.__loggerMpl = logging.getLogger('mpl')
 
     def getModule(self) -> list[MPEqpModule]:
         try:
-            self.__moduleLock.acquire()
             if self.__moduleRecv == RecvState.init:
                 modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
                 for module in modules:
@@ -32,8 +29,7 @@ class MPEqp:
                 self.__moduleRecv = RecvState.done
         except Exception as e:
             self.__loggerMpl.error(e.__str__())
-            self.__loggerMpl.error(traceback.print_stack())
+            self.__loggerMpl.error(traceback.format_stack())
+            traceback.print_stack()
             self.__moduleRecv = RecvState.error
-        finally:
-            self.__moduleLock.release()
         return self.__modules

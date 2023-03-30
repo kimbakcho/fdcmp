@@ -28,12 +28,6 @@ class Migration(migrations.Migration):
     ]
 
     def apply(self, project_state, schema_editor, collect_sql=False):
+
         return super().apply(project_state, schema_editor, collect_sql)
-
-
-    from django.db import connections
-    db_conn = connections['MPL_DB']
-    db_conn.connect()
-    db_conn.connection.client.fdc["mcp_eventhistory"].create_index([("eqpCode", 1), ("updateTime", -1)])
-
 

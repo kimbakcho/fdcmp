@@ -30,7 +30,6 @@ env = environ.Env(
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
@@ -62,12 +61,10 @@ LOGGING = {
         },
         'mpl': {
             'handlers': ['console', 'mplLog'],
-            'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
         'initEqp': {
             'handlers': ['console', 'mplLog'],
-            'level': 'DEBUG',
             'propagate': True,
         },
     },
@@ -137,12 +134,12 @@ DATABASES = {
         'NAME': 'fdc',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': "10.20.10.114",
-            'port': 5959,
-            'username': "fdc",
-            'password': "fdc",
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-256'
+            'host': env('MPL_DB_HOST'),
+            'port': env('MPL_DB_PORT', int),
+            'username': env('MPL_DB_USER_NAME'),
+            'password': env('MPL_DB_PASS'),
+            'authSource': env('MPL_DB_AUTH_SOURCE'),
+            'authMechanism': env('MPL_DB_AUTH_MECHANISM')
         },
         'LOGGING': {
             'version': 1,
@@ -152,6 +149,7 @@ DATABASES = {
                     'propagate': False,
                 }
             },
+            'disable_existing_loggers': False
         },
     }
 }
