@@ -6,6 +6,6 @@ setup(
     description="Fdc Message Parser",
     author="Fdc",
     author_email="XXXX@sfac.co.kr",
-    packages=find_packages(include=['bFdcAPI*', 'FDCContext','ESB*']),
-    install_requires=["django-environ", "requests"],
+    packages=find_packages(include=['bFdcAPI*', 'FDCContext', 'ESB*']),
+    install_requires=["django-environ", "requests", "stomp.py"],
 )
