@@ -159,3 +159,4 @@
 2023-03-30 15:21:31,081 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=STOMP,headers=[{'accept-version': '1.1'}],body=}
 2023-03-30 15:21:31,081 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCMessageCore1', 'id': '1_message', 'ack': 'auto'}],body=}
 2023-03-30 15:21:31,082 ERROR [mpl] [MPListener.py:68] - on_send = {cmd=SUBSCRIBE,headers=[{'destination': '/queue/FDCCommandCore1', 'id': '1_command', 'ack': 'auto'}],body=}
+2023-03-30 15:36:31,262 ERROR [mpl] [MPListener.py:75] - on_receiver_loop_completed = None
