@@ -1,6 +1,7 @@
 import json
 import traceback
 
+from bFdcAPI.Enum import CommandType, CommandModule, CommandAction, RecvState
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from multiprocessing import Queue
 from FDCContext.context import Context
@@ -36,6 +37,10 @@ class MPLWorker:
             traceback.print_stack()
 
     def commandParser(self, message: str):
-        message = json.loads(message)
-        pass
+        r = json.loads(message)
+        if r.get("Module") == CommandModule.mcp.value:
+            if r.get("Type") == CommandType.event.value:
+                if r.get("Action") == CommandAction.create.value:
+                    self.__module.setEventAPIRecvState(RecvState.apiCreated)
+
         # if message['command'] == SystemCommand.systemInit.value:

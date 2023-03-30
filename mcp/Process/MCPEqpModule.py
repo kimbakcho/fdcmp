@@ -30,9 +30,13 @@ class MCPEqpModule:
         self.__conditionsRecvState = RecvState.init
         self.__conditions = list()
 
+    def setEventAPIRecvState(self, state: RecvState):
+        self.__eventsRecvState = state
+
     def getEvents(self) -> dict[str, MCPEqpEvent]:
         try:
-            if self.__eventsRecvState == RecvState.init:
+            if self.__eventsRecvState == RecvState.init \
+                    or self.__eventsRecvState == RecvState.apiCreated:
                 for item in self.__fdcMcpUseCase.getEventList(self.id):
                     self.__events[item.eventCode] = MCPEqpEvent(item)
                 self.__eventsRecvState = RecvState.done

@@ -1,11 +1,17 @@
+from enum import Enum
+
 from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker
-from ESB.CommandEnum import ESBBrokerType
 from bFdcAPI.MP.Dto.Core import CoreResDto
+
+
+class ESBBrokerType(Enum):
+    ActiveMq = "ActiveMq"
 
 
 class ESBBrokerManager:
     _instance = None
-    #Singleton
+
+    # Singleton
     def __new__(class_, *args, **kwargs):
         if not isinstance(class_._instance, class_):
             class_._instance = object.__new__(class_, *args, **kwargs)

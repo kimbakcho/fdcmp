@@ -5,6 +5,7 @@ class RecvState(Enum):
     init = 0
     done = 1
     error = 2
+    apiCreated = 3
 
 
 class EventType(Enum):
