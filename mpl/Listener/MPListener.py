@@ -11,72 +11,53 @@ from mpl.Process.MPLParserUtil import MPLParserUtil
 from FDCContext.context import Context
 import json
 
+from mpl.Process.MPListenerWorker import MPListenerWorker
 
 
 class MPListener(ConnectionListener):
 
-    def __init__(self, coreInfo: CoreResDto,
-                 mpEqps: dict[str, MPEqp],
-                 eqpCrateModule: Callable[[int], None],
-                 eqpDeleteModule: Callable[[int], None]) -> None:
-        super().__init__()
+    def __init__(self, coreInfo: CoreResDto, mpListenerWorker: MPListenerWorker) -> None:
         self.__core = coreInfo
-        self.mpEqps = mpEqps
-        self.__mplUtil = MPLParserUtil()
         self.__logger = logging.getLogger('mpl')
+        self.__mpListenerWorker = mpListenerWorker
 
     def on_connecting(self, host_and_port):
-        self.__logger.info(f"MPListener on_connecting = {host_and_port}")
+        self.__logger.debug(f"MPListener on_connecting = {host_and_port}")
         pass
 
     def on_connected(self, frame):
-        self.__logger.info(f"MPListener on_connected = {frame}")
+        self.__logger.debug(f"MPListener on_connected = {frame}")
         pass
 
     def on_disconnecting(self):
-        self.__logger.info("MPListener on_disconnecting")
+        self.__logger.debug("MPListener on_disconnecting")
         pass
 
     def on_disconnected(self):
-        self.__logger.info("MPListener on_disconnected")
+        self.__logger.debug("MPListener on_disconnected")
         pass
 
     def on_heartbeat_timeout(self):
+        self.__logger.debug("MPListener on_heartbeat_timeout")
         pass
 
     def on_before_message(self, frame):
+        self.__logger.debug("MPListener on_before_message")
         pass
 
     def on_message(self, frame):
         try:
             if frame.headers['destination'] == self.__core.subject:
-                context = Context()
-                context.set_message(frame.body)
-                for logicItem in self.__mplUtil.getMpLogics():
-                    exec(logicItem.logicComPile, None, locals())
-                    runResult = locals().get("run")(context)
-                    context.mp[logicItem.name] = runResult
-                    if logicItem.name == "EqpCode":
-                        for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
-                            module.messageQueue.put(frame.body)
-                        break
+                self.__mpListenerWorker.onMessage(frame.body)
             elif frame.headers['destination'] == self.__core.commandSubject:
-                r = json.loads(frame.body)
-                if r.get("Module") == CommandModule.mpl.value:
-                    for eqp in self.mpEqps.values():
-                        for module in eqp.getModules():
-                            module.commandQueue.put(frame.body)
-                elif r.get("Module") == CommandModule.mcp.value:
-                    for module in self.mpEqps.get(r["EqpCode"]).getModules():
-                        if "EqpModule" in r.keys():
-                            if module.id == r["EqpModule"]:
-                                module.commandQueue.put(frame.body)
+                self.__mpListenerWorker.onCommandMessage(frame.body)
         except Exception as e:
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
             traceback.print_stack()
 
     def on_receipt(self, frame):
+        self.__logger.debug("MPListener on_receipt")
         pass
 
     def on_error(self, frame):
@@ -87,7 +68,9 @@ class MPListener(ConnectionListener):
         pass
 
     def on_heartbeat(self):
+        self.__logger.debug("MPListener on_heartbeat")
         pass
 
     def on_receiver_loop_completed(self, frame):
+        self.__logger.debug("MPListener on_receiver_loop_completed")
         pass

@@ -20,6 +20,11 @@ class FdcEqpUseCase:
         return result
 
     @staticmethod
+    def getEqp(id: int) -> FdcEqpResDto:
+        res = requests.get(f"{env('BFDC_URL')}/eqp/eqp/{id}/")
+        return FdcEqpResDto(**res.json())
+
+    @staticmethod
     def getEqpLogicList(reqDto: FdcEqpLogicReqDto) -> List[FdcEqpLogicResDto]:
         res = requests.get(f"{env('BFDC_URL')}/eqp/eqpLogic/", params=reqDto.__dict__)
         result = list()

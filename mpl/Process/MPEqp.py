@@ -34,16 +34,20 @@ class MPEqp:
             self.__moduleRecv = RecvState.error
         return self.__modules
 
-    def getModule(self, id: int) -> MPEqpModule:
+    def getModule(self, id: int) -> MPEqpModule | None:
         try:
-            resModule = self.__eqpUseCase.getEqpModule(FdcEqpModuleReqDto(eqp=id))
             for module in self.__modules:
-                if module.id == resModule.id:
+                if module.id == id:
                     return module
-            newModule = MPEqpModule(resModule)
-            self.__modules.append(newModule)
-            return newModule
         except Exception as e:
             self.__loggerMpl.error(e.__str__())
             self.__loggerMpl.error(traceback.format_stack())
             traceback.print_stack()
+
+    def addModule(self, mpEqpModule: MPEqpModule):
+        self.__modules.append(mpEqpModule)
+
+    def removeModule(self, id: int):
+        for (index, module) in enumerate(self.__modules):
+            if module.id == id:
+                self.__modules.pop(index)

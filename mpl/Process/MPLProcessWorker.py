@@ -19,6 +19,8 @@ from django.apps import apps
 from django.conf import settings
 import logging
 
+from mpl.Process.MPListenerWorker import MPListenerWorker
+
 env = environ.Env()
 
 workProcesses = list()
@@ -73,14 +75,6 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
         traceback.print_stack()
 
 
-def eqpCrateModule(eqpModule: int):
-    pass
-
-
-def eqpDeleteModule(eqpModule: int):
-    pass
-
-
 def mplProcessWorker():
     fdcMpUseCase = FdcMpUseCase()
 
@@ -93,10 +87,12 @@ def mplProcessWorker():
 
     coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
+    mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
+
     if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
         c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])
 
-        c.set_listener("mp", MPListener(coreInfo, mpEqps, eqpCrateModule, eqpDeleteModule))
+        c.set_listener("mp", MPListener(coreInfo, mpListenerWorker))
 
         c.connect()
 
@@ -107,6 +103,8 @@ def mplProcessWorker():
     for mpEqp in mpEqps.values():
         for module in mpEqp.getModules():
             process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
-                              name=f'{mpEqp.name}_{module.name}')
-            workProcesses.append({"process": process, "eqp": f'{mpEqp.name}', "module": f'{module.name}'})
+                              name=f'{mpEqp.name}_{module.name}', daemon= True)
+            workProcesses.append({"process": process, "eqp": f'{mpEqp.name}',
+                                  "eqpId": mpEqp.id, "moduleId": module.id,
+                                  "module": f'{module.name}'})
             process.start()

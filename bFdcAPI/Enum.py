@@ -18,6 +18,7 @@ class CommandModule(Enum):
     mcp = "mcp"
     mpl = "mpl"
     eqpModule = "eqpModule"
+    eqp = "eqp"
 
 
 class CommandType(Enum):
