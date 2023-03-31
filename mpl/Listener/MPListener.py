@@ -1,8 +1,10 @@
 import traceback
+from typing import Callable
 
 from stomp import ConnectionListener
 import logging
 
+from bFdcAPI.Enum import CommandModule
 from bFdcAPI.MP.Dto.Core import CoreResDto
 from mpl.Process.MPEqp import MPEqp
 from mpl.Process.MPLParserUtil import MPLParserUtil
@@ -14,7 +16,9 @@ import json
 class MPListener(ConnectionListener):
 
     def __init__(self, coreInfo: CoreResDto,
-                 mpEqps: dict[str, MPEqp]) -> None:
+                 mpEqps: dict[str, MPEqp],
+                 eqpCrateModule: Callable[[int], None],
+                 eqpDeleteModule: Callable[[int], None]) -> None:
         super().__init__()
         self.__core = coreInfo
         self.mpEqps = mpEqps
@@ -53,15 +57,20 @@ class MPListener(ConnectionListener):
                     runResult = locals().get("run")(context)
                     context.mp[logicItem.name] = runResult
                     if logicItem.name == "EqpCode":
-                        for module in self.mpEqps.get(context.mp[logicItem.name]).getModule():
+                        for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
                             module.messageQueue.put(frame.body)
                         break
             elif frame.headers['destination'] == self.__core.commandSubject:
                 r = json.loads(frame.body)
-                for module in self.mpEqps.get(r["EqpCode"]).getModule():
-                    if "EqpModule" in r.keys():
-                        if module.id == r["EqpModule"]:
+                if r.get("Module") == CommandModule.mpl.value:
+                    for eqp in self.mpEqps.values():
+                        for module in eqp.getModules():
                             module.commandQueue.put(frame.body)
+                elif r.get("Module") == CommandModule.mcp.value:
+                    for module in self.mpEqps.get(r["EqpCode"]).getModules():
+                        if "EqpModule" in r.keys():
+                            if module.id == r["EqpModule"]:
+                                module.commandQueue.put(frame.body)
         except Exception as e:
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())

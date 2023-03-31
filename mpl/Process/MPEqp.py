@@ -20,7 +20,7 @@ class MPEqp:
         self.__eqpUseCase = FdcEqpUseCase()
         self.__loggerMpl = logging.getLogger('mpl')
 
-    def getModule(self) -> list[MPEqpModule]:
+    def getModules(self) -> list[MPEqpModule]:
         try:
             if self.__moduleRecv == RecvState.init:
                 modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
@@ -33,3 +33,17 @@ class MPEqp:
             traceback.print_stack()
             self.__moduleRecv = RecvState.error
         return self.__modules
+
+    def getModule(self, id: int) -> MPEqpModule:
+        try:
+            resModule = self.__eqpUseCase.getEqpModule(FdcEqpModuleReqDto(eqp=id))
+            for module in self.__modules:
+                if module.id == resModule.id:
+                    return module
+            newModule = MPEqpModule(resModule)
+            self.__modules.append(newModule)
+            return newModule
+        except Exception as e:
+            self.__loggerMpl.error(e.__str__())
+            self.__loggerMpl.error(traceback.format_stack())
+            traceback.print_stack()

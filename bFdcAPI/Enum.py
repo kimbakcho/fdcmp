@@ -17,6 +17,7 @@ class EventType(Enum):
 class CommandModule(Enum):
     mcp = "mcp"
     mpl = "mpl"
+    eqpModule = "eqpModule"
 
 
 class CommandType(Enum):

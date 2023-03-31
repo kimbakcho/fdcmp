@@ -25,6 +25,8 @@ workProcesses = list()
 
 mpUseCase = FdcMpUseCase()
 
+mpEqps: dict[str, MPEqp] = dict()
+
 
 def setLogger(loggerName: str):
     import logging
@@ -71,6 +73,14 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
         traceback.print_stack()
 
 
+def eqpCrateModule(eqpModule: int):
+    pass
+
+
+def eqpDeleteModule(eqpModule: int):
+    pass
+
+
 def mplProcessWorker():
     fdcMpUseCase = FdcMpUseCase()
 
@@ -78,19 +88,15 @@ def mplProcessWorker():
 
     eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
-    mpEqps: dict[str, MPEqp] = dict()
-
     for eqp in eqps:
         mpEqps.setdefault(eqp.code, MPEqp(eqp))
-
 
     coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
     if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
-
         c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])
 
-        c.set_listener("mp", MPListener(coreInfo, mpEqps))
+        c.set_listener("mp", MPListener(coreInfo, mpEqps, eqpCrateModule, eqpDeleteModule))
 
         c.connect()
 
@@ -99,7 +105,7 @@ def mplProcessWorker():
         c.subscribe(coreInfo.commandSubject, env('MP_CORE_ID') + "_command")
 
     for mpEqp in mpEqps.values():
-        for module in mpEqp.getModule():
+        for module in mpEqp.getModules():
             process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
                               name=f'{mpEqp.name}_{module.name}')
             workProcesses.append({"process": process, "eqp": f'{mpEqp.name}', "module": f'{module.name}'})

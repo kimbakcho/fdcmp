@@ -63,3 +63,9 @@ class MPLWorker:
                                        CommandAction.delete.value, CommandAction.orderSwap.value]:
                     if r.get("TraceGroup") in self.__module.getTraceGroup().keys():
                         self.__module.getTraceGroup()[r.get("TraceGroup")].setTraceLVAPIRecvState(RecvState.needReload)
+        elif r.get("Module") == CommandModule.mpl.value:
+            if r.get("Type") == CommandType.mpLogic.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__mplParserUtil.setMPLogicAPIRecvState(RecvState.needReload)
+

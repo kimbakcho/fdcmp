@@ -17,23 +17,24 @@ class MPLParserUtil:
         self.__eqp: dict[str, MPLEqp] = dict()
         self.__mpUseCase = FdcMpUseCase()
         self.__eqpUseCase = FdcEqpUseCase()
-        self.__MPLogicState = RecvState.init
+        self.__MPLogicRecvState = RecvState.init
         self.__eqpsGetState = RecvState.init
         self.__logger = logging.getLogger("mpl")
 
     def getMpLogics(self) -> list[LogicItem]:
         try:
-            if self.__MPLogicState == RecvState.init:
+            if self.__MPLogicRecvState in [RecvState.init, RecvState.needReload]:
+                self.__mpLogics = list[LogicItem]()
                 for mpl in self.__mpUseCase.getMPL():
                     if mpl.logicCode is not None:
                         com = compile(mpl.logicCode, '<string>', mode='exec')
-                        self.__mpLogics.append(LogicItem(mpl.name,com))
-                self.__MPLogicState = RecvState.done
+                        self.__mpLogics.append(LogicItem(mpl.name, com))
+                self.__MPLogicRecvState = RecvState.done
         except Exception as e:
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
             traceback.print_stack()
-            self.__MPLogicState = RecvState.error
+            self.__MPLogicRecvState = RecvState.error
         return self.__mpLogics
 
     def getEqps(self) -> dict[str, MPLEqp]:
@@ -50,3 +51,6 @@ class MPLParserUtil:
             self.__eqpsGetState = RecvState.error
 
         return self.__eqp
+
+    def setMPLogicAPIRecvState(self, state: RecvState):
+        self.__MPLogicRecvState = state
