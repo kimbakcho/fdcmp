@@ -24,8 +24,8 @@ class McpEqpTraceGroup:
 
     def getTraceLogic(self):
         try:
-            self.__traceLVLock.acquire()
-            if self.__traceLVRecvState == RecvState.init:
+            if self.__traceLVRecvState in [RecvState.init, RecvState.needReload]:
+                __logicItems = list[LogicItem]()
                 for traceLV in self.__mcpUseCase.getTraceLVList(self.id):
                     if traceLV.logicCode is not None:
                         com = compile(traceLV.logicCode, '<string>', mode='exec')
@@ -35,6 +35,8 @@ class McpEqpTraceGroup:
             self.__loggerMcp.error(e.__str__())
             self.__loggerMcp.error(traceback.print_stack())
             self.__traceLVRecvState = RecvState.error
-        finally:
-            self.__traceLVLock.release()
+
         return self.__logicItems
+
+    def setTraceLVAPIRecvState(self, state: RecvState):
+        self.__traceLVRecvState = state

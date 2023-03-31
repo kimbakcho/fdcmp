@@ -23,7 +23,8 @@ class MCPEqpEvent:
 
     def getLogics(self, event: int) -> list[LogicItem]:
         try:
-            if self.__logicsRecvState == RecvState.init:
+            if self.__logicsRecvState in [RecvState.init, RecvState.needReload]:
+                self.__logics = list()
                 for eventLV in self.__fdcMcpUseCase.getEventLVList(event):
                     if eventLV.logicCode is not None:
                         com = compile(eventLV.logicCode, '<string>', mode='exec')
@@ -35,3 +36,6 @@ class MCPEqpEvent:
             self.__logicsRecvState = RecvState.error
 
         return self.__logics
+
+    def setEventLVAPIRecvState(self, state: RecvState):
+        self.__logicsRecvState = state

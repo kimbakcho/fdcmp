@@ -5,7 +5,7 @@ class RecvState(Enum):
     init = 0
     done = 1
     error = 2
-    apiCreated = 3
+    needReload = 3
 
 
 class EventType(Enum):
@@ -26,6 +26,7 @@ class CommandType(Enum):
     traceGroup = "traceGroup"
     tracelv = "tracelv"
     conditions = "conditions"
+    mpLogic = "mpLogic"
 
 
 class CommandAction(Enum):

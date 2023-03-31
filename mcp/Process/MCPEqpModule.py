@@ -35,8 +35,8 @@ class MCPEqpModule:
 
     def getEvents(self) -> dict[str, MCPEqpEvent]:
         try:
-            if self.__eventsRecvState == RecvState.init \
-                    or self.__eventsRecvState == RecvState.apiCreated:
+            if self.__eventsRecvState in [RecvState.init, RecvState.needReload]:
+                self.__events = dict[str, MCPEqpEvent]()
                 for item in self.__fdcMcpUseCase.getEventList(self.id):
                     self.__events[item.eventCode] = MCPEqpEvent(item)
                 self.__eventsRecvState = RecvState.done
@@ -48,7 +48,8 @@ class MCPEqpModule:
 
     def getTraceGroup(self) -> dict[str, McpEqpTraceGroup]:
         try:
-            if self.__traceGroupRecvState == RecvState.init:
+            if self.__traceGroupRecvState in [RecvState.init, RecvState.needReload]:
+                self.__traceGroups = dict[str, McpEqpTraceGroup]()
                 for item in self.__fdcMcpUseCase.getTraceGroupList(self.id):
                     self.__traceGroups[item.traceGroupCode] = McpEqpTraceGroup(item)
                 self.__traceGroupRecvState = RecvState.done
@@ -57,9 +58,13 @@ class MCPEqpModule:
             self.__loggerMcp.error(traceback.print_stack())
         return self.__traceGroups
 
+    def setTraceGroupAPIRecvState(self, state: RecvState):
+        self.__traceGroupRecvState = state
+
     def getConditions(self) -> list[LogicItem]:
         try:
-            if self.__conditionsRecvState == RecvState.init:
+            if self.__conditionsRecvState in [RecvState.init, RecvState.needReload]:
+                self.__conditions = list[LogicItem]()
                 for conditions in self.__fdcMcpUseCase.getConditions(self.id):
                     if conditions.logicCode is not None:
                         com = compile(conditions.logicCode, '<string>', mode='exec')
@@ -70,3 +75,6 @@ class MCPEqpModule:
             self.__loggerMcp.error(traceback.print_stack())
             self.__conditionsRecvState = RecvState.error
         return self.__conditions
+
+    def setConditionsAPIRecvState(self, state: RecvState):
+        self.__conditionsRecvState = state

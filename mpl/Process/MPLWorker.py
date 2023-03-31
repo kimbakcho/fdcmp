@@ -8,6 +8,8 @@ from FDCContext.context import Context
 from mpl.Process.MPLParserUtil import MPLParserUtil
 
 import logging
+
+
 class MPLWorker:
     def __init__(self, moduleId: int, q: Queue, c: Queue) -> None:
         from mcp.Process.MCPEqpModule import MCPEqpModule
@@ -40,7 +42,24 @@ class MPLWorker:
         r = json.loads(message)
         if r.get("Module") == CommandModule.mcp.value:
             if r.get("Type") == CommandType.event.value:
-                if r.get("Action") == CommandAction.create.value:
-                    self.__module.setEventAPIRecvState(RecvState.apiCreated)
-
-        # if message['command'] == SystemCommand.systemInit.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__module.setEventAPIRecvState(RecvState.needReload)
+            elif r.get("Type") == CommandType.eventlv.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    if r.get("EventCode") in self.__module.getEvents().keys():
+                        self.__module.getEvents()[r.get("EventCode")].setEventLVAPIRecvState(RecvState.needReload)
+            elif r.get("Type") == CommandType.conditions.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__module.setConditionsAPIRecvState(RecvState.needReload)
+            elif r.get("Type") == CommandType.traceGroup.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__module.setTraceGroupAPIRecvState(RecvState.needReload)
+            elif r.get("Type") == CommandType.tracelv.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    if r.get("TraceGroup") in self.__module.getTraceGroup().keys():
+                        self.__module.getTraceGroup()[r.get("TraceGroup")].setTraceLVAPIRecvState(RecvState.needReload)

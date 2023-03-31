@@ -1,8 +1,6 @@
 import logging
 import traceback
 
-from bson import ObjectId
-
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
 from mcp.Process.MCPEqpModule import MCPEqpModule
 from FDCContext.context import Context, MpBasic, ConditionsBasic
