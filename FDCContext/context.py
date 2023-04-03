@@ -37,19 +37,19 @@ class Context:
 
     def getTraceValue(self, traceGroup, traceName):
         if traceGroup in self.trace.keys() and traceName in self.trace[traceGroup].keys():
-            return self.event.get("Start").get("LotId")
+            return self.event.get(traceGroup).get(traceName)
         else:
             return None
 
     def getEventValue(self, eventGroup, eventName):
         if eventGroup in self.event.keys() and eventName in self.event[eventName].keys():
-            return self.event.get("Start").get("LotId")
+            return self.event.get(eventGroup).get(eventName)
         else:
             return None
 
     def getConditionsValue(self, conditionsName):
         if conditionsName in self.conditions.keys():
-            return self.conditions.get("conditionsName")
+            return self.conditions.get(conditionsName)
         else:
             return None
 
