@@ -42,7 +42,7 @@ class Context:
             return None
 
     def getEventValue(self, eventGroup, eventName):
-        if eventGroup in self.event.keys() and eventName in self.event[eventName].keys():
+        if eventGroup in self.event.keys() and eventName in self.event[eventGroup].keys():
             return self.event.get(eventGroup).get(eventName)
         else:
             return None
