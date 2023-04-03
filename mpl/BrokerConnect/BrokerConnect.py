@@ -45,6 +45,7 @@ class ActiveMqConnect(BrokerConnect):
                 except Exception as e:
                     logging.getLogger("mpl").error(e.__str__())
                     logging.getLogger("mpl").error(traceback.format_stack())
+                    traceback.print_stack()
             time.sleep(5)
 
     def connect(self):
@@ -61,6 +62,7 @@ class ActiveMqConnect(BrokerConnect):
         except Exception as e:
             logging.getLogger("mpl").error(e.__str__())
             logging.getLogger("mpl").error(traceback.format_stack())
+            traceback.print_stack()
 
         self._connectManagerStartFlag = True
 

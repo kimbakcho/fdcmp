@@ -1,6 +1,7 @@
 import logging
 import traceback
 
+from mcp.Process.Enum import FabGroupType
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
 from mcp.Process.MCPEqpModule import MCPEqpModule
 from FDCContext.context import Context, MpBasic, ConditionsBasic
@@ -74,9 +75,20 @@ class McpWorker:
 
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
 
+        saveTrace = {}
+        if traceGroup is not None:
+            for traceGroupKey in context.trace.keys():
+                for traceKey in context.trace.get(traceGroupKey).keys():
+                    if traceGroup.getTraceLVs().get(traceKey).isSave:
+                        traceItem = context.trace.get(traceGroupKey).get(traceKey)
+                        saveTrace.setdefault(traceKey, traceItem)
+
         if self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:
-            self.fabDataGroupStart(eqpModule, context, now)
+            if context.currentFdcDataGroup is not None:
+                ##Idle Fab Group End
+                self.fabDataGroupEnd(context, now)
+            self.fabDataGroupStart(eqpModule, context, now, FabGroupType.Run)
 
         if event is not None:
             EventHistory.objects.create(eventCode=context.mp[MpBasic.EventCode.value],
@@ -94,19 +106,23 @@ class McpWorker:
             TraceData.objects.create(
                 traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
                 traceGroupName=traceGroup.name,
-                value=context.trace,
+                value=saveTrace,
                 eqpId=eqpModule.eqp,
                 eqpName=eqpModule.eqpName,
                 eqpCode=context.mp[MpBasic.EqpCode.value],
                 eqpModuleId=eqpModule.id,
+                context=context.get_simpleContext(),
                 updateTime=now,
                 fdcDataGroup=context.currentFdcDataGroup
             )
 
         if self.isRunStateChange(contextHistory, context) and not context.conditions[ConditionsBasic.IsRun.value]:
             self.fabDataGroupEnd(context, now)
+            # IdleFabGroupStart
+            self.fabDataGroupStart(eqpModule, context, now, FabGroupType.Idle)
 
-    def fabDataGroupStart(self, eqpModule: MCPEqpModule, context: Context, now: datetime):
+    def fabDataGroupStart(self, eqpModule: MCPEqpModule, context: Context,
+                          now: datetime, groupType: FabGroupType):
         fdcDataGroup = FdcDataGroup.objects.create(
             eqpModuleName=eqpModule.name,
             eqpModuleId=eqpModule.id,
@@ -114,6 +130,7 @@ class McpWorker:
             eqpId=eqpModule.eqp,
             eqpName=eqpModule.eqpName,
             eqpCode=context.mp[MpBasic.EqpCode.value],
+            groupType=groupType.value,
             startTime=now,
         )
         context.currentFdcDataGroup = fdcDataGroup._id

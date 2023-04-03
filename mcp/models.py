@@ -9,6 +9,7 @@ class FdcDataGroup(models.Model):
     eqpModuleId = models.IntegerField()
     eqpModuleName = models.CharField(max_length=255)
     context = models.JSONField(default={})
+    groupType = models.CharField(max_length=255)
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
 
@@ -37,4 +38,5 @@ class TraceData(models.Model):
     eqpName = models.CharField(max_length=255)
     eqpModuleId = models.IntegerField()
     updateTime = models.DateTimeField()
+    context = models.JSONField(default={})
     fdcDataGroup = models.GenericObjectIdField()

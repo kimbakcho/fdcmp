@@ -27,8 +27,9 @@ class MPListenerWorker:
             runResult = locals().get("run")(context)
             context.mp[logicItem.name] = runResult
             if logicItem.name == "EqpCode":
-                for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
-                    module.messageQueue.put(message)
+                if context.mp[logicItem.name] in self.mpEqps.keys():
+                    for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
+                        module.messageQueue.put(message)
                 break
 
     def onCommandMessage(self, message: str):
@@ -38,10 +39,11 @@ class MPListenerWorker:
                 for module in eqp.getModules():
                     module.commandQueue.put(message)
         elif r.get("Module") == CommandModule.mcp.value:
-            for module in self.mpEqps.get(r["EqpCode"]).getModules():
-                if "EqpModule" in r.keys():
-                    if module.id == r["EqpModule"]:
-                        module.commandQueue.put(message)
+            if r["EqpCode"] in self.mpEqps.keys():
+                for module in self.mpEqps.get(r["EqpCode"]).getModules():
+                    if "EqpModule" in r.keys():
+                        if module.id == r["EqpModule"]:
+                            module.commandQueue.put(message)
         elif r.get("Module") == CommandModule.eqpModule.value:
             if r.get("Action") == CommandAction.create.value:
                 self.createEqpModule(r.get("Eqp"), r.get("EqpCode"), r.get("EqpModule"))

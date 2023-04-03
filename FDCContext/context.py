@@ -33,7 +33,25 @@ class Context:
         self.currentFdcDataGroup: ObjectId | None = None
 
     def get_simpleContext(self) -> dict:
-        return {"MP": self.mp, "event": self.event, "trace": self.trace, "conditions": self.conditions}
+        return {"MP": self.mp, "event": self.event, "conditions": self.conditions}
+
+    def getTraceValue(self, traceGroup, traceName):
+        if traceGroup in self.trace.keys() and traceName in self.trace[traceGroup].keys():
+            return self.event.get("Start").get("LotId")
+        else:
+            return None
+
+    def getEventValue(self, eventGroup, eventName):
+        if eventGroup in self.event.keys() and eventName in self.event[eventName].keys():
+            return self.event.get("Start").get("LotId")
+        else:
+            return None
+
+    def getConditionsValue(self, conditionsName):
+        if conditionsName in self.conditions.keys():
+            return self.conditions.get("conditionsName")
+        else:
+            return None
 
     def get_message(self):
         return self.__message
