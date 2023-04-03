@@ -10,5 +10,4 @@ class FdcMcpEventLVResDto:
     returnType: str
     updateTime: str
     orderIdx: int
-    testMessage: str
     isSave: bool

@@ -289,3 +289,12 @@
 	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
 	at java.base/java.lang.Thread.run(Thread.java:829)
 }
+2023-04-03 17:01:27,792 ERROR [mpl] [ActiveMPListener.py:63] - MPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}

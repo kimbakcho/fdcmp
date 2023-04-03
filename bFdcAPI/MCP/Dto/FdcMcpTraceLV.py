@@ -9,6 +9,5 @@ class TraceLVResDto:
     orderIdx: int
     logicCode: str
     returnType: str
-    testMessage: str
     isSave: bool
     updateTime: str

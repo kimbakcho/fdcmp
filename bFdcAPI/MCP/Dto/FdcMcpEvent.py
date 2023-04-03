@@ -13,3 +13,4 @@ class FdcMcpEventResDto:
     eventType: str
     updateTime: str
     orderIdx: int
+    testMessage: str
