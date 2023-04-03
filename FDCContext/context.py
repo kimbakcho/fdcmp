@@ -37,7 +37,7 @@ class Context:
 
     def getTraceValue(self, traceGroup, traceName):
         if traceGroup in self.trace.keys() and traceName in self.trace[traceGroup].keys():
-            return self.event.get(traceGroup).get(traceName)
+            return self.trace.get(traceGroup).get(traceName)
         else:
             return None
 
