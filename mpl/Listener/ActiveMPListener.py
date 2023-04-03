@@ -14,13 +14,12 @@ import json
 from mpl.Process.MPListenerWorker import MPListenerWorker
 
 
-class MPListener(ConnectionListener):
+class ActiveMPListener(ConnectionListener):
 
     def __init__(self, coreInfo: CoreResDto, mpListenerWorker: MPListenerWorker) -> None:
         self.__core = coreInfo
         self.__logger = logging.getLogger('mpl')
         self.__mpListenerWorker = mpListenerWorker
-
     def on_connecting(self, host_and_port):
         self.__logger.debug(f"MPListener on_connecting = {host_and_port}")
         pass

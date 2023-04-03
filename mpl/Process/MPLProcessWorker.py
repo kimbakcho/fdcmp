@@ -12,7 +12,8 @@ from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
 from fdcmp.settings import BASE_DIR
-from mpl.Listener.MPListener import MPListener
+from mpl.BrokerConnect.BrokerConnect import ActiveMqConnect
+from mpl.Listener.ActiveMPListener import ActiveMPListener
 from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
 from django.apps import apps
@@ -90,15 +91,7 @@ def mplProcessWorker():
     mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
 
     if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
-        c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])
-
-        c.set_listener("mp", MPListener(coreInfo, mpListenerWorker))
-
-        c.connect()
-
-        c.subscribe(coreInfo.subject, env('MP_CORE_ID') + "_message")
-
-        c.subscribe(coreInfo.commandSubject, env('MP_CORE_ID') + "_command")
+        ActiveMqConnect(mpListenerWorker, coreInfo).connect()
 
     for mpEqp in mpEqps.values():
         for module in mpEqp.getModules():

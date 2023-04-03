@@ -23,7 +23,7 @@ class CommandModule(Enum):
 
 class CommandType(Enum):
     event = "event"
-    trace = "event"
+    trace = "trace"
     eventlv = "eventlv"
     traceGroup = "traceGroup"
     tracelv = "tracelv"

@@ -47,6 +47,20 @@ class MPListenerWorker:
                 self.createEqpModule(r.get("Eqp"), r.get("EqpCode"), r.get("EqpModule"))
             elif r.get("Action") == CommandAction.delete.value:
                 self.deleteEqpModule(r.get("Eqp"), r.get("EqpCode"), r.get("EqpModule"))
+        elif r.get("Module") == CommandModule.eqp.value:
+            if r.get("Action") == CommandAction.delete.value:
+                self.deleteEqp(r.get("Eqp"), r.get("EqpCode"))
+
+    def deleteEqp(self, eqpId: int, eqpCode: str):
+        if eqpCode in self.mpEqps.keys():
+            self.mpEqps.pop(eqpCode)
+            for process in self.workProcesses:
+                if process["eqpId"] == eqpId:
+                    self.workProcesses.remove(process)
+                    process["process"].terminate()
+                    time.sleep(0.1)
+                    if process["process"].is_alive():
+                        process["process"].kill()
 
     def createEqpModule(self, eqpId: int, eqpCode: str, eqpModuleId: int):
         if eqpCode not in self.mpEqps.keys():
@@ -60,7 +74,7 @@ class MPListenerWorker:
             process = Process(target=self.__mplPWorker,
                               args=[mpEqpModule.id, mpEqpModule.messageQueue, mpEqpModule.commandQueue],
                               name=f'{mpEqp.name}_{mpEqpModule.name}',
-                              daemon= True)
+                              daemon=True)
             self.workProcesses.append(
                 {"process": process, "eqp": f'{mpEqp.name}', "eqpId": mpEqp.id, "moduleId": mpEqpModule.id,
                  "module": f'{mpEqpModule.name}'})
@@ -79,4 +93,3 @@ class MPListenerWorker:
                         time.sleep(0.1)
                         if stopItem["process"].is_alive():
                             stopItem["process"].kill()
-
