@@ -24,7 +24,7 @@ class MpBasic(Enum):
 
 
 class Context:
-    def __init__(self, message: str | type(None) = None) -> None:
+    def __init__(self, message: str | None = None) -> None:
         self.debugMsgs = []
         super().__init__()
         self.__message = message
@@ -32,7 +32,7 @@ class Context:
         self.event = {}
         self.trace = {}
         self.conditions = {}
-        self.currentFdcDataGroup: ObjectId | type(None) = None
+        self.currentFdcDataGroup: ObjectId | None = None
 
     def get_simpleContext(self) -> Dict:
         return {"MP": self.mp, "conditions": self.conditions}

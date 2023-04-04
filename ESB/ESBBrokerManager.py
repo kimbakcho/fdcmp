@@ -22,7 +22,7 @@ class ESBBrokerManager:
         super().__init__()
         self.__connects = dict()
 
-    def getBroker(self, core: CoreResDto) -> ESBBroker | type(None):
+    def getBroker(self, core: CoreResDto) -> ESBBroker | None:
         if core.id in self.__connects.keys():
             return self.__connects[core.id]
 
