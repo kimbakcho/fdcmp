@@ -9,4 +9,5 @@ class FdcMcpTraceGroupResDto:
     traceGroupCode: str
     updateTime: str
     orderIdx: int
+    eqp: int
     testMessage: str
