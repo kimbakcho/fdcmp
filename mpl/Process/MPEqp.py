@@ -1,4 +1,5 @@
 import traceback
+from types import NoneType
 from typing import List
 
 from bFdcAPI.Enum import RecvState
@@ -35,7 +36,7 @@ class MPEqp:
             self.__moduleRecv = RecvState.error
         return self.__modules
 
-    def getModule(self, id: int) -> MPEqpModule | None:
+    def getModule(self, id: int) -> MPEqpModule | NoneType:
         try:
             for module in self.__modules:
                 if module.id == id:

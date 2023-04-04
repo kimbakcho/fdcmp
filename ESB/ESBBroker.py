@@ -1,3 +1,5 @@
+from types import NoneType
+
 import stomp
 
 from bFdcAPI.MP.Dto.Core import CoreResDto
@@ -13,7 +15,7 @@ class ESBBroker:
 
 class ESBActiveMqBroker(ESBBroker):
 
-    def __init__(self, coreInfo: CoreResDto) -> None:
+    def __init__(self, coreInfo: CoreResDto) -> NoneType:
         super().__init__()
         self.__coreInfo = coreInfo
         self.__c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])

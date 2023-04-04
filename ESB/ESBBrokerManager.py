@@ -1,4 +1,5 @@
 from enum import Enum
+from types import NoneType
 
 from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker
 from bFdcAPI.MP.Dto.Core import CoreResDto
@@ -21,7 +22,7 @@ class ESBBrokerManager:
         super().__init__()
         self.__connects = dict()
 
-    def getBroker(self, core: CoreResDto) -> ESBBroker | None:
+    def getBroker(self, core: CoreResDto) -> ESBBroker | NoneType:
         if core.id in self.__connects.keys():
             return self.__connects[core.id]
 
