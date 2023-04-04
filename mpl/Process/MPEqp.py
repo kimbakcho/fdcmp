@@ -12,7 +12,7 @@ from mpl.Process.MPEqpModule import MPEqpModule
 
 
 class MPEqp:
-    def __init__(self, resDto: FdcEqpResDto) -> None:
+    def __init__(self, resDto: FdcEqpResDto) -> NoneType:
         self.name = resDto.name
         self.code = resDto.code
         self.id = resDto.id
@@ -36,7 +36,7 @@ class MPEqp:
             self.__moduleRecv = RecvState.error
         return self.__modules
 
-    def getModule(self, id: int) -> MPEqpModule | NoneType:
+    def getModule(self, id: int) -> MPEqpModule | type(None):
         try:
             for module in self.__modules:
                 if module.id == id:
