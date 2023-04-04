@@ -1,5 +1,5 @@
 import traceback
-from types import NoneType
+
 from typing import List
 
 from bFdcAPI.Enum import RecvState
@@ -12,7 +12,7 @@ from mpl.Process.MPEqpModule import MPEqpModule
 
 
 class MPEqp:
-    def __init__(self, resDto: FdcEqpResDto) -> NoneType:
+    def __init__(self, resDto: FdcEqpResDto) -> type(None):
         self.name = resDto.name
         self.code = resDto.code
         self.id = resDto.id

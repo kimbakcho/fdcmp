@@ -1,4 +1,4 @@
-from types import NoneType
+
 
 import stomp
 
@@ -15,7 +15,7 @@ class ESBBroker:
 
 class ESBActiveMqBroker(ESBBroker):
 
-    def __init__(self, coreInfo: CoreResDto) -> NoneType:
+    def __init__(self, coreInfo: CoreResDto) -> None:
         super().__init__()
         self.__coreInfo = coreInfo
         self.__c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])

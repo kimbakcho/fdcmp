@@ -1,5 +1,5 @@
 from enum import Enum
-from types import NoneType
+
 from typing import Dict
 
 from bson import ObjectId

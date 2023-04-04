@@ -1,5 +1,5 @@
 from enum import Enum
-from types import NoneType
+
 
 from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker
 from bFdcAPI.MP.Dto.Core import CoreResDto
