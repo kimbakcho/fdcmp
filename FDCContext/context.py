@@ -33,7 +33,7 @@ class Context:
         self.currentFdcDataGroup: ObjectId | None = None
 
     def get_simpleContext(self) -> dict:
-        return {"MP": self.mp, "event": self.event, "conditions": self.conditions}
+        return {"MP": self.mp, "conditions": self.conditions}
 
     def getTraceValue(self, traceGroup, traceName):
         if traceGroup in self.trace.keys() and traceName in self.trace[traceGroup].keys():

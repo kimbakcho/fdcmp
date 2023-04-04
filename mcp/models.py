@@ -12,6 +12,7 @@ class FdcDataGroup(models.Model):
     groupType = models.CharField(max_length=255)
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
+    betweenTimeSec = models.IntegerField()
 
 
 class EventHistory(models.Model):
@@ -24,6 +25,7 @@ class EventHistory(models.Model):
     eqpName = models.CharField(max_length=255)
     eqpModuleId = models.IntegerField()
     eqpModuleName = models.CharField(max_length=255)
+    value = models.JSONField(default={})
     context = models.JSONField(default={})
     fdcDataGroup = models.GenericObjectIdField()
 

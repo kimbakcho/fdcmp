@@ -82,6 +82,13 @@ class McpWorker:
                     if traceGroup.getTraceLVs().get(traceKey).isSave:
                         traceItem = context.trace.get(traceGroupKey).get(traceKey)
                         saveTrace.setdefault(traceKey, traceItem)
+        saveEvent = {}
+        if event is not None:
+            for eventKey in context.event.keys():
+                for eventLVKey in context.event.get(eventKey).keys():
+                    if event.getEventLVs().get(eventLVKey).isSave:
+                        eventItem = context.event.get(eventKey).get(eventLVKey)
+                        saveEvent.setdefault(eventLVKey,eventItem)
 
         if self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:
@@ -99,22 +106,23 @@ class McpWorker:
                                         eqpModuleId=eqpModule.id,
                                         eqpModuleName=eqpModule.name,
                                         updateTime=now,
+                                        value=saveEvent,
                                         context=context.get_simpleContext(),
                                         fdcDataGroup=context.currentFdcDataGroup)
-
-        if traceGroup is not None:
-            TraceData.objects.create(
-                traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
-                traceGroupName=traceGroup.name,
-                value=saveTrace,
-                eqpId=eqpModule.eqp,
-                eqpName=eqpModule.eqpName,
-                eqpCode=context.mp[MpBasic.EqpCode.value],
-                eqpModuleId=eqpModule.id,
-                context=context.get_simpleContext(),
-                updateTime=now,
-                fdcDataGroup=context.currentFdcDataGroup
-            )
+        if context.conditions[ConditionsBasic.IsRun.value]:
+            if traceGroup is not None:
+                TraceData.objects.create(
+                    traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
+                    traceGroupName=traceGroup.name,
+                    value=saveTrace,
+                    eqpId=eqpModule.eqp,
+                    eqpName=eqpModule.eqpName,
+                    eqpCode=context.mp[MpBasic.EqpCode.value],
+                    eqpModuleId=eqpModule.id,
+                    context=context.get_simpleContext(),
+                    updateTime=now,
+                    fdcDataGroup=context.currentFdcDataGroup
+                )
 
         if self.isRunStateChange(contextHistory, context) and not context.conditions[ConditionsBasic.IsRun.value]:
             self.fabDataGroupEnd(context, now)
@@ -139,5 +147,6 @@ class McpWorker:
         if context.currentFdcDataGroup is not None:
             fdcDataGroup = FdcDataGroup.objects.get(_id=context.currentFdcDataGroup)
             fdcDataGroup.endTime = now
+            fdcDataGroup.betweenTimeSec = (fdcDataGroup.endTime - fdcDataGroup.startTime).seconds
             fdcDataGroup.save()
             context.currentFdcDataGroup = None
