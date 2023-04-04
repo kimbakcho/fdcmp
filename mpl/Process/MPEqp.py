@@ -1,6 +1,6 @@
 import traceback
 
-from typing import List
+from typing import List, Optional
 
 from bFdcAPI.Enum import RecvState
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpResDto
@@ -36,7 +36,7 @@ class MPEqp:
             self.__moduleRecv = RecvState.error
         return self.__modules
 
-    def getModule(self, id: int) -> MPEqpModule | None:
+    def getModule(self, id: int) -> Optional[MPEqpModule]:
         try:
             for module in self.__modules:
                 if module.id == id:
