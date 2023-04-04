@@ -1,5 +1,6 @@
 import threading
 import traceback
+from typing import List, Dict
 
 from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
@@ -33,7 +34,7 @@ class MCPEqpModule:
     def setEventAPIRecvState(self, state: RecvState):
         self.__eventsRecvState = state
 
-    def getEvents(self) -> dict[str, MCPEqpEvent]:
+    def getEvents(self) -> Dict[str, MCPEqpEvent]:
         try:
             if self.__eventsRecvState in [RecvState.init, RecvState.needReload]:
                 self.__events = dict[str, MCPEqpEvent]()
@@ -46,7 +47,7 @@ class MCPEqpModule:
             self.__eventsRecvState.error = RecvState.error
         return self.__events
 
-    def getTraceGroup(self) -> dict[str, McpEqpTraceGroup]:
+    def getTraceGroup(self) -> Dict[str, McpEqpTraceGroup]:
         try:
             if self.__traceGroupRecvState in [RecvState.init, RecvState.needReload]:
                 self.__traceGroups = dict[str, McpEqpTraceGroup]()
@@ -61,7 +62,7 @@ class MCPEqpModule:
     def setTraceGroupAPIRecvState(self, state: RecvState):
         self.__traceGroupRecvState = state
 
-    def getConditions(self) -> list[LogicItem]:
+    def getConditions(self) -> List[LogicItem]:
         try:
             if self.__conditionsRecvState in [RecvState.init, RecvState.needReload]:
                 self.__conditions = list[LogicItem]()

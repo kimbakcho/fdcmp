@@ -33,7 +33,7 @@ class FdcEqpUseCase:
         return result
 
     @staticmethod
-    def getEqpModuleList(reqDto: FdcEqpModuleReqDto) -> list[FdcEqpModuleResDto]:
+    def getEqpModuleList(reqDto: FdcEqpModuleReqDto) -> List[FdcEqpModuleResDto]:
         res = requests.get(f"{env('BFDC_URL')}/eqp/module/", params=reqDto.__dict__)
         result = list()
         for item in res.json():

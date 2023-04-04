@@ -1,5 +1,6 @@
 import threading
 import traceback
+from typing import List
 
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpResDto
 from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleReqDto
@@ -21,7 +22,7 @@ class MPLEqp:
         self.__moduleLock = threading.Lock()
         self.__loggerMpl = logging.getLogger('mpl')
 
-    def getModule(self) -> list[MCPEqpModule]:
+    def getModule(self) -> List[MCPEqpModule]:
         try:
             self.__moduleLock.acquire()
             if self.__moduleRecv == RecvState.init:

@@ -1,5 +1,6 @@
 import logging
 import traceback
+from typing import List, Dict
 
 from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdcAPI.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
@@ -23,7 +24,7 @@ class MCPEqpEvent:
         self.__eventLVs: dict[str, FdcMcpEventLVResDto] = dict()
         self.__loggerMcp = logging.getLogger("mcp")
 
-    def getLogics(self, event: int) -> list[LogicItem]:
+    def getLogics(self, event: int) -> List[LogicItem]:
         try:
             if self.__logicsRecvState in [RecvState.init, RecvState.needReload]:
                 self.__logics = list()
@@ -41,7 +42,7 @@ class MCPEqpEvent:
 
         return self.__logics
 
-    def getEventLVs(self) -> dict[str, FdcMcpEventLVResDto]:
+    def getEventLVs(self) -> Dict[str, FdcMcpEventLVResDto]:
         return self.__eventLVs
 
     def setEventLVAPIRecvState(self, state: RecvState):

@@ -1,4 +1,5 @@
 import traceback
+from typing import List
 
 from bFdcAPI.Enum import RecvState
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpResDto
@@ -20,7 +21,7 @@ class MPEqp:
         self.__eqpUseCase = FdcEqpUseCase()
         self.__loggerMpl = logging.getLogger('mpl')
 
-    def getModules(self) -> list[MPEqpModule]:
+    def getModules(self) -> List[MPEqpModule]:
         try:
             if self.__moduleRecv == RecvState.init:
                 modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))

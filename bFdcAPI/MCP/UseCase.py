@@ -1,3 +1,5 @@
+from typing import List
+
 import requests
 
 from bFdcAPI.MCP.Dto.FdcMcpConditions import ConditionsResDto
@@ -11,7 +13,7 @@ from bFdcAPI import env
 
 class FdcMcpUseCase:
     @staticmethod
-    def getEventList(eqpModule: int) -> list[FdcMcpEventResDto]:
+    def getEventList(eqpModule: int) -> List[FdcMcpEventResDto]:
 
         res = requests.get(f"{env('BFDC_URL')}/mcp/event/", params={"eqpModule": eqpModule})
         result: list[FdcMcpEventResDto] = list()
@@ -20,7 +22,7 @@ class FdcMcpUseCase:
         return result
 
     @staticmethod
-    def getEventLVList(event: int) -> list[FdcMcpEventLVResDto]:
+    def getEventLVList(event: int) -> List[FdcMcpEventLVResDto]:
         res = requests.get(f"{env('BFDC_URL')}/mcp/eventLV/", params={"event": event})
         result: list[FdcMcpEventLVResDto] = list()
         for item in res.json():
@@ -28,7 +30,7 @@ class FdcMcpUseCase:
         return result
 
     @staticmethod
-    def getTraceGroupList(eqpModule: int) -> list[FdcMcpTraceGroupResDto]:
+    def getTraceGroupList(eqpModule: int) -> List[FdcMcpTraceGroupResDto]:
         res = requests.get(f"{env('BFDC_URL')}/mcp/traceGroup/", params={"eqpModule": eqpModule})
         result: list[FdcMcpTraceGroupResDto] = list()
         for item in res.json():
@@ -36,7 +38,7 @@ class FdcMcpUseCase:
         return result
 
     @staticmethod
-    def getTraceLVList(traceGroup: int) -> list[TraceLVResDto]:
+    def getTraceLVList(traceGroup: int) -> List[TraceLVResDto]:
         res = requests.get(f"{env('BFDC_URL')}/mcp/traceLV/", params={"traceGroup": traceGroup})
         result: list[TraceLVResDto] = list()
         for item in res.json():

@@ -1,3 +1,5 @@
+from typing import List
+
 import requests
 
 from bFdcAPI.MP.Dto.Core import CoreResDto
@@ -9,9 +11,9 @@ from bFdcAPI import env
 
 class FdcMpUseCase:
     @staticmethod
-    def getMPL() -> list[MPLResDto]:
+    def getMPL() -> List[MPLResDto]:
         r = requests.get(f"{env('BFDC_URL')}/mp/mpl/")
-        result = list[MPLResDto]()
+        result = list()
         for item in r.json():
             result.append(MPLResDto(**item))
         return result
@@ -22,9 +24,9 @@ class FdcMpUseCase:
         return MBLResDto(**r.json())
 
     @staticmethod
-    def getCoreList() -> list[CoreResDto]:
+    def getCoreList() -> List[CoreResDto]:
         r = requests.get(f"{env('BFDC_URL')}/mp/core/")
-        result = list[CoreResDto]()
+        result = list()
         for item in r.json():
             result.append(CoreResDto(**item))
         return result

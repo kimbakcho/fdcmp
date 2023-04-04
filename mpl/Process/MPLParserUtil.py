@@ -1,5 +1,6 @@
 import logging
 import traceback
+from typing import List, Dict
 
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
@@ -13,15 +14,15 @@ from bFdcAPI.Enum import RecvState
 class MPLParserUtil:
     def __init__(self) -> None:
         super().__init__()
-        self.__mpLogics: list[LogicItem] = list()
-        self.__eqp: dict[str, MPLEqp] = dict()
+        self.__mpLogics: List[LogicItem] = list()
+        self.__eqp: Dict[str, MPLEqp] = dict()
         self.__mpUseCase = FdcMpUseCase()
         self.__eqpUseCase = FdcEqpUseCase()
         self.__MPLogicRecvState = RecvState.init
         self.__eqpsGetState = RecvState.init
         self.__logger = logging.getLogger("mpl")
 
-    def getMpLogics(self) -> list[LogicItem]:
+    def getMpLogics(self) -> List[LogicItem]:
         try:
             if self.__MPLogicRecvState in [RecvState.init, RecvState.needReload]:
                 self.__mpLogics = list[LogicItem]()
@@ -37,7 +38,7 @@ class MPLParserUtil:
             self.__MPLogicRecvState = RecvState.error
         return self.__mpLogics
 
-    def getEqps(self) -> dict[str, MPLEqp]:
+    def getEqps(self) -> Dict[str, MPLEqp]:
         try:
             if self.__eqpsGetState == RecvState.init:
                 eqps = self.__eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))

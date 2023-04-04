@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Dict
 
 from bson import ObjectId
 
@@ -32,7 +33,7 @@ class Context:
         self.conditions = {}
         self.currentFdcDataGroup: ObjectId | None = None
 
-    def get_simpleContext(self) -> dict:
+    def get_simpleContext(self) -> Dict:
         return {"MP": self.mp, "conditions": self.conditions}
 
     def getTraceValue(self, traceGroup, traceName):
