@@ -77,27 +77,36 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
 
 
 def mplProcessWorker():
-    fdcMpUseCase = FdcMpUseCase()
+    while True:
+        try:
+            fdcMpUseCase = FdcMpUseCase()
 
-    fdcEqpUseCase = FdcEqpUseCase()
+            fdcEqpUseCase = FdcEqpUseCase()
 
-    eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
+            eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
-    for eqp in eqps:
-        mpEqps.setdefault(eqp.code, MPEqp(eqp))
+            for eqp in eqps:
+                mpEqps.setdefault(eqp.code, MPEqp(eqp))
 
-    coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
+            coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
-    mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
+            mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
 
-    if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
-        ActiveMqConnect(mpListenerWorker, coreInfo).connect()
+            if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
+                ActiveMqConnect(mpListenerWorker, coreInfo).connect()
 
-    for mpEqp in mpEqps.values():
-        for module in mpEqp.getModules():
-            process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
-                              name=f'{mpEqp.name}_{module.name}', daemon= True)
-            workProcesses.append({"process": process, "eqp": f'{mpEqp.name}',
-                                  "eqpId": mpEqp.id, "moduleId": module.id,
-                                  "module": f'{module.name}'})
-            process.start()
+            for mpEqp in mpEqps.values():
+                for module in mpEqp.getModules():
+                    process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
+                                      name=f'{mpEqp.name}_{module.name}', daemon=True)
+                    workProcesses.append({"process": process, "eqp": f'{mpEqp.name}',
+                                          "eqpId": mpEqp.id, "moduleId": module.id,
+                                          "module": f'{module.name}'})
+                    process.start()
+            return
+        except Exception as e:
+            # logger = logging.getLogger("mpl")
+            # logger.error(e.__str__())
+            # logger.error(traceback.format_stack())
+            # traceback.print_stack()
+            time.sleep(10)

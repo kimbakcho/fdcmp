@@ -11,7 +11,7 @@ class FdcMpUseCase:
     @staticmethod
     def getMPL() -> list[MPLResDto]:
         r = requests.get(f"{env('BFDC_URL')}/mp/mpl/")
-        result = list()
+        result = list[MPLResDto]()
         for item in r.json():
             result.append(MPLResDto(**item))
         return result
@@ -24,7 +24,7 @@ class FdcMpUseCase:
     @staticmethod
     def getCoreList() -> list[CoreResDto]:
         r = requests.get(f"{env('BFDC_URL')}/mp/core/")
-        result = list()
+        result = list[CoreResDto]()
         for item in r.json():
             result.append(CoreResDto(**item))
         return result
