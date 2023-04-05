@@ -19,7 +19,7 @@ class FdcMpUseCase:
         return result
 
     @staticmethod
-    def getMLB(id: int) -> MBLResDto:
+    def getMBL(id: int) -> MBLResDto:
         r = requests.get(f"{env('BFDC_URL')}/mp/mbl/{id}/")
         return MBLResDto(**r.json())
 
