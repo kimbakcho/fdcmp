@@ -26,8 +26,6 @@ class McpWorker:
         self.__contextHistory = list()
 
     def run(self, eqpModule: MCPEqpModule, context: Context):
-
-        logger = logging.getLogger('mpl')
         try:
             event = None
             traceGroup = None
@@ -58,6 +56,7 @@ class McpWorker:
             self.mcpSaveWork(eqpModule, context, event, traceGroup, self.__contextHistory)
             self.__contextHistory.append(copy.deepcopy(context))
         except Exception as e:
+            logger = logging.getLogger('mpl')
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
@@ -74,7 +73,6 @@ class McpWorker:
                     contextHistory: list[Context]):
 
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
-
         saveTrace = {}
         if traceGroup is not None:
             for traceGroupKey in context.trace.keys():

@@ -31,22 +31,23 @@ mpUseCase = FdcMpUseCase()
 mpEqps: dict[str, MPEqp] = dict()
 
 
-def setLogger(loggerName: str):
-    import logging
-    logger = logging.getLogger(loggerName)
-    logger.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] - %(message)s')
-    filehandler = logging.FileHandler(f'{BASE_DIR}/mpl/mplLog.log')
-    filehandler.setFormatter(formatter)
-    consoleHandler = logging.StreamHandler()
-    logger.addHandler(filehandler)
-    logger.addHandler(consoleHandler)
+# def setLogger(loggerName: str):
+#     import logging
+#     logger = logging.getLogger(loggerName)
+#     logger.setLevel(logging.INFO)
+#     formatter = logging.Formatter('%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] - %(message)s')
+#     filehandler = logging.FileHandler(f'{BASE_DIR}/mpl/mplLog.log')
+#     filehandler.setFormatter(formatter)
+#     consoleHandler = logging.StreamHandler()
+#     logger.addHandler(filehandler)
+#     logger.addHandler(consoleHandler)
 
 
 def mplPWorker(moduleId: int, q: Queue, c: Queue):
-    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
-    apps.populate(['mcp'])
     loggerMpl = logging.getLogger('mpl')
+    if not apps.apps_ready:
+        configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+        apps.populate(['mcp'])
     try:
         mplWorker = MPLWorker(moduleId, q, c)
         while True:
@@ -54,6 +55,8 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
                 if not q.empty():
                     try:
                         message = q.get()
+                        loggerMpl.debug("mplPWorker Message")
+                        loggerMpl.debug(message)
                         mplWorker.messageParser(message)
                     except Exception as e:
                         loggerMpl.error(e.__str__())
@@ -65,7 +68,6 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
                     loggerMpl.info(f'command[{current_process().name}]={command}')
                 if q.empty():
                     time.sleep(0.1)
-
             except Exception as e:
                 loggerMpl.error(e.__str__())
                 loggerMpl.error(traceback.format_stack())
@@ -91,6 +93,7 @@ def mplProcessWorker():
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
             mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
+
             connect = None
             if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
                 connect = ActiveMqConnect(mpListenerWorker, coreInfo)

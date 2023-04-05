@@ -1,3 +1,143 @@
 2023-04-05 13:26:33,503 ERROR [mpl] [<input>:1] - startService
 2023-04-05 13:27:55,427 INFO [mpl] [<input>:1] - ee
 2023-04-05 13:29:13,467 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:04:58,849 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:06:24,519 INFO [mpl] [MPListenerWorker.py:32] - MPListener_EqpCode=ME076
+2023-04-05 15:06:28,067 INFO [mpl] [MPLWorker.py:31] - MPLWorkerStart
+2023-04-05 15:06:28,222 INFO [mpl] [MPLWorker.py:32] - <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<message command="EAPFDC_TOOLEVENT" from="ME076" to="FDC" timestamp="2023-04-03 15:44:14" EQUIPMENT_ID="ME076" xmlns="http://http://www.wisol.co.kr/schema/eap">
+  <params>
+    <para name="LOT">NAHCF0550^00_MP_RECIPE|LOT|CF4_1.3_40^A^SR806DX20F05^R7TCWLP^OP0D002010</para>
+    <para name="VID">9101^9103^9001^9121^9122^9141^9131^9142</para>
+    <para name="DATA">NULL^NULL^NULL^1^NAHCF0550^PM2^5^CF4_1.3_40</para>
+    <para name="CEID">25002</para>
+  </params>
+</message> 
+2023-04-05 15:06:44,443 INFO [mpl] [MCPWorker.py:77] - mcpSaveWorkStart
+2023-04-05 15:06:46,070 INFO [mpl] [MCPWorker.py:131] - mcpSaveWorkEnd
+2023-04-05 15:06:50,560 INFO [mpl] [MPLWorker.py:38] - MPLWorkerEnd
+2023-04-05 15:07:48,840 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:07:50,038 INFO [mpl] [MPListenerWorker.py:32] - MPListener_EqpCode=ME076
+2023-04-05 15:07:53,392 INFO [mpl] [MPLWorker.py:31] - MPLWorkerStart
+2023-04-05 15:07:53,392 INFO [mpl] [MPLWorker.py:32] - <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<message command="EAPFDC_TOOLEVENT" from="ME076" to="FDC" timestamp="2023-04-03 15:44:14" EQUIPMENT_ID="ME076" xmlns="http://http://www.wisol.co.kr/schema/eap">
+  <params>
+    <para name="LOT">NAHCF0550^00_MP_RECIPE|LOT|CF4_1.3_40^A^SR806DX20F05^R7TCWLP^OP0D002010</para>
+    <para name="VID">9101^9103^9001^9121^9122^9141^9131^9142</para>
+    <para name="DATA">NULL^NULL^NULL^1^NAHCF0550^PM2^5^CF4_1.3_40</para>
+    <para name="CEID">25002</para>
+  </params>
+</message> 
+2023-04-05 15:08:04,617 INFO [mpl] [MCPWorker.py:77] - mcpSaveWorkStart
+2023-04-05 15:08:07,060 INFO [mpl] [MCPWorker.py:131] - mcpSaveWorkEnd
+2023-04-05 15:08:07,063 INFO [mpl] [MPLWorker.py:38] - MPLWorkerEnd
+2023-04-05 15:37:21,223 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:37:48,509 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:38:59,670 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:39:05,436 INFO [mpl] [MPLProcessWorker.py:50] - mplPWorker Start
+2023-04-05 15:39:05,436 INFO [mpl] [MPLProcessWorker.py:50] - mplPWorker Start
+2023-04-05 15:39:20,917 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:39:25,448 INFO [mpl] [MPLProcessWorker.py:50] - mplPWorker Start
+2023-04-05 15:39:25,448 INFO [mpl] [MPLProcessWorker.py:50] - mplPWorker Start
+2023-04-05 15:39:54,405 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:39:55,129 ERROR [mpl] [ActiveMPListener.py:68] - MPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 15:48:33,571 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:48:34,160 INFO [mpl] [MPLProcessWorker.py:108] - processStart Module = 38
+2023-04-05 15:48:34,196 ERROR [mpl] [ActiveMPListener.py:68] - MPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 15:48:36,744 INFO [mpl] [MPLProcessWorker.py:51] - mplPWorker Start
+2023-04-05 15:48:36,744 INFO [mpl] [MPLProcessWorker.py:52] - apps.apps_ready=False
+2023-04-05 15:49:17,263 INFO [mpl] [apps.py:13] - startService
+2023-04-05 15:49:17,962 INFO [mpl] [MPLProcessWorker.py:108] - processStart Module = 38
+2023-04-05 15:49:20,566 INFO [mpl] [MPLProcessWorker.py:51] - mplPWorker Start
+2023-04-05 15:49:20,567 INFO [mpl] [MPLProcessWorker.py:52] - apps.apps_ready=False
+2023-04-05 15:49:21,455 INFO [mpl] [MPLProcessWorker.py:53] - pid =62628
+2023-04-05 16:04:54,425 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:04:55,125 INFO [mpl] [MPLProcessWorker.py:103] - processStart Module = 38
+2023-04-05 16:04:55,219 ERROR [mpl] [ActiveMPListener.py:68] - MPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 16:08:09,853 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:08:10,476 INFO [mpl] [MPLProcessWorker.py:103] - processStart Module = 38
+2023-04-05 16:08:10,562 ERROR [mpl] [ActiveMPListener.py:68] - MPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 16:11:51,613 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:11:53,528 INFO [mpl] [MPLProcessWorker.py:112] - MQConnect
+2023-04-05 16:14:36,803 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:14:37,614 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:14:37,676 ERROR [mpl] [ActiveMPListener.py:68] - ActiveMPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 16:15:53,836 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:15:54,624 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:15:54,682 ERROR [mpl] [ActiveMPListener.py:68] - ActiveMPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 16:16:40,940 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:16:42,426 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:17:04,001 ERROR [mpl] [ActiveMPListener.py:68] - ActiveMPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}
+2023-04-05 16:17:18,861 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:17:20,366 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:17:43,172 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:17:44,024 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:17:58,684 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:17:59,477 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:20:54,518 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:20:55,251 INFO [mpl] [BrokerConnect.py:53] - connect
+2023-04-05 16:20:55,303 ERROR [mpl] [ActiveMPListener.py:66] - ActiveMPListener on_error = {cmd=ERROR,headers=[{'content-type': 'text/plain', 'message': 'Already connected.'}],body=org.apache.activemq.transport.stomp.ProtocolException: Already connected.
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompConnect(ProtocolConverter.java:745)
+	at org.apache.activemq.transport.stomp.ProtocolConverter.onStompCommand(ProtocolConverter.java:254)
+	at org.apache.activemq.transport.stomp.StompTransportFilter.onCommand(StompTransportFilter.java:85)
+	at org.apache.activemq.transport.TransportSupport.doConsume(TransportSupport.java:83)
+	at org.apache.activemq.transport.tcp.TcpTransport.doRun(TcpTransport.java:233)
+	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+}

@@ -21,27 +21,27 @@ class ActiveMPListener(ConnectionListener):
         self.__logger = logging.getLogger('mpl')
         self.__mpListenerWorker = mpListenerWorker
     def on_connecting(self, host_and_port):
-        self.__logger.debug(f"MPListener on_connecting = {host_and_port}")
+        self.__logger.debug(f"ActiveMPListener on_connecting = {host_and_port}")
         pass
 
     def on_connected(self, frame):
-        self.__logger.debug(f"MPListener on_connected = {frame}")
+        self.__logger.debug(f"ActiveMPListener on_connected = {frame}")
         pass
 
     def on_disconnecting(self):
-        self.__logger.debug("MPListener on_disconnecting")
+        self.__logger.debug("ActiveMPListener on_disconnecting")
         pass
 
     def on_disconnected(self):
-        self.__logger.debug("MPListener on_disconnected")
+        self.__logger.debug("ActiveMPListener on_disconnected")
         pass
 
     def on_heartbeat_timeout(self):
-        self.__logger.debug("MPListener on_heartbeat_timeout")
+        self.__logger.debug("ActiveMPListener on_heartbeat_timeout")
         pass
 
     def on_before_message(self, frame):
-        self.__logger.debug("MPListener on_before_message")
+        self.__logger.debug("ActiveMPListener on_before_message")
         pass
 
     def on_message(self, frame):
@@ -51,26 +51,28 @@ class ActiveMPListener(ConnectionListener):
             elif frame.headers['destination'] == self.__core.commandSubject:
                 self.__mpListenerWorker.onCommandMessage(frame.body)
         except Exception as e:
+            self.__logger.error("frame.body start")
+            self.__logger.error(frame.body)
+            self.__logger.error("frame.body end")
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
-            self.__logger.error(frame.body)
             traceback.print_stack()
 
     def on_receipt(self, frame):
-        self.__logger.debug("MPListener on_receipt")
+        self.__logger.debug("ActiveMPListener on_receipt")
         pass
 
     def on_error(self, frame):
-        self.__logger.error(f"MPListener on_error = {frame}")
+        self.__logger.error(f"ActiveMPListener on_error = {frame}")
         pass
 
     def on_send(self, frame):
         pass
 
     def on_heartbeat(self):
-        self.__logger.debug("MPListener on_heartbeat")
+        self.__logger.debug("ActiveMPListener on_heartbeat")
         pass
 
     def on_receiver_loop_completed(self, frame):
-        self.__logger.debug("MPListener on_receiver_loop_completed")
+        self.__logger.debug("ActiveMPListener on_receiver_loop_completed")
         pass

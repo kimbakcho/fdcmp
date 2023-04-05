@@ -29,7 +29,6 @@ class MPListenerWorker:
             context.mp[logicItem.name] = runResult
             if logicItem.name == "EqpCode":
                 if context.mp[logicItem.name] in self.mpEqps.keys():
-                    logging.getLogger("mpl").info("MPListener_EqpCode=" + context.mp[logicItem.name])
                     for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
                         module.messageQueue.put(message)
                 break
