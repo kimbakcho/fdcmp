@@ -29,8 +29,8 @@ class McpWorker:
         try:
             event = None
             traceGroup = None
-            if context.mp[MpBasic.IsEvent.value] and context.mp[
-                MpBasic.EventCode.value] in eqpModule.getEvents().keys():
+            if context.mp[MpBasic.IsEvent.value] \
+                    and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
                 event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
                 for logicItem in event.getLogics(event.id):
                     exec(logicItem.logicComPile, None, locals())
@@ -86,7 +86,7 @@ class McpWorker:
                 for eventLVKey in context.event.get(eventKey).keys():
                     if event.getEventLVs().get(eventLVKey).isSave:
                         eventItem = context.event.get(eventKey).get(eventLVKey)
-                        saveEvent.setdefault(eventLVKey,eventItem)
+                        saveEvent.setdefault(eventLVKey, eventItem)
 
         if self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:

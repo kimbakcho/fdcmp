@@ -141,3 +141,5 @@
 	at org.apache.activemq.transport.tcp.TcpTransport.run(TcpTransport.java:215)
 	at java.base/java.lang.Thread.run(Thread.java:829)
 }
+2023-04-05 16:50:23,671 INFO [mpl] [apps.py:13] - startService
+2023-04-05 16:51:32,604 INFO [mpl] [apps.py:13] - startService
