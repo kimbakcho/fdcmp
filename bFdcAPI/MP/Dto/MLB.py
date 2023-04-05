@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class MBLResDto:
+class MLBResDto:
     id: int
     sourceIp: str
     sourcePort: int

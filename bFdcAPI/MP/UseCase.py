@@ -3,7 +3,7 @@ from typing import List
 import requests
 
 from bFdcAPI.MP.Dto.Core import CoreResDto
-from bFdcAPI.MP.Dto.MBL import MBLResDto
+from bFdcAPI.MP.Dto.MLB import MLBResDto
 from bFdcAPI.MP.Dto.MPL import MPLResDto
 
 from bFdcAPI import env
@@ -19,9 +19,9 @@ class FdcMpUseCase:
         return result
 
     @staticmethod
-    def getMBL(id: int) -> MBLResDto:
-        r = requests.get(f"{env('BFDC_URL')}/mp/mbl/{id}/")
-        return MBLResDto(**r.json())
+    def getMLB(id: int) -> MLBResDto:
+        r = requests.get(f"{env('BFDC_URL')}/mp/mlb/{id}/")
+        return MLBResDto(**r.json())
 
     @staticmethod
     def getCoreList() -> List[CoreResDto]:
