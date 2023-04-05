@@ -91,9 +91,9 @@ def mplProcessWorker():
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
             mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
-
+            connect = None
             if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
-                ActiveMqConnect(mpListenerWorker, coreInfo).connect()
+                connect = ActiveMqConnect(mpListenerWorker, coreInfo)
 
             for mpEqp in mpEqps.values():
                 for module in mpEqp.getModules():
@@ -103,6 +103,9 @@ def mplProcessWorker():
                                           "eqpId": mpEqp.id, "moduleId": module.id,
                                           "module": f'{module.name}'})
                     process.start()
+
+            if connect is not None:
+                connect.connect()
             return
         except Exception as e:
             # logger = logging.getLogger("mpl")

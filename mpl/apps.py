@@ -9,7 +9,7 @@ class MplConfig(AppConfig):
     name = 'mpl'
 
     def ready(self):
-        if 'runserver' not in sys.argv:
-            return True
-        from mpl.Process.MPLProcessWorker import mplProcessWorker
-        mplProcessWorker()
+        if 'runserver' in sys.argv or 'fdcmp.wsgi' in sys.argv or 'fdcmp.asgi' in sys.argv:
+            logging.getLogger("mpl").info("startService")
+            from mpl.Process.MPLProcessWorker import mplProcessWorker
+            mplProcessWorker()

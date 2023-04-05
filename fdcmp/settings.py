@@ -48,7 +48,7 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'mplLog': {
-            'level': 'DEBUG',
+
             'class': 'logging.FileHandler',
             'filename': f'{BASE_DIR}/mpl/mplLog.log',
             'formatter': 'verbose'
@@ -62,6 +62,7 @@ LOGGING = {
         'mpl': {
             'handlers': ['console', 'mplLog'],
             'propagate': False,
+            'level': 'INFO',
         },
         'initEqp': {
             'handlers': ['console', 'mplLog'],

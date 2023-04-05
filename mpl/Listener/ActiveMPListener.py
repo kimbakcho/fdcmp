@@ -53,6 +53,7 @@ class ActiveMPListener(ConnectionListener):
         except Exception as e:
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
+            self.__logger.error(frame.body)
             traceback.print_stack()
 
     def on_receipt(self, frame):
