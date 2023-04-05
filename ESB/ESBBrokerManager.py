@@ -6,7 +6,7 @@ from bFdcAPI.MP.Dto.Core import CoreResDto
 
 
 class ESBBrokerType(Enum):
-    ActiveMq = "ActiveMq"
+    ActiveMQ = "ActiveMQ"
 
 
 class ESBBrokerManager:
@@ -26,7 +26,7 @@ class ESBBrokerManager:
         if core.id in self.__connects.keys():
             return self.__connects[core.id]
 
-        if core.brokerType == ESBBrokerType.ActiveMq.value:
+        if core.brokerType == ESBBrokerType.ActiveMQ.value:
             self.__connects[core.id] = ESBActiveMqBroker(coreInfo=core)
             return self.__connects[core.id]
         return None

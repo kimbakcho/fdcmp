@@ -92,7 +92,7 @@ def mplProcessWorker():
 
             mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
 
-            if coreInfo.brokerType == ESBBrokerType.ActiveMq.value:
+            if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
                 ActiveMqConnect(mpListenerWorker, coreInfo).connect()
 
             for mpEqp in mpEqps.values():
