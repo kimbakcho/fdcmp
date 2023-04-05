@@ -75,18 +75,16 @@ class McpWorker:
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
         saveTrace = {}
         if traceGroup is not None:
-            for traceGroupKey in context.trace.keys():
-                for traceKey in context.trace.get(traceGroupKey).keys():
-                    if traceGroup.getTraceLVs().get(traceKey).isSave:
-                        traceItem = context.trace.get(traceGroupKey).get(traceKey)
-                        saveTrace.setdefault(traceKey, traceItem)
+            for traceKey in traceGroup.getTraceLVs().keys():
+                if traceGroup.getTraceLVs().get(traceKey).isSave:
+                    traceItem = context.trace.get(traceGroup.name).get(traceKey)
+                    saveTrace.setdefault(traceKey, traceItem)
         saveEvent = {}
         if event is not None:
-            for eventKey in context.event.keys():
-                for eventLVKey in context.event.get(eventKey).keys():
-                    if event.getEventLVs().get(eventLVKey).isSave:
-                        eventItem = context.event.get(eventKey).get(eventLVKey)
-                        saveEvent.setdefault(eventLVKey, eventItem)
+            for eventLVKey in event.getEventLVs().keys():
+                if event.getEventLVs().get(eventLVKey).isSave:
+                    eventItem = context.event.get(event.name).get(eventLVKey)
+                    saveEvent.setdefault(eventLVKey, eventItem)
 
         if self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:
