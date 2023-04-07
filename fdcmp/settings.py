@@ -48,9 +48,13 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'mplLog': {
-
             'class': 'logging.FileHandler',
             'filename': f'{BASE_DIR}/mpl/mplLog.log',
+            'formatter': 'verbose'
+        },
+        'mcpLog': {
+            'class': 'logging.FileHandler',
+            'filename': f'{BASE_DIR}/mcp/mcpLog.log',
             'formatter': 'verbose'
         },
     },
@@ -61,6 +65,11 @@ LOGGING = {
         },
         'mpl': {
             'handlers': ['console', 'mplLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'mcp': {
+            'handlers': ['console', 'mcpLog'],
             'propagate': False,
             'level': 'INFO',
         },

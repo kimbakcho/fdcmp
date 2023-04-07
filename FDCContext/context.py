@@ -35,6 +35,12 @@ class Context:
         self.etc = {}
         self.currentFdcDataGroup: Optional[ObjectId] = None
 
+    def setLogger(self, logger):
+        self.logger = logger
+
+    def logMessage(self, message: str):
+        self.logger.info(message)
+
     def get_simpleContext(self) -> Dict:
         return {"MP": self.mp, "conditions": self.conditions}
 

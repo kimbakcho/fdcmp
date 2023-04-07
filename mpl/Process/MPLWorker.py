@@ -23,6 +23,7 @@ class MPLWorker:
         module = self.__eqpUseCase.getEqpModule(id=self.moduleId)
         self.__module = MCPEqpModule(module)
         self.__context = Context()
+        self.__context.setLogger(logging.getLogger("mcp"))
         self.__mcpWorker = McpWorker()
 
     def messageParser(self, message: str):
