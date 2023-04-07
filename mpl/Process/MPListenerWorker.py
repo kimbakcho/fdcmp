@@ -68,7 +68,7 @@ class MPListenerWorker:
     def createEqpModule(self, eqpId: int, eqpCode: str, eqpModuleId: int):
         if eqpCode not in self.mpEqps.keys():
             eqp = self.__fdcEqpUseCase.getEqp(eqpId)
-            self.mpEqps.setdefault(eqpCode, MPEqp(eqp))
+            self.mpEqps[eqpCode] = MPEqp(eqp)
         mpEqp = self.mpEqps.get(eqpCode)
         if mpEqp.getModule(eqpModuleId) is None:
             res = self.__fdcEqpUseCase.getEqpModule(eqpModuleId)

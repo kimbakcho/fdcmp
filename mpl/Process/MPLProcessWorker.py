@@ -88,7 +88,7 @@ def mplProcessWorker():
             eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
             for eqp in eqps:
-                mpEqps.setdefault(eqp.code, MPEqp(eqp))
+                mpEqps[eqp.code] = MPEqp(eqp)
 
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
@@ -111,8 +111,8 @@ def mplProcessWorker():
                 connect.connect()
             return
         except Exception as e:
-            # logger = logging.getLogger("mpl")
-            # logger.error(e.__str__())
-            # logger.error(traceback.format_stack())
-            # traceback.print_stack()
+            logger = logging.getLogger("mpl")
+            logger.error(e.__str__())
+            logger.error(traceback.format_stack())
+            traceback.print_stack()
             time.sleep(10)

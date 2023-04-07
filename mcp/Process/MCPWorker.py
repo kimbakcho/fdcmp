@@ -78,13 +78,13 @@ class McpWorker:
             for traceKey in traceGroup.getTraceLVs().keys():
                 if traceGroup.getTraceLVs().get(traceKey).isSave:
                     traceItem = context.trace.get(traceGroup.name).get(traceKey)
-                    saveTrace.setdefault(traceKey, traceItem)
+                    saveTrace[traceKey] = traceItem
         saveEvent = {}
         if event is not None:
             for eventLVKey in event.getEventLVs().keys():
                 if event.getEventLVs().get(eventLVKey).isSave:
                     eventItem = context.event.get(event.name).get(eventLVKey)
-                    saveEvent.setdefault(eventLVKey, eventItem)
+                    saveEvent[eventLVKey] = eventItem
 
         if self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:

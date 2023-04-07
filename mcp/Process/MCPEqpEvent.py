@@ -33,7 +33,7 @@ class MCPEqpEvent:
                     if eventLV.logicCode is not None:
                         com = compile(eventLV.logicCode, '<string>', mode='exec')
                         self.__logics.append(LogicItem(eventLV.name, com))
-                        self.__eventLVs.setdefault(eventLV.name, eventLV)
+                        self.__eventLVs[eventLV.name] = eventLV
                 self.__logicsRecvState = RecvState.done
         except Exception as e:
             self.__loggerMcp.error(e.__str__())

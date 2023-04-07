@@ -32,7 +32,7 @@ class McpEqpTraceGroup:
                     if traceLV.logicCode is not None:
                         com = compile(traceLV.logicCode, '<string>', mode='exec')
                         self.__logicItems.append(LogicItem(traceLV.name, com))
-                    self.__traceLVs.setdefault(traceLV.name, traceLV)
+                    self.__traceLVs[traceLV.name] = traceLV
                 self.__traceLVRecvState = RecvState.done
         except Exception as e:
             self.__loggerMcp.error(e.__str__())
