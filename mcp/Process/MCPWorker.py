@@ -136,12 +136,15 @@ class McpWorker:
             eqpCode=context.mp[MpBasic.EqpCode.value],
             groupType=groupType.value,
             startTime=now,
+            etc=context.etc
         )
         context.currentFdcDataGroup = fdcDataGroup._id
 
     def fabDataGroupEnd(self, context: Context, now: datetime):
         if context.currentFdcDataGroup is not None:
             fdcDataGroup = FdcDataGroup.objects.get(_id=context.currentFdcDataGroup)
+            fdcDataGroup.context = context.get_simpleContext()
+            fdcDataGroup.etc = context.etc
             fdcDataGroup.endTime = now
             fdcDataGroup.betweenTimeSec = (fdcDataGroup.endTime - fdcDataGroup.startTime).seconds
             fdcDataGroup.save()

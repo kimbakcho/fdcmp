@@ -13,6 +13,7 @@ class FdcDataGroup(models.Model):
     startTime = models.DateTimeField()
     endTime = models.DateTimeField()
     betweenTimeSec = models.IntegerField()
+    etc = models.JSONField(default={})
 
 
 class EventHistory(models.Model):

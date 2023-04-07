@@ -32,6 +32,7 @@ class Context:
         self.event = {}
         self.trace = {}
         self.conditions = {}
+        self.etc = {}
         self.currentFdcDataGroup: Optional[ObjectId] = None
 
     def get_simpleContext(self) -> Dict:
