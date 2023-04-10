@@ -144,12 +144,12 @@ DATABASES = {
         'NAME': 'fdc',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': env('MPL_DB_HOST'),
-            'port': env('MPL_DB_PORT', int),
-            'username': env('MPL_DB_USER_NAME'),
-            'password': env('MPL_DB_PASS'),
-            'authSource': env('MPL_DB_AUTH_SOURCE'),
-            'authMechanism': env('MPL_DB_AUTH_MECHANISM')
+            'host': env('MCP_DB_HOST'),
+            'port': env('MCP_DB_PORT', int),
+            'username': env('MCP_DB_USER_NAME'),
+            'password': env('MCP_DB_PASS'),
+            'authSource': env('MCP_DB_AUTH_SOURCE'),
+            'authMechanism': env('MCP_DB_AUTH_MECHANISM')
         },
         'LOGGING': {
             'version': 1,

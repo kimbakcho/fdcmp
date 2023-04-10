@@ -53,6 +53,18 @@ class MPListenerWorker:
         elif r.get("Module") == CommandModule.eqp.value:
             if r.get("Action") == CommandAction.delete.value:
                 self.deleteEqp(r.get("Eqp"), r.get("EqpCode"))
+            if r.get("Action") == CommandAction.update.value:
+                self.updateEqp(r.get("Eqp"), r.get("EqpCode"))
+
+    def updateEqp(self, eqpId: int, eqpCode: str):
+        #if EqpCode Update
+        if eqpCode not in self.mpEqps.keys():
+            for mpEqp in self.mpEqps.values():
+                if mpEqp.id == eqpId:
+                    self.mpEqps.pop(mpEqp.code)
+                    self.mpEqps[eqpCode] = mpEqp
+                    mpEqp.code = eqpCode
+
 
     def deleteEqp(self, eqpId: int, eqpCode: str):
         if eqpCode in self.mpEqps.keys():

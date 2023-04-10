@@ -30,9 +30,16 @@ class MPLWorker:
         try:
             self.__context.set_message(message)
             for logicItem in self.__mplParserUtil.getMpLogics():
-                exec(logicItem.logicComPile, None, locals())
-                runResult = locals().get("run")(self.__context)
-                self.__context.mp[logicItem.name] = runResult
+                try:
+                    exec(logicItem.logicComPile, None, locals())
+                    runResult = locals().get("run")(self.__context)
+                    self.__context.mp[logicItem.name] = runResult
+                except Exception as e:
+                    self.__loggerMpl.error(f'{self.__module.eqpName}_{self.__module.name} {logicItem.name}')
+                    self.__loggerMpl.error(message)
+                    self.__loggerMpl.error(e.__str__())
+                    self.__loggerMpl.error(traceback.format_stack())
+                    traceback.print_stack()
             self.__mcpWorker.run(self.__module, self.__context)
         except Exception as e:
             self.__loggerMpl.error(e.__str__())

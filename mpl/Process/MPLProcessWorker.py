@@ -1,8 +1,7 @@
-import sys
+
 import traceback
 from multiprocessing import Queue, Process, current_process
 
-import stomp
 from django.utils.log import configure_logging
 from environ import environ
 import time
@@ -11,9 +10,7 @@ from ESB.ESBBrokerManager import ESBBrokerType
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
-from fdcmp.settings import BASE_DIR
 from mpl.BrokerConnect.BrokerConnect import ActiveMqConnect
-from mpl.Listener.ActiveMPListener import ActiveMPListener
 from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
 from django.apps import apps

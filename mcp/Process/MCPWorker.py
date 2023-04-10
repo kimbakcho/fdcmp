@@ -24,6 +24,7 @@ class McpWorker:
         super().__init__()
         self.__maxHistorySize = 20
         self.__contextHistory = list()
+        self.__logger = logging.getLogger('mcp')
 
     def run(self, eqpModule: MCPEqpModule, context: Context):
         try:
@@ -33,30 +34,52 @@ class McpWorker:
                     and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
                 event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
                 for logicItem in event.getLogics(event.id):
-                    exec(logicItem.logicComPile, None, locals())
-                    runResult = locals().get("run")(context)
-                    if event.name not in context.event.keys():
-                        context.event[event.name] = {}
-                    context.event[event.name][logicItem.name] = runResult
+                    try:
+                        exec(logicItem.logicComPile, None, locals())
+                        runResult = locals().get("run")(context)
+                        if event.name not in context.event.keys():
+                            context.event[event.name] = {}
+                        context.event[event.name][logicItem.name] = runResult
+                    except Exception as e:
+                        self.__logger.error(context.get_message())
+                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(e.__str__())
+                        self.__logger.error(traceback.format_stack())
+                        traceback.print_stack()
+
             if context.mp[MpBasic.IsTrace.value] and context.mp[
                 MpBasic.TraceGroupCode.value] in eqpModule.getTraceGroup().keys():
                 traceGroup = eqpModule.getTraceGroup()[context.mp[MpBasic.TraceGroupCode.value]]
                 for logicItem in traceGroup.getTraceLogic():
-                    exec(logicItem.logicComPile, None, locals())
-                    runResult = locals().get("run")(context)
-                    if traceGroup.name not in context.trace.keys():
-                        context.trace[traceGroup.name] = {}
-                    context.trace[traceGroup.name][logicItem.name] = runResult
+                    try:
+                        exec(logicItem.logicComPile, None, locals())
+                        runResult = locals().get("run")(context)
+                        if traceGroup.name not in context.trace.keys():
+                            context.trace[traceGroup.name] = {}
+                        context.trace[traceGroup.name][logicItem.name] = runResult
+                    except Exception as e:
+                        self.__logger.error(context.get_message())
+                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(e.__str__())
+                        self.__logger.error(traceback.format_stack())
+                        traceback.print_stack()
             for conditions in eqpModule.getConditions():
-                exec(conditions.logicComPile, None, locals())
-                runResult = locals().get("run")(context)
-                context.conditions[conditions.name] = runResult
+                try:
+                    exec(conditions.logicComPile, None, locals())
+                    runResult = locals().get("run")(context)
+                    context.conditions[conditions.name] = runResult
+                except Exception as e:
+                    self.__logger.error(context.get_message())
+                    self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {conditions.name}')
+                    self.__logger.error(e.__str__())
+                    self.__logger.error(traceback.format_stack())
+                    traceback.print_stack()
             if self.__contextHistory.__len__() >= self.__maxHistorySize:
                 self.__contextHistory.pop(0)
             self.mcpSaveWork(eqpModule, context, event, traceGroup, self.__contextHistory)
             self.__contextHistory.append(copy.deepcopy(context))
         except Exception as e:
-            logger = logging.getLogger('mpl')
+            logger = logging.getLogger('mcp')
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
