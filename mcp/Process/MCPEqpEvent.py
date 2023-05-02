@@ -2,6 +2,7 @@ import logging
 import traceback
 from typing import List, Dict
 
+from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdcAPI.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
 from bFdcAPI.MCP.UseCase import FdcMcpUseCase
@@ -31,7 +32,7 @@ class MCPEqpEvent:
                 self.__eventLVs = dict[str, FdcMcpEventLVResDto]()
                 for eventLV in self.__fdcMcpUseCase.getEventLVList(event):
                     if eventLV.logicCode is not None:
-                        com = compile(eventLV.logicCode, '<string>', mode='exec')
+                        com = compile(decoratorLogicCode(eventLV.logicCode), '<string>', mode='exec')
                         self.__logics.append(LogicItem(eventLV.name, com))
                         self.__eventLVs[eventLV.name] = eventLV
                 self.__logicsRecvState = RecvState.done

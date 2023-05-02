@@ -2,6 +2,7 @@ import threading
 import traceback
 from typing import List, Dict
 
+from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 import logging
@@ -68,7 +69,7 @@ class MCPEqpModule:
                 self.__conditions = list[LogicItem]()
                 for conditions in self.__fdcMcpUseCase.getConditions(self.id):
                     if conditions.logicCode is not None:
-                        com = compile(conditions.logicCode, '<string>', mode='exec')
+                        com = compile(decoratorLogicCode(conditions.logicCode), '<string>', mode='exec')
                         self.__conditions.append(LogicItem(conditions.name, com))
                 self.__conditionsRecvState = RecvState.done
         except Exception as e:

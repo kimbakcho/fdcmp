@@ -1,6 +1,7 @@
 import threading
 import traceback
 
+from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
 from bFdcAPI.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
 from bFdcAPI.MCP.UseCase import FdcMcpUseCase
@@ -30,7 +31,7 @@ class McpEqpTraceGroup:
                 self.__traceLVs = dict[str, TraceLVResDto]()
                 for traceLV in self.__mcpUseCase.getTraceLVList(self.id):
                     if traceLV.logicCode is not None:
-                        com = compile(traceLV.logicCode, '<string>', mode='exec')
+                        com = compile(decoratorLogicCode(traceLV.logicCode), '<string>', mode='exec')
                         self.__logicItems.append(LogicItem(traceLV.name, com))
                     self.__traceLVs[traceLV.name] = traceLV
                 self.__traceLVRecvState = RecvState.done

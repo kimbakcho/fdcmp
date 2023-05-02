@@ -2,6 +2,7 @@ import logging
 import traceback
 from typing import List, Dict
 
+from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
@@ -28,7 +29,7 @@ class MPLParserUtil:
                 self.__mpLogics = list[LogicItem]()
                 for mpl in self.__mpUseCase.getMPL():
                     if mpl.logicCode is not None:
-                        com = compile(mpl.logicCode, '<string>', mode='exec')
+                        com = compile(decoratorLogicCode(mpl.logicCode), '<string>', mode='exec')
                         self.__mpLogics.append(LogicItem(mpl.name, com))
                 self.__MPLogicRecvState = RecvState.done
         except Exception as e:
