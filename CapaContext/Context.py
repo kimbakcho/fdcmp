@@ -36,6 +36,8 @@ class TrainLogicModel:
 
 
 class TrainLogicContext:
+    def __init__(self, eqpModule: int) -> None:
+        pass
     def debug(self, msg: str) -> None:
         pass
 
