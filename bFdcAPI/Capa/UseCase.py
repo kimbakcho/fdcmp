@@ -6,6 +6,7 @@ from bFdcAPI import env
 from bFdcAPI.Capa.Dto.CapaValidData import CapaValidDataResDto
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicResDto
+from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto, TrainSchedulerHistoryResDto
 
 
 class CapaUseCase:
@@ -35,3 +36,11 @@ class CapaUseCase:
         if not r.ok:
             return None
         return TrainLogicResDto(**r.json())
+
+    @staticmethod
+    def getTrainSchedulerHistoryList(reqDto: TrainSchedulerHistoryListReqDto) -> list[TrainSchedulerHistoryResDto]:
+        r = requests.get(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/", params=reqDto.__dict__)
+        result = list()
+        for item in r.json()["results"]:
+            result.append(TrainSchedulerHistoryResDto(**item))
+        return result

@@ -10,3 +10,4 @@ class CapaEqpModule:
         self.name = moduleResDto.name
         self.messageQueue = Queue()
         self.moduleType = moduleResDto.moduleType
+

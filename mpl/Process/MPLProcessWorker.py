@@ -1,4 +1,3 @@
-
 import traceback
 from multiprocessing import Queue, Process, current_process
 
@@ -10,6 +9,8 @@ from ESB.ESBBrokerManager import ESBBrokerType
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
+from fdcmp.ProcessLogger import setLogger
+from fdcmp.settings import BASE_DIR
 from mpl.BrokerConnect.BrokerConnect import ActiveMqConnect
 from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
@@ -28,19 +29,9 @@ mpUseCase = FdcMpUseCase()
 mpEqps: dict[str, MPEqp] = dict()
 
 
-# def setLogger(loggerName: str):
-#     import logging
-#     logger = logging.getLogger(loggerName)
-#     logger.setLevel(logging.INFO)
-#     formatter = logging.Formatter('%(asctime)s %(levelname)s [%(name)s] [%(filename)s:%(lineno)d] - %(message)s')
-#     filehandler = logging.FileHandler(f'{BASE_DIR}/mpl/mplLog.log')
-#     filehandler.setFormatter(formatter)
-#     consoleHandler = logging.StreamHandler()
-#     logger.addHandler(filehandler)
-#     logger.addHandler(consoleHandler)
-
-
 def mplPWorker(moduleId: int, q: Queue, c: Queue):
+    setLogger("mpl", f'{BASE_DIR}/mpl/mplLog.log')
+    setLogger("mcp", f'{BASE_DIR}/mcp/mcpLog.log')
     loggerMpl = logging.getLogger('mpl')
     if not apps.apps_ready:
         configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
@@ -103,8 +94,6 @@ def mplProcessWorker():
                                           "eqpId": mpEqp.id, "moduleId": module.id,
                                           "module": f'{module.name}'})
                     process.start()
-
-
 
             if connect is not None:
                 connect.connect()

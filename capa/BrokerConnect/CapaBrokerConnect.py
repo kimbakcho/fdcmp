@@ -5,7 +5,7 @@ import stomp
 
 from bFdcAPI.MP.Dto.Core import CoreResDto
 from capa.Process.CapaListenerWorker import CapaListenerWorker
-from capa.Listener.CapaActiveListener import CapaActiveListener
+from capa.Listener.CapaActiveMPListener import CapaActiveListener
 from bFdcAPI import env
 
 class CapaBrokerConnect:
