@@ -20,6 +20,7 @@ workProcesses = list()
 capaEqps: dict[str, CapaEqp] = dict()
 
 def capaPWorker(moduleId: int,q: Queue):
+    logging.getLogger("capa").info(f"start process moduleId={moduleId}")
     pass
 
 def capaProcessWorker():

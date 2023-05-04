@@ -27,7 +27,7 @@ class CapaEqp:
             if self.__moduleRecv == RecvState.init:
                 modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
                 for module in modules:
-                    self.__modules.append(MPEqpModule(module))
+                    self.__modules.append(CapaEqpModule(module))
                 self.__moduleRecv = RecvState.done
         except Exception as e:
             self.__loggerMpl.error(e.__str__())

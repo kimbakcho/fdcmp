@@ -10,3 +10,5 @@ class CapaConfig(AppConfig):
             if 'runserver' in sys.argv:
                 if not os.environ.get('RUN_MAIN'):
                     return
+            from capa.Process.CapaProcessWorker import capaProcessWorker
+            capaProcessWorker()

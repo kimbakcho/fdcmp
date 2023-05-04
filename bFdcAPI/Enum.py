@@ -20,6 +20,10 @@ class CommandModule(Enum):
     eqpModule = "eqpModule"
     eqp = "eqp"
 
+class EqpModuleType(Enum):
+    port = "port"
+    chamber = "chamber"
+    capa = "capa"
 
 class CommandType(Enum):
     event = "event"
