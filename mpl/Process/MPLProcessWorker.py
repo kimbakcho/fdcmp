@@ -17,7 +17,7 @@ from django.apps import apps
 from django.conf import settings
 import logging
 
-from mpl.Process.MPListenerWorker import MPListenerWorker
+from mpl.Process.MPLListenerWorker import MPLListenerWorker
 
 env = environ.Env()
 
@@ -89,11 +89,11 @@ def mplProcessWorker():
 
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
-            mpListenerWorker = MPListenerWorker(mpEqps, workProcesses, mplPWorker)
+            mplListenerWorker = MPLListenerWorker(mpEqps, workProcesses, mplPWorker)
 
             connect = None
             if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
-                connect = ActiveMqConnect(mpListenerWorker, coreInfo)
+                connect = ActiveMqConnect(mplListenerWorker, coreInfo)
 
             for mpEqp in mpEqps.values():
                 for module in mpEqp.getModules():
@@ -103,6 +103,8 @@ def mplProcessWorker():
                                           "eqpId": mpEqp.id, "moduleId": module.id,
                                           "module": f'{module.name}'})
                     process.start()
+
+
 
             if connect is not None:
                 connect.connect()

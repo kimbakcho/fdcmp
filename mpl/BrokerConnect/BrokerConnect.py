@@ -6,20 +6,17 @@ import traceback
 import stomp
 
 from bFdcAPI.MP.Dto.Core import CoreResDto
-from mpl.Listener.ActiveMPListener import ActiveMPListener
-from mpl.Process.MPListenerWorker import MPListenerWorker
+from mpl.Listener.MPLActiveListener import MPLActiveListener
+from mpl.Process.MPLListenerWorker import MPLListenerWorker
 
 from bFdcAPI import env
 
 
 class BrokerConnect:
 
-    def __init__(self, mpListenerWork: MPListenerWorker) -> None:
+    def __init__(self, mplListenerWork: MPLListenerWorker) -> None:
         super().__init__()
-        self._mpListenerWork = mpListenerWork
-
-    def reConnect(self):
-        pass
+        self._mplListenerWork = mplListenerWork
 
     def connect(self):
         pass
@@ -30,8 +27,8 @@ class BrokerConnect:
 
 class ActiveMqConnect(BrokerConnect):
 
-    def __init__(self, mpListenerWork: MPListenerWorker, coreInfo: CoreResDto) -> None:
-        super().__init__(mpListenerWork)
+    def __init__(self, mplListenerWork: MPLListenerWorker, coreInfo: CoreResDto) -> None:
+        super().__init__(mplListenerWork)
         self.__coreInfo = coreInfo
 
 
@@ -40,7 +37,7 @@ class ActiveMqConnect(BrokerConnect):
             self._c = stomp.Connection([(self.__coreInfo.ESBIp, self.__coreInfo.ESBPort)], reconnect_attempts_max=-1,
                                        reconnect_sleep_max=10.0)
 
-            self._c.set_listener("mp", ActiveMPListener(self.__coreInfo, self._mpListenerWork))
+            self._c.set_listener("mp", MPLActiveListener(self.__coreInfo, self._mplListenerWork))
 
             self._c.connect()
 

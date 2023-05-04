@@ -12,7 +12,8 @@ class ESBBroker:
     def sendCommandMessage(self, message: str):
         pass
 
-
+    def sendCapaMessage(self, message: str):
+        pass
 class ESBActiveMqBroker(ESBBroker):
 
     def __init__(self, coreInfo: CoreResDto) -> None:
@@ -29,3 +30,8 @@ class ESBActiveMqBroker(ESBBroker):
         if not self.__c.is_connected():
             self.__c.connect()
         self.__c.send(self.__coreInfo.commandSubject, message)
+
+    def sendCapaMessage(self, message: str):
+        if not self.__c.is_connected():
+            self.__c.connect()
+        self.__c.send(self.__coreInfo.capaSubject, message)

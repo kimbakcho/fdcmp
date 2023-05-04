@@ -1,25 +1,18 @@
+import logging
 import traceback
-from typing import Callable
 
 from stomp import ConnectionListener
-import logging
 
-from bFdcAPI.Enum import CommandModule
 from bFdcAPI.MP.Dto.Core import CoreResDto
-from mpl.Process.MPEqp import MPEqp
-from mpl.Process.MPLParserUtil import MPLParserUtil
-from FDCContext.context import Context
-import json
-
-from mpl.Process.MPListenerWorker import MPListenerWorker
+from capa.Process.CapaListenerWorker import CapaListenerWorker
 
 
-class ActiveMPListener(ConnectionListener):
+class CapaActiveListener(ConnectionListener):
 
-    def __init__(self, coreInfo: CoreResDto, mpListenerWorker: MPListenerWorker) -> None:
+    def __init__(self, coreInfo: CoreResDto, capaListenerWorker: CapaListenerWorker) -> None:
         self.__core = coreInfo
-        self.__logger = logging.getLogger('mpl')
-        self.__mpListenerWorker = mpListenerWorker
+        self.__logger = logging.getLogger('capa')
+        self.__capaListenerWorker = capaListenerWorker
     def on_connecting(self, host_and_port):
         self.__logger.debug(f"ActiveMPListener on_connecting = {host_and_port}")
         pass
@@ -46,10 +39,8 @@ class ActiveMPListener(ConnectionListener):
 
     def on_message(self, frame):
         try:
-            if frame.headers['destination'] == self.__core.subject:
-                self.__mpListenerWorker.onMessage(frame.body)
-            elif frame.headers['destination'] == self.__core.commandSubject:
-                self.__mpListenerWorker.onCommandMessage(frame.body)
+            if frame.headers['destination'] == self.__core.capaSubject:
+                self.__capaListenerWorker.onMessage(frame.body)
         except Exception as e:
             self.__logger.error("frame.body start")
             self.__logger.error(frame.body)

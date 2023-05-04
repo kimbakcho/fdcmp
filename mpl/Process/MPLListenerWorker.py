@@ -12,7 +12,7 @@ from multiprocessing import Process
 import time
 
 
-class MPListenerWorker:
+class MPLListenerWorker:
     def __init__(self, mpEqps: dict[str, MPEqp], workProcesses: list, mplPWorker: Callable) -> None:
         self.mpEqps = mpEqps
         self.workProcesses = workProcesses

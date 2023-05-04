@@ -57,6 +57,11 @@ LOGGING = {
             'filename': f'{BASE_DIR}/mcp/mcpLog.log',
             'formatter': 'verbose'
         },
+        'capaLog': {
+            'class': 'logging.FileHandler',
+            'filename': f'{BASE_DIR}/capa/capaLog.log',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django': {
@@ -70,6 +75,11 @@ LOGGING = {
         },
         'mcp': {
             'handlers': ['console', 'mcpLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'capa': {
+            'handlers': ['console', 'capaLog'],
             'propagate': False,
             'level': 'INFO',
         },
@@ -96,7 +106,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'command',
     'mpl',
-    'mcp'
+    'mcp',
+    'capa'
 ]
 
 MIDDLEWARE = [

@@ -10,3 +10,4 @@ class CoreResDto:
     commandSubject: str
     updateTime: str
     brokerType: str
+    capaSubject: str

@@ -16,11 +16,11 @@ class MPLParserUtil:
     def __init__(self) -> None:
         super().__init__()
         self.__mpLogics: List[LogicItem] = list()
-        self.__eqp: Dict[str, MPLEqp] = dict()
+        # self.__eqp: Dict[str, MPLEqp] = dict()
         self.__mpUseCase = FdcMpUseCase()
-        self.__eqpUseCase = FdcEqpUseCase()
+        # self.__eqpUseCase = FdcEqpUseCase()
         self.__MPLogicRecvState = RecvState.init
-        self.__eqpsGetState = RecvState.init
+        # self.__eqpsGetState = RecvState.init
         self.__logger = logging.getLogger("mpl")
 
     def getMpLogics(self) -> List[LogicItem]:
@@ -39,20 +39,20 @@ class MPLParserUtil:
             self.__MPLogicRecvState = RecvState.error
         return self.__mpLogics
 
-    def getEqps(self) -> Dict[str, MPLEqp]:
-        try:
-            if self.__eqpsGetState == RecvState.init:
-                eqps = self.__eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))
-                for eqp in eqps:
-                    self.__eqp[eqp.code] = MPLEqp(eqp)
-                self.__eqpsGetState = RecvState.done
-        except Exception as e:
-            self.__logger.error(e.__str__())
-            self.__logger.error(traceback.format_stack())
-            traceback.print_stack()
-            self.__eqpsGetState = RecvState.error
-
-        return self.__eqp
+    # def getEqps(self) -> Dict[str, MPLEqp]:
+    #     try:
+    #         if self.__eqpsGetState == RecvState.init:
+    #             eqps = self.__eqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID')))
+    #             for eqp in eqps:
+    #                 self.__eqp[eqp.code] = MPLEqp(eqp)
+    #             self.__eqpsGetState = RecvState.done
+    #     except Exception as e:
+    #         self.__logger.error(e.__str__())
+    #         self.__logger.error(traceback.format_stack())
+    #         traceback.print_stack()
+    #         self.__eqpsGetState = RecvState.error
+    #
+    #     return self.__eqp
 
     def setMPLogicAPIRecvState(self, state: RecvState):
         self.__MPLogicRecvState = state

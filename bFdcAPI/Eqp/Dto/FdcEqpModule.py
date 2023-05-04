@@ -16,3 +16,4 @@ class FdcEqpModuleResDto:
     eqp: int
     updateTime: str
     orderIdx: int
+    moduleType: str
