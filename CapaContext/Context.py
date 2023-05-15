@@ -82,6 +82,11 @@ class PredictParamInfoContext:
     def getMCPDBConnect(self) -> MongoClient:
         pass
 
+    def setSchedulePredictParamInfo(self, params: dict) -> None:
+        pass
+
+    def getSchedulePredictParamInfo(self) -> dict:
+        pass
 
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:

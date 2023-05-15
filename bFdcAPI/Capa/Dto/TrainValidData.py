@@ -2,10 +2,16 @@ from dataclasses import dataclass
 
 
 @dataclass
-class CapaValidDataResDto:
+class TrainValidDataResDto:
     id: int
     eqpModule: int
     logicCode: str
     trainData: dict | str
     validData: dict | str
     updateDate: str
+
+@dataclass
+class TrainValidDataUpdateReqDto:
+    id: int
+    trainData: dict | str
+    validData: dict | str

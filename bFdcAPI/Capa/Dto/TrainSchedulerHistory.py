@@ -15,3 +15,10 @@ class TrainSchedulerHistoryResDto:
     execute: bool
     executeTime: str | None
     planTime: str
+
+
+@dataclass
+class TrainSchedulerHistoryUpdateReqDto:
+    id: int
+    execute: bool
+    executeTime: str

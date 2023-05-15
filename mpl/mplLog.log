@@ -2750,3 +2750,27 @@
 2023-05-04 16:55:10,588 INFO [mpl] [apps.py:16] - startService
 2023-05-04 16:55:30,050 INFO [mpl] [apps.py:16] - startService
 2023-05-04 16:57:06,067 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:27:08,098 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:34:44,847 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:42:12,395 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:43:57,341 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:45:04,555 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:47:14,200 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:50:35,823 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:54:05,261 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:54:16,936 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:55:13,728 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:58:20,461 INFO [mpl] [apps.py:16] - startService
+2023-05-12 15:58:21,713 ERROR [mpl] [MPLProcessWorker.py:103] - ('Connection aborted.', ConnectionResetError(10054, '현재 연결은 원격 호스트에 의해 강제로 끊겼습니다', None, 10054, None))
+2023-05-12 15:58:21,739 ERROR [mpl] [MPLProcessWorker.py:104] - ['  File "C:\\Users\\wisol\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.8109.197\\plugins\\python\\helpers\\pydev\\pydevd.py", line 2195, in <module>\n    main()\n', '  File "C:\\Users\\wisol\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.8109.197\\plugins\\python\\helpers\\pydev\\pydevd.py", line 2177, in main\n    globals = debugger.run(setup[\'file\'], None, None, is_module)\n', '  File "C:\\Users\\wisol\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.8109.197\\plugins\\python\\helpers\\pydev\\pydevd.py", line 1489, in run\n    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)\n', '  File "C:\\Users\\wisol\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.8109.197\\plugins\\python\\helpers\\pydev\\pydevd.py", line 1496, in _exec\n    pydev_imports.execfile(file, globals, locals)  # execute the script\n', '  File "C:\\Users\\wisol\\AppData\\Local\\JetBrains\\Toolbox\\apps\\PyCharm-P\\ch-0\\231.8109.197\\plugins\\python\\helpers\\pydev\\_pydev_imps\\_pydev_execfile.py", line 18, in execfile\n    exec(compile(contents+"\\n", file, \'exec\'), glob, loc)\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\manage.py", line 22, in <module>\n    main()\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\manage.py", line 18, in main\n    execute_from_command_line(sys.argv)\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\venv\\lib\\site-packages\\django\\core\\management\\__init__.py", line 446, in execute_from_command_line\n    utility.execute()\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\venv\\lib\\site-packages\\django\\core\\management\\__init__.py", line 398, in execute\n    autoreload.check_errors(django.setup)()\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\venv\\lib\\site-packages\\django\\utils\\autoreload.py", line 64, in wrapper\n    fn(*args, **kwargs)\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\venv\\lib\\site-packages\\django\\__init__.py", line 24, in setup\n    apps.populate(settings.INSTALLED_APPS)\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\venv\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\n    app_config.ready()\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\mpl\\apps.py", line 19, in ready\n    mplProcessWorker()\n', '  File "C:\\webpro\\pythonProject\\fdcmp\\mpl\\Process\\MPLProcessWorker.py", line 104, in mplProcessWorker\n    logger.error(traceback.format_stack())\n']
+2023-05-12 15:59:00,995 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:15:52,004 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:17:27,020 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:17:41,810 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:22:11,375 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:22:24,009 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:23:15,283 INFO [mpl] [apps.py:16] - startService
+2023-05-12 17:23:49,912 INFO [mpl] [apps.py:16] - startService
+2023-05-15 10:02:20,125 INFO [mpl] [apps.py:16] - startService
+2023-05-15 10:04:56,497 INFO [mpl] [apps.py:16] - startService
+2023-05-15 10:15:56,211 INFO [mpl] [apps.py:16] - startService

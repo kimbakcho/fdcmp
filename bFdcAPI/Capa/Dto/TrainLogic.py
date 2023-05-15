@@ -10,3 +10,9 @@ class TrainLogicResDto:
     trainedModel: dict
     modelType: str
     updateDate: str
+
+
+@dataclass
+class TrainLogicUpdateReqDto:
+    id: int
+    trainedModel: dict | str
