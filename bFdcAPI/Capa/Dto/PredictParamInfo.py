@@ -8,9 +8,11 @@ class PredictParamInfoResDto:
     logic: str
     paramInfo: dict | str
     etcInfo: dict | str
+    schedulePredictParamInfo: dict
 
 @dataclass
 class PredictParamInfoUpdateReqDto:
     id: int
     paramInfo: dict | str
     etcInfo: dict | str
+    schedulePredictParamInfo: dict| str

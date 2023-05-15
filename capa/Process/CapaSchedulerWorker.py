@@ -3,7 +3,8 @@ import pickle
 import traceback
 from datetime import datetime
 
-from CapaContext.CapaContextImpl import TrainValidDataContext, TrainLogicContext, PredictParamInfoContext
+from CapaContext.CapaContextImpl import TrainValidDataContext, TrainLogicContext, PredictParamInfoContext, \
+    PredictLogicContext
 from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicUpdateReqDto
@@ -72,14 +73,33 @@ class CapaSchedulerWorker:
                     locals().get("run")(context)
                     CapaUseCase.updatePredictParamInfo(PredictParamInfoUpdateReqDto(id=predictParamInfo.id,
                                                                                     paramInfo=json.dumps(context.getPredictParamInfo()),
-                                                                                    etcInfo=json.dumps(context.getPredictEtcInfo())))
+                                                                                    etcInfo=json.dumps(context.getPredictEtcInfo()),
+                                                                                    schedulePredictParamInfo=json.dumps(context.getSchedulePredictParamInfo())))
 
                 except Exception as e:
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
 
+            predictResults = list()
 
+            predictLogic = CapaUseCase.getPredictLogic(self.moduleId)
+            if predictParamInfo.schedulePredictParamInfo is not None and predictParamInfo.logic.__len__() > 0:
+                if predictLogic.logic is not None and predictLogic.logic.__len__() > 0:
+                    context = PredictLogicContext(self.moduleId)
+                    try:
+                        com = compile(decoratorLogicCode(predictLogic.logic), '<string>', mode='exec')
+                        exec(com, None, locals())
+                        for schedulerItem in predictParamInfo.schedulePredictParamInfo:
+                            context.setPredictParams(schedulerItem)
+                            locals().get("run")(context)
+                            predictResults.append({
+                                "predictParams": schedulerItem,
+                                "predictResult": context.getPredictResult()})
+                    except Exception as e:
+                        logging.getLogger("capa").error(e.__str__())
+                        logging.getLogger("capa").error(traceback.format_stack())
+                        traceback.print_stack()
 
 
             for item in lists:

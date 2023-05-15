@@ -98,6 +98,7 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
         self.debugMsgs = []
         self._mcpDBConnect = MCPDBConnect()
         self._paramInfo = dict()
+        self._predictParamsInfo = dict()
         self._eqpModule = eqpModule
         self._etcInfo = dict()
 
@@ -126,6 +127,14 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
 
     def getMCPDBConnect(self) -> MongoClient:
         return self._mcpDBConnect.getDBConnect()
+
+    def setSchedulePredictParamInfo(self, params: dict|list) -> None:
+        self._predictParamsInfo = params
+
+    def getSchedulePredictParamInfo(self) -> dict|list:
+        return self._predictParamsInfo
+
+
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 

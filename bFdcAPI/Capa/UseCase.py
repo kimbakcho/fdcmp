@@ -3,6 +3,7 @@ import json
 import requests
 
 from bFdcAPI import env
+from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
 from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataResDto, TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto, PredictParamInfoUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicResDto, TrainLogicUpdateReqDto
@@ -53,6 +54,13 @@ class CapaUseCase:
     def updateTrainLogic(reqDto: TrainLogicUpdateReqDto) -> TrainLogicResDto:
         r = requests.patch(f"{env('BFDC_URL')}/capa/trainLogic/{reqDto.id}/", reqDto.__dict__)
         return TrainLogicResDto(**r.json())
+
+    @staticmethod
+    def getPredictLogic(eqpModuleId: int) -> PredictLogicResDto:
+        r = requests.get(f"{env('BFDC_URL')}/capa/predictLogicForEqpModule/", params={
+            "eqpModule": eqpModuleId
+        })
+        return PredictLogicResDto(**r.json())
 
     @staticmethod
     def getTrainSchedulerHistoryList(reqDto: TrainSchedulerHistoryListReqDto) -> list[TrainSchedulerHistoryResDto]:
