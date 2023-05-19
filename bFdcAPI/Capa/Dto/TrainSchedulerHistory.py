@@ -15,10 +15,16 @@ class TrainSchedulerHistoryResDto:
     execute: bool
     executeTime: str | None
     planTime: str
+    predictResult: list | dict | None
+    trainedModel: dict | None
+    paramInfo: dict | None
 
 
 @dataclass
 class TrainSchedulerHistoryUpdateReqDto:
     id: int
-    execute: bool
-    executeTime: str
+    execute: bool | None
+    executeTime: str | None
+    predictResult: str | None
+    trainedModel: str | None
+    paramInfo: str | None

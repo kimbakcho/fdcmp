@@ -1,3 +1,4 @@
+import datetime
 from enum import Enum
 
 from pymongo import MongoClient
@@ -25,6 +26,18 @@ class TrainValidDataContext:
         pass
 
     def getMCPDBConnect(self) -> MongoClient:
+        pass
+
+    def setTrainPeriodStart(self, dateTime: datetime.datetime):
+        pass
+
+    def setTrainPeriodEnd(self, datetime: datetime.datetime):
+        pass
+
+    def getTrainPeriodStart(self):
+        pass
+
+    def getTrainPeriodEnd(self):
         pass
 
 
