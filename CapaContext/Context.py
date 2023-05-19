@@ -31,7 +31,7 @@ class TrainValidDataContext:
     def setTrainPeriodStart(self, dateTime: datetime.datetime):
         pass
 
-    def setTrainPeriodEnd(self, datetime: datetime.datetime):
+    def setTrainPeriodEnd(self, dateTime: datetime.datetime):
         pass
 
     def getTrainPeriodStart(self):
