@@ -1,3 +1,5 @@
+import datetime
+
 import CapaContext.Context
 from bFdcAPI import env
 from pymongo import MongoClient
@@ -39,6 +41,8 @@ class TrainValidDataContext(CapaContext.Context.TrainValidDataContext):
         self.trainValidData = dict()
         self._trainValue = dict()
         self._validValue = dict()
+        self._trainPeriodStart = None
+        self._trainPeriodEnd = None
 
     def debug(self, msg: str):
         self.debugMsgs.append(msg)
@@ -63,6 +67,19 @@ class TrainValidDataContext(CapaContext.Context.TrainValidDataContext):
 
     def getMCPDBConnect(self) -> MongoClient:
         return self._mcpDBConnect.getDBConnect()
+
+    def setTrainPeriodStart(self, value):
+        self._trainPeriodStart = value
+
+    def setTrainPeriodEnd(self, value):
+        self._trainPeriodEnd = value
+
+    def getTrainPeriodStart(self):
+        return self._trainPeriodStart
+
+    def getTrainPeriodEnd(self):
+        return self._trainPeriodEnd
+
 
 
 class TrainLogicContext(CapaContext.Context.TrainLogicContext):

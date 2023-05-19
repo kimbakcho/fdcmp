@@ -35,7 +35,9 @@ class CapaSchedulerWorker:
                     trainValidDataContext.trainValidData = runResult
                     reqDto = TrainValidDataUpdateReqDto(id=trainValidData.id,
                                                         trainData=json.dumps(trainValidDataContext.getTrainData()),
-                                                        validData=json.dumps(trainValidDataContext.getValidData()))
+                                                        validData=json.dumps(trainValidDataContext.getValidData()),
+                                                        trainPeriodStart=trainValidDataContext.getTrainPeriodStart(),
+                                                        trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd())
                     CapaUseCase.updateTrainValidData(reqDto)
                 except Exception as e:
                     logging.getLogger("capa").error(e.__str__())

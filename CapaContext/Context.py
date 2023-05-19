@@ -28,10 +28,10 @@ class TrainValidDataContext:
     def getMCPDBConnect(self) -> MongoClient:
         pass
 
-    def setTrainPeriodStart(self, dateTime: datetime.datetime):
+    def setTrainPeriodStart(self, value):
         pass
 
-    def setTrainPeriodEnd(self, dateTime: datetime.datetime):
+    def setTrainPeriodEnd(self, value):
         pass
 
     def getTrainPeriodStart(self):
