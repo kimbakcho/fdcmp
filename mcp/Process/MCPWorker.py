@@ -47,8 +47,8 @@ class McpWorker:
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            if context.mp[MpBasic.IsTrace.value] and context.mp[
-                MpBasic.TraceGroupCode.value] in eqpModule.getTraceGroup().keys():
+            if context.mp[MpBasic.IsTrace.value] \
+                    and context.mp[MpBasic.TraceGroupCode.value] in eqpModule.getTraceGroup().keys():
                 traceGroup = eqpModule.getTraceGroup()[context.mp[MpBasic.TraceGroupCode.value]]
                 for logicItem in traceGroup.getTraceLogic():
                     try:
