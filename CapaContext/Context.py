@@ -66,6 +66,12 @@ class TrainLogicContext:
     def getTrainModels(self) -> dict[str, TrainLogicModel] | None:
         pass
 
+    def setTrainedInfo(self, value: dict) -> None:
+        pass
+
+    def getTrainedInfo(self) -> dict | None:
+        pass
+
 
 class PredictParamInfoContext:
     def __init__(self, eqpModule: int) -> None:
@@ -100,7 +106,8 @@ class PredictParamInfoContext:
 
     def getSchedulePredictParamInfo(self) -> dict:
         pass
-
+    def getTrainedInfo(self) -> dict | None:
+        pass
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:
         pass

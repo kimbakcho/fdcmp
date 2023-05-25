@@ -54,8 +54,9 @@ class CapaSchedulerWorker:
                     locals().get("run")(trainLogicContext)
                     trainModels = trainLogicContext.getTrainModels()
                     saveJson = self._getTrainModelToDict(trainModels)
+                    trainedInfo = trainLogicContext.getTrainedInfo()
                     CapaUseCase.updateTrainLogic(
-                        TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=json.dumps(saveJson)))
+                        TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=json.dumps(saveJson), trainedInfo=json.dumps(trainedInfo)))
                 except Exception as e:
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())

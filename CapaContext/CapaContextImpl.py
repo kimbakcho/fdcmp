@@ -88,6 +88,7 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
         self.debugMsgs = []
         self._predictParams = dict()
         self.trainValidData = dict()
+        self._trainedInfo = dict()
         self._eqpModule = eqpModule
         self._model = dict()
 
@@ -107,6 +108,12 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
 
     def getTrainModels(self) -> dict[str, CapaContext.Context.TrainLogicModel] | None:
         return self._model
+
+    def setTrainedInfo(self, value: dict) -> None:
+        self._trainedInfo = value
+
+    def getTrainedInfo(self) -> dict | None:
+        return self._trainedInfo
 
 
 class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
@@ -151,6 +158,8 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
     def getSchedulePredictParamInfo(self) -> dict|list:
         return self._predictParamsInfo
 
+    def getTrainedInfo(self) -> dict | None:
+        return CapaUseCase.getTrainLogic(self._eqpModule).trainedInfo
 
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):

@@ -9,6 +9,7 @@ class TrainLogicResDto:
     model: str
     trainedModel: dict
     modelType: str
+    trainedInfo: dict
     updateDate: str
 
 
@@ -16,3 +17,4 @@ class TrainLogicResDto:
 class TrainLogicUpdateReqDto:
     id: int
     trainedModel: dict | str
+    trainedInfo: dict | str
