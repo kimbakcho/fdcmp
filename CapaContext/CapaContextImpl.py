@@ -163,11 +163,11 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
 
     def getTrainPeriodStart(self):
         res = CapaUseCase.getTrainValidData(self._eqpModule)
-        return res.trainPeriodStart
+        return datetime.datetime.fromisoformat(res.trainPeriodStart)
 
     def getTrainPeriodEnd(self):
         res = CapaUseCase.getTrainValidData(self._eqpModule)
-        return res.trainPeriodEnd
+        return datetime.datetime.fromisoformat(res.trainPeriodEnd)
 
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):

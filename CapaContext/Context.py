@@ -109,10 +109,10 @@ class PredictParamInfoContext:
     def getTrainedInfo(self) -> dict | None:
         pass
 
-    def getTrainPeriodStart(self) -> str | None:
+    def getTrainPeriodStart(self) -> datetime.datetime:
         pass
 
-    def getTrainPeriodEnd(self) -> str | None:
+    def getTrainPeriodEnd(self) -> datetime.datetime:
         pass
 
 class PredictLogicContext:
