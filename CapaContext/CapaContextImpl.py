@@ -161,6 +161,14 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
     def getTrainedInfo(self) -> dict | None:
         return CapaUseCase.getTrainLogic(self._eqpModule).trainedInfo
 
+    def getTrainPeriodStart(self):
+        res = CapaUseCase.getTrainValidData(self._eqpModule)
+        return res.trainPeriodStart
+
+    def getTrainPeriodEnd(self):
+        res = CapaUseCase.getTrainValidData(self._eqpModule)
+        return res.trainPeriodEnd
+
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 

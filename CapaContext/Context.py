@@ -108,6 +108,13 @@ class PredictParamInfoContext:
         pass
     def getTrainedInfo(self) -> dict | None:
         pass
+
+    def getTrainPeriodStart(self) -> str | None:
+        pass
+
+    def getTrainPeriodEnd(self) -> str | None:
+        pass
+
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:
         pass
