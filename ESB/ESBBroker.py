@@ -23,15 +23,15 @@ class ESBActiveMqBroker(ESBBroker):
 
     def sendMessage(self, message: str):
         if not self.__c.is_connected():
-            self.__c.connect()
+            self.__c.connect(wait=True)
         self.__c.send(self.__coreInfo.subject, message)
 
     def sendCommandMessage(self, message: str):
         if not self.__c.is_connected():
-            self.__c.connect()
+            self.__c.connect(wait=True)
         self.__c.send(self.__coreInfo.commandSubject, message)
 
     def sendCapaMessage(self, message: str):
         if not self.__c.is_connected():
-            self.__c.connect()
+            self.__c.connect(wait=True)
         self.__c.send(self.__coreInfo.capaSubject, message)

@@ -31,7 +31,7 @@ class CapaActiveMqConnect(CapaBrokerConnect):
 
             self._c.set_listener("mp", CapaActiveListener(self.__coreInfo, self._capaListenerWork))
 
-            self._c.connect()
+            self._c.connect(wait=True)
 
             self._c.subscribe(self.__coreInfo.capaSubject, env('MP_CORE_ID') + "_capaMessage")
 

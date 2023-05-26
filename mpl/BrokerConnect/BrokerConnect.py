@@ -39,7 +39,7 @@ class ActiveMqConnect(BrokerConnect):
 
             self._c.set_listener("mp", MPLActiveListener(self.__coreInfo, self._mplListenerWork))
 
-            self._c.connect()
+            self._c.connect(wait=True)
 
             self._c.subscribe(self.__coreInfo.subject, env('MP_CORE_ID') + "_message")
 
