@@ -30,6 +30,7 @@ class MPEqp:
                     self.__modules.append(MPEqpModule(module))
                 self.__moduleRecv = RecvState.done
         except Exception as e:
+            self.__loggerMpl.error(traceback.format_exc())
             self.__loggerMpl.error(e.__str__())
             self.__loggerMpl.error(traceback.format_stack())
             traceback.print_stack()
@@ -42,6 +43,7 @@ class MPEqp:
                 if module.id == id:
                     return module
         except Exception as e:
+            self.__loggerMpl.error(traceback.format_exc())
             self.__loggerMpl.error(e.__str__())
             self.__loggerMpl.error(traceback.format_stack())
             traceback.print_stack()

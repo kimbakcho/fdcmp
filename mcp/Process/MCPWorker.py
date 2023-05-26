@@ -43,6 +43,7 @@ class McpWorker:
                     except Exception as e:
                         self.__logger.error(context.get_message())
                         self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(traceback.format_exc())
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
@@ -60,6 +61,7 @@ class McpWorker:
                     except Exception as e:
                         self.__logger.error(context.get_message())
                         self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(traceback.format_exc())
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
@@ -71,6 +73,7 @@ class McpWorker:
                 except Exception as e:
                     self.__logger.error(context.get_message())
                     self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {conditions.name}')
+                    self.__logger.error(traceback.format_exc())
                     self.__logger.error(e.__str__())
                     self.__logger.error(traceback.format_stack())
                     traceback.print_stack()
@@ -80,6 +83,7 @@ class McpWorker:
             self.__contextHistory.append(copy.deepcopy(context))
         except Exception as e:
             logger = logging.getLogger('mcp')
+            logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()

@@ -54,6 +54,7 @@ class MPLActiveListener(ConnectionListener):
             self.__logger.error("frame.body start")
             self.__logger.error(frame.body)
             self.__logger.error("frame.body end")
+            self.__logger.error(traceback.format_exc())
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
             traceback.print_stack()

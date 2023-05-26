@@ -40,6 +40,7 @@ class CapaSchedulerWorker:
                                                         trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd())
                     CapaUseCase.updateTrainValidData(reqDto)
                 except Exception as e:
+                    logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
@@ -58,6 +59,7 @@ class CapaSchedulerWorker:
                     CapaUseCase.updateTrainLogic(
                         TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=json.dumps(saveJson), trainedInfo=json.dumps(trainedInfo)))
                 except Exception as e:
+                    logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
@@ -79,6 +81,7 @@ class CapaSchedulerWorker:
                                                                                         predictParamInfoContext.getSchedulePredictParamInfo())))
 
                 except Exception as e:
+                    logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
@@ -101,6 +104,7 @@ class CapaSchedulerWorker:
                                 "predictResult": predictLogicContext.getPredictResult()})
 
                     except Exception as e:
+                        logging.getLogger("capa").error(traceback.format_exc())
                         logging.getLogger("capa").error(e.__str__())
                         logging.getLogger("capa").error(traceback.format_stack())
                         traceback.print_stack()

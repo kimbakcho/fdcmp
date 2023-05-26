@@ -37,11 +37,13 @@ class MPLWorker:
                 except Exception as e:
                     self.__loggerMpl.error(f'{self.__module.eqpName}_{self.__module.name} {logicItem.name}')
                     self.__loggerMpl.error(message)
+                    self.__loggerMpl.error(traceback.format_exc())
                     self.__loggerMpl.error(e.__str__())
                     self.__loggerMpl.error(traceback.format_stack())
                     traceback.print_stack()
             self.__mcpWorker.run(self.__module, self.__context)
         except Exception as e:
+            self.__loggerMpl.error(traceback.format_exc())
             self.__loggerMpl.error(e.__str__())
             self.__loggerMpl.error(traceback.format_stack())
             traceback.print_stack()

@@ -58,10 +58,12 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
                 if q.empty():
                     time.sleep(0.1)
             except Exception as e:
+                loggerMpl.error(traceback.format_exc())
                 loggerMpl.error(e.__str__())
                 loggerMpl.error(traceback.format_stack())
                 traceback.print_stack()
     except Exception as e:
+        loggerMpl.error(traceback.format_exc())
         loggerMpl.error(e.__str__())
         loggerMpl.error(traceback.format_stack())
         traceback.print_stack()
@@ -78,6 +80,7 @@ def messageBrokerConnectManage(broker: BrokerConnect):
                 time.sleep(30)
         except Exception as e:
             loggerMpl = logging.getLogger('mpl')
+            loggerMpl.error(traceback.format_exc())
             loggerMpl.error(e.__str__())
             loggerMpl.error(traceback.format_stack())
             traceback.print_stack()
@@ -117,6 +120,7 @@ def mplProcessWorker():
             return
         except Exception as e:
             logger = logging.getLogger("mpl")
+            logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()

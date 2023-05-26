@@ -33,6 +33,7 @@ class MPLParserUtil:
                         self.__mpLogics.append(LogicItem(mpl.name, com))
                 self.__MPLogicRecvState = RecvState.done
         except Exception as e:
+            self.__logger.error(traceback.format_exc())
             self.__logger.error(e.__str__())
             self.__logger.error(traceback.format_stack())
             traceback.print_stack()

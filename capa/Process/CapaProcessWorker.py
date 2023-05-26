@@ -34,6 +34,7 @@ def capaPWorker(moduleId: int, q: Queue):
             capaSchedulerWorker.start()
         except Exception as e:
             logger = logging.getLogger("capa")
+            logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
@@ -75,6 +76,7 @@ def capaProcessWorker():
             return
         except Exception as e:
             logger = logging.getLogger("capa")
+            logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
