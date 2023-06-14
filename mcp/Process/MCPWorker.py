@@ -8,7 +8,7 @@ from FDCContext.context import Context, MpBasic, ConditionsBasic
 
 from datetime import datetime
 
-from mcp.Process.McpEqpTraceGroup import McpEqpTraceGroup
+from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 import copy
 
 from mcp.models import EventHistory, FdcDataGroup, TraceData

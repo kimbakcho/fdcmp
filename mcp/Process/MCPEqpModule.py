@@ -11,7 +11,7 @@ from bFdcAPI.MCP.UseCase import FdcMcpUseCase
 from fdcmp.Value import LogicItem
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
 from bFdcAPI.Enum import RecvState
-from mcp.Process.McpEqpTraceGroup import McpEqpTraceGroup
+from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 
 
 class MCPEqpModule:

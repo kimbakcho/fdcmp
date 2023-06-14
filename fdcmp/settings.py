@@ -62,11 +62,18 @@ LOGGING = {
             'filename': f'{BASE_DIR}/mcp/log/mcpLog.log',
             'formatter': 'verbose'
         },
-        'brokerMessageLog': {
+        'brokerMPLMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
             'maxBytes': 1024*1024*10,
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/mpl/BrokerLog/brokerMessage.log',
+            'filename': f'{BASE_DIR}/mpl/BrokerLog/brokerMPLMessage.log',
+            'formatter': 'verbose'
+        },
+        'brokerACPMessageLog': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024*1024*10,
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/acp/BrokerLog/brokerACPMessage.log',
             'formatter': 'verbose'
         },
         'capaLog': {
@@ -74,6 +81,13 @@ LOGGING = {
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/capa/log/capaLog.log',
+            'formatter': 'verbose'
+        },
+        'acpLog': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'H',
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/acp/log/acpLog.log',
             'formatter': 'verbose'
         },
     },
@@ -87,8 +101,13 @@ LOGGING = {
             'propagate': False,
             'level': 'INFO',
         },
-        'brokerMessage': {
-            'handlers': ['brokerMessageLog'],
+        'brokerMPLMessage': {
+            'handlers': ['brokerMPLMessageLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'brokerACPMessage': {
+            'handlers': ['brokerACPMessageLog'],
             'propagate': False,
             'level': 'INFO',
         },
@@ -99,6 +118,11 @@ LOGGING = {
         },
         'capa': {
             'handlers': ['console', 'capaLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'acp': {
+            'handlers': ['console', 'acpLog'],
             'propagate': False,
             'level': 'INFO',
         },

@@ -1,25 +1,19 @@
+import logging
 import traceback
-from typing import Callable
 
 from stomp import ConnectionListener
-import logging
 
-from bFdcAPI.Enum import CommandModule
-from bFdcAPI.MP.Dto.Core import CoreResDto
-from mpl.Process.MPEqp import MPEqp
-from mpl.Process.MPLParserUtil import MPLParserUtil
-from FDCContext.context import Context
-import json
-
-from mpl.Process.MPLListenerWorker import MPLListenerWorker
+from ESB.ListenerWorker import ListenerWorker
+from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 
 
-class MPLActiveListener(ConnectionListener):
+class ActiveMqACPListener(ConnectionListener):
 
-    def __init__(self, coreInfo: CoreResDto, mplListenerWorker: MPLListenerWorker) -> None:
-        self.__core = coreInfo
-        self.__logger = logging.getLogger('brokerMPLMessage')
-        self.__mplListenerWorker = mplListenerWorker
+    def __init__(self, acpSetting: ACPMessageCoreSettingResDto, acpListenerWorker: ListenerWorker) -> None:
+        self.__logger = logging.getLogger('brokerACPMessage')
+        self.__acpSetting = acpSetting
+        self.__acpListenerWorker = acpListenerWorker
+
     def on_connecting(self, host_and_port):
         self.__logger.info(f"ActiveMPListener on_connecting = {host_and_port}")
         pass
@@ -47,10 +41,10 @@ class MPLActiveListener(ConnectionListener):
     def on_message(self, frame):
         try:
             self.__logger.info(frame.body)
-            if frame.headers['destination'] == self.__core.subject:
-                self.__mplListenerWorker.onMessage(frame.body)
-            elif frame.headers['destination'] == self.__core.commandSubject:
-                self.__mplListenerWorker.onCommandMessage(frame.body)
+            if frame.headers['destination'] == self.__acpSetting.subject:
+                self.__acpListenerWorker.onMessage(frame.body)
+            elif frame.headers['destination'] == self.__acpSetting.commandSubject:
+                self.__acpListenerWorker.onCommandMessage(frame.body)
         except Exception as e:
             self.__logger.error("frame.body start")
             self.__logger.error(frame.body)

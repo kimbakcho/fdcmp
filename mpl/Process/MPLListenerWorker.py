@@ -1,7 +1,8 @@
 import logging
 from typing import Callable
 
-from bFdcAPI.Enum import CommandModule, CommandAction
+from ESB.ListenerWorker import ListenerWorker
+from bFdcAPI.Enum import CommandModule, CommandAction, CommandType, RecvState
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from mpl.Process.MPEqp import MPEqp
 from mpl.Process.MPEqpModule import MPEqpModule
@@ -12,7 +13,7 @@ from multiprocessing import Process
 import time
 
 
-class MPLListenerWorker:
+class MPLListenerWorker(ListenerWorker):
     def __init__(self, mpEqps: dict[str, MPEqp], workProcesses: list, mplPWorker: Callable) -> None:
         self.mpEqps = mpEqps
         self.workProcesses = workProcesses
@@ -55,6 +56,11 @@ class MPLListenerWorker:
                 self.deleteEqp(r.get("Eqp"), r.get("EqpCode"))
             if r.get("Action") == CommandAction.update.value:
                 self.updateEqp(r.get("Eqp"), r.get("EqpCode"))
+        elif r.get("Module") == CommandModule.mpl.value:
+            if r.get("Type") == CommandType.mpLogic.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__mplUtil.setMPLogicAPIRecvState(RecvState.needReload)
 
     def updateEqp(self, eqpId: int, eqpCode: str):
         #if EqpCode Update

@@ -8,13 +8,14 @@ from django.utils.log import configure_logging
 from environ import environ
 import time
 
+from ESB.BrokerConnect import BrokerConnect, messageBrokerConnectManage
 from ESB.ESBBrokerManager import ESBBrokerType
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from bFdcAPI.MP.UseCase import FdcMpUseCase
 from fdcmp.ProcessLogger import setLogger
 from fdcmp.settings import BASE_DIR
-from mpl.BrokerConnect.BrokerConnect import ActiveMqConnect, BrokerConnect
+from mpl.BrokerConnect.ActiveMqMPLConnect import ActiveMqMPLConnect
 from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
 from django.apps import apps
@@ -78,23 +79,6 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
         traceback.print_stack()
 
 
-def messageBrokerConnectManage(broker: BrokerConnect):
-    time.sleep(30)
-    while (True):
-        try:
-            if not broker.isConnect():
-                broker.connect()
-                time.sleep(10)
-            else:
-                time.sleep(30)
-        except Exception as e:
-            loggerMpl = logging.getLogger('mpl')
-            loggerMpl.error(traceback.format_exc())
-            loggerMpl.error(e.__str__())
-            loggerMpl.error(traceback.format_stack())
-            traceback.print_stack()
-
-
 def mplProcessWorker():
     while True:
         try:
@@ -111,8 +95,9 @@ def mplProcessWorker():
 
             connect = None
             if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
-                connect = ActiveMqConnect(mplListenerWorker, coreInfo)
-            threading.Thread(target=messageBrokerConnectManage, args=[connect]).start()
+                connect = ActiveMqMPLConnect(mplListenerWorker, coreInfo)
+            threading.Thread(target=messageBrokerConnectManage,
+                             args=[connect, logging.getLogger("brokerMPLMessage")]).start()
             for mpEqp in mpEqps.values():
                 for module in mpEqp.getModules():
                     process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],

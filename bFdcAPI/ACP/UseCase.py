@@ -5,9 +5,18 @@ import requests
 from bFdcAPI import env
 from bFdcAPI.ACP.Dto.ACPAlarmGroup import ACPAlarmGroupResDto
 from bFdcAPI.ACP.Dto.ACPEQPAlarmGroup import ACPEQPAlarmGroupResDto
+from bFdcAPI.ACP.Dto.ACPLogicCode import ACPLogicCodeResDto
+from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 
 
 class ACPUseCase:
+
+    @staticmethod
+    def getACPLogicCode() -> ACPLogicCodeResDto:
+        r = requests.get(f"{env('BFDC_URL')}/acp/code/")
+        res = r.json()
+        return ACPLogicCodeResDto(**res)
+
     @staticmethod
     def getACPEQPAlarmGroups(eqpCode: str) -> List[ACPEQPAlarmGroupResDto]:
         r = requests.get(f"{env('BFDC_URL')}/acp/eqpAlarmGroups/", params={
@@ -27,4 +36,10 @@ class ACPUseCase:
         if res.__len__() == 0:
             return None
         return ACPAlarmGroupResDto(**res[0])
+
+    @staticmethod
+    def getACPMessageCoreSetting():
+        r = requests.get(f"{env('BFDC_URL')}/acp/messageCoreSetting/")
+        return ACPMessageCoreSettingResDto(**r.json())
+
 

@@ -1,36 +1,21 @@
 import logging
-import threading
-import time
 import traceback
 
 import stomp
 
+from ESB import ListenerWorker
+from ESB.BrokerConnect import BrokerConnect
 from bFdcAPI.MP.Dto.Core import CoreResDto
 from mpl.Listener.MPLActiveListener import MPLActiveListener
-from mpl.Process.MPLListenerWorker import MPLListenerWorker
 
 from bFdcAPI import env
 
 
-class BrokerConnect:
+class ActiveMqMPLConnect(BrokerConnect):
 
-    def __init__(self, mplListenerWork: MPLListenerWorker) -> None:
-        super().__init__()
+    def __init__(self, mplListenerWork: ListenerWorker, coreInfo: CoreResDto) -> None:
         self._mplListenerWork = mplListenerWork
-
-    def connect(self):
-        pass
-
-    def isConnect(self):
-        pass
-
-
-class ActiveMqConnect(BrokerConnect):
-
-    def __init__(self, mplListenerWork: MPLListenerWorker, coreInfo: CoreResDto) -> None:
-        super().__init__(mplListenerWork)
         self.__coreInfo = coreInfo
-
 
     def connect(self):
         try:
@@ -45,9 +30,9 @@ class ActiveMqConnect(BrokerConnect):
 
             self._c.subscribe(self.__coreInfo.commandSubject, env('MP_CORE_ID') + "_command")
         except Exception as e:
-            logging.getLogger("brokerMessage").error(traceback.format_exc())
-            logging.getLogger("brokerMessage").error(e.__str__())
-            logging.getLogger("brokerMessage").error(traceback.format_stack())
+            logging.getLogger("brokerMPLMessage").error(traceback.format_exc())
+            logging.getLogger("brokerMPLMessage").error(e.__str__())
+            logging.getLogger("brokerMPLMessage").error(traceback.format_stack())
             traceback.print_stack()
 
     def isConnect(self):
