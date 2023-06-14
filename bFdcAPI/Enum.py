@@ -19,6 +19,7 @@ class CommandModule(Enum):
     mpl = "mpl"
     eqpModule = "eqpModule"
     eqp = "eqp"
+    acpModule = "acpModule"
 
 class EqpModuleType(Enum):
     port = "port"
