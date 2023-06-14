@@ -39,7 +39,7 @@ class FdcEqpUseCase:
         for item in res.json():
             result.append(FdcEqpModuleResDto(**item))
         return result
-
-    def getEqpModule(self, id) -> FdcEqpModuleResDto:
+    @staticmethod
+    def getEqpModule(id) -> FdcEqpModuleResDto:
         res = requests.get(f"{env('BFDC_URL')}/eqp/module/{id}/")
         return FdcEqpModuleResDto(**res.json())

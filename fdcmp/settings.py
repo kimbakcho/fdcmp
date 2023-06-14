@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import logging
 import os
 
 import environ
@@ -48,18 +49,31 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
         'mplLog': {
-            'class': 'logging.FileHandler',
-            'filename': f'{BASE_DIR}/mpl/mplLog.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'H',
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/mpl/log/mplLog.log',
             'formatter': 'verbose'
         },
         'mcpLog': {
-            'class': 'logging.FileHandler',
-            'filename': f'{BASE_DIR}/mcp/mcpLog.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'H',
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/mcp/log/mcpLog.log',
+            'formatter': 'verbose'
+        },
+        'brokerMessageLog': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024*1024*10,
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/mpl/BrokerLog/brokerMessage.log',
             'formatter': 'verbose'
         },
         'capaLog': {
-            'class': 'logging.FileHandler',
-            'filename': f'{BASE_DIR}/capa/capaLog.log',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'H',
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/capa/log/capaLog.log',
             'formatter': 'verbose'
         },
     },
@@ -70,6 +84,11 @@ LOGGING = {
         },
         'mpl': {
             'handlers': ['console', 'mplLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'brokerMessage': {
+            'handlers': ['brokerMessageLog'],
             'propagate': False,
             'level': 'INFO',
         },
@@ -107,7 +126,8 @@ INSTALLED_APPS = [
     'command',
     'mpl',
     'mcp',
-    'capa'
+    'capa',
+    'acp'
 ]
 
 MIDDLEWARE = [

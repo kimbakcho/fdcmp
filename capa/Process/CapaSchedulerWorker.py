@@ -13,19 +13,24 @@ from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
 import json
 
+from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
+from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
+
 
 class CapaSchedulerWorker:
 
-    def __init__(self, moduleId: int) -> None:
-        self.moduleId = moduleId
+    def __init__(self, module: FdcEqpModuleResDto) -> None:
+        self.module = module
         super().__init__()
 
     def start(self):
         lists = CapaUseCase.getTrainSchedulerHistoryList(TrainSchedulerHistoryListReqDto(execute=False,
-                                                                                         trainScheduler__eqpModule=self.moduleId,
+                                                                                         trainScheduler__eqpModule=self.module.id,
                                                                                          planTime__lte=datetime.now().isoformat()))
+
+
         if lists.__len__() > 0:
-            trainValidData = CapaUseCase.getTrainValidData(self.moduleId)
+            trainValidData = CapaUseCase.getTrainValidData(self.module.id)
             trainValidDataContext = TrainValidDataContext()
             if trainValidData.logicCode is not None and trainValidData.logicCode.__len__() > 0:
                 try:
@@ -40,15 +45,16 @@ class CapaSchedulerWorker:
                                                         trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd())
                     CapaUseCase.updateTrainValidData(reqDto)
                 except Exception as e:
+                    logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                     logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
 
-            trainLogic = CapaUseCase.getTrainLogic(self.moduleId)
+            trainLogic = CapaUseCase.getTrainLogic(self.module.id)
             trainLogicContext = None
             if trainLogic.logic is not None and trainLogic.logic.__len__() > 0:
-                trainLogicContext = TrainLogicContext(self.moduleId)
+                trainLogicContext = TrainLogicContext(self.module.id)
                 try:
                     com = compile(decoratorLogicCode(trainLogic.logic), '<string>', mode='exec')
                     exec(com, None, locals())
@@ -59,15 +65,16 @@ class CapaSchedulerWorker:
                     CapaUseCase.updateTrainLogic(
                         TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=json.dumps(saveJson), trainedInfo=json.dumps(trainedInfo)))
                 except Exception as e:
+                    logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                     logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
                     traceback.print_stack()
 
-            predictParamInfo = CapaUseCase.getPredictParamInfo(self.moduleId)
+            predictParamInfo = CapaUseCase.getPredictParamInfo(self.module.id)
             predictParamInfoContext = None
             if predictParamInfo.logic is not None and predictParamInfo.logic.__len__() > 0:
-                predictParamInfoContext = PredictParamInfoContext(self.moduleId)
+                predictParamInfoContext = PredictParamInfoContext(self.module.id)
                 try:
                     com = compile(decoratorLogicCode(predictParamInfo.logic), '<string>', mode='exec')
                     exec(com, None, locals())
@@ -81,6 +88,7 @@ class CapaSchedulerWorker:
                                                                                         predictParamInfoContext.getSchedulePredictParamInfo())))
 
                 except Exception as e:
+                    logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                     logging.getLogger("capa").error(traceback.format_exc())
                     logging.getLogger("capa").error(e.__str__())
                     logging.getLogger("capa").error(traceback.format_stack())
@@ -88,11 +96,11 @@ class CapaSchedulerWorker:
 
             predictResults = list()
 
-            predictLogic = CapaUseCase.getPredictLogic(self.moduleId)
+            predictLogic = CapaUseCase.getPredictLogic(self.module.id)
             predictLogicContext = None
             if predictParamInfo.schedulePredictParamInfo is not None and predictParamInfo.logic.__len__() > 0:
                 if predictLogic.logic is not None and predictLogic.logic.__len__() > 0:
-                    predictLogicContext = PredictLogicContext(self.moduleId)
+                    predictLogicContext = PredictLogicContext(self.module.id)
                     try:
                         com = compile(decoratorLogicCode(predictLogic.logic), '<string>', mode='exec')
                         exec(com, None, locals())
@@ -104,6 +112,7 @@ class CapaSchedulerWorker:
                                 "predictResult": predictLogicContext.getPredictResult()})
 
                     except Exception as e:
+                        logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                         logging.getLogger("capa").error(traceback.format_exc())
                         logging.getLogger("capa").error(e.__str__())
                         logging.getLogger("capa").error(traceback.format_stack())

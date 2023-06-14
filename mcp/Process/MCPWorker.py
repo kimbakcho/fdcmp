@@ -80,9 +80,20 @@ class McpWorker:
             if self.__contextHistory.__len__() >= self.__maxHistorySize:
                 self.__contextHistory.pop(0)
             self.mcpSaveWork(eqpModule, context, event, traceGroup, self.__contextHistory)
-            self.__contextHistory.append(copy.deepcopy(context))
+            #If the context object contains a field that cannot be deep copied, it does not become deep copy.
+            saveContext = Context()
+            saveContext.mp = context.mp
+            saveContext.event = context.event
+            saveContext.trace = context.trace
+            saveContext.etc = context.etc
+            saveContext.conditions = context.conditions
+            saveContext.currentFdcDataGroup = context.currentFdcDataGroup
+
+            self.__contextHistory.append(copy.deepcopy(saveContext))
         except Exception as e:
             logger = logging.getLogger('mcp')
+            logger.error(context.get_message())
+            self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name}')
             logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
@@ -90,8 +101,8 @@ class McpWorker:
 
     def isRunStateChange(self, contextHistory: list[Context], context) -> bool:
         return (contextHistory.__len__() > 0 and (
-                contextHistory[-1].conditions[ConditionsBasic.IsRun.value]
-                != context.conditions[ConditionsBasic.IsRun.value])) \
+                contextHistory[-1].conditions.get(ConditionsBasic.IsRun.value)
+                != context.conditions.get(ConditionsBasic.IsRun.value))) \
             or (contextHistory.__len__() == 0)
 
     def mcpSaveWork(self, eqpModule: MCPEqpModule, context: Context,
@@ -113,7 +124,8 @@ class McpWorker:
                     eventItem = context.event.get(event.name).get(eventLVKey)
                     saveEvent[eventLVKey] = eventItem
 
-        if self.isRunStateChange(contextHistory, context) \
+        if ConditionsBasic.IsRun.value in context.conditions.keys() \
+                and self.isRunStateChange(contextHistory, context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:
             if context.currentFdcDataGroup is not None:
                 ##Idle Fab Group End
@@ -132,7 +144,8 @@ class McpWorker:
                                         value=saveEvent,
                                         context=context.get_simpleContext(),
                                         fdcDataGroup=context.currentFdcDataGroup)
-        if context.conditions[ConditionsBasic.IsRun.value]:
+        if ConditionsBasic.IsRun.value in context.conditions.keys() \
+                and context.conditions[ConditionsBasic.IsRun.value]:
             if traceGroup is not None:
                 TraceData.objects.create(
                     traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
@@ -147,7 +160,9 @@ class McpWorker:
                     fdcDataGroup=context.currentFdcDataGroup
                 )
 
-        if self.isRunStateChange(contextHistory, context) and not context.conditions[ConditionsBasic.IsRun.value]:
+        if ConditionsBasic.IsRun.value in context.conditions.keys() \
+                and self.isRunStateChange(contextHistory, context) and \
+                not context.conditions[ConditionsBasic.IsRun.value]:
             self.fabDataGroupEnd(context, now)
             # IdleFabGroupStart
             self.fabDataGroupStart(eqpModule, context, now, FabGroupType.Idle)
@@ -169,10 +184,13 @@ class McpWorker:
 
     def fabDataGroupEnd(self, context: Context, now: datetime):
         if context.currentFdcDataGroup is not None:
-            fdcDataGroup = FdcDataGroup.objects.get(_id=context.currentFdcDataGroup)
-            fdcDataGroup.context = context.get_simpleContext()
-            fdcDataGroup.etc = context.etc
-            fdcDataGroup.endTime = now
-            fdcDataGroup.betweenTimeSec = (fdcDataGroup.endTime - fdcDataGroup.startTime).seconds
-            fdcDataGroup.save()
-            context.currentFdcDataGroup = None
+            if FdcDataGroup.objects.filter(_id=context.currentFdcDataGroup).count() > 0:
+                fdcDataGroup = FdcDataGroup.objects.get(_id=context.currentFdcDataGroup)
+                fdcDataGroup.context = context.get_simpleContext()
+                fdcDataGroup.etc = context.etc
+                fdcDataGroup.endTime = now
+                fdcDataGroup.betweenTimeSec = (fdcDataGroup.endTime - fdcDataGroup.startTime).seconds
+                fdcDataGroup.save()
+                context.currentFdcDataGroup = None
+            else:
+                context.currentFdcDataGroup = None

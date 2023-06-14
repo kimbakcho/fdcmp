@@ -19,13 +19,12 @@ class MPEqp:
         self.__resDto = resDto
         self.__modules: list[MPEqpModule] = list()
         self.__moduleRecv = RecvState.init
-        self.__eqpUseCase = FdcEqpUseCase()
         self.__loggerMpl = logging.getLogger('mpl')
 
     def getModules(self) -> List[MPEqpModule]:
         try:
             if self.__moduleRecv == RecvState.init:
-                modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
+                modules = FdcEqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
                 for module in modules:
                     self.__modules.append(MPEqpModule(module))
                 self.__moduleRecv = RecvState.done

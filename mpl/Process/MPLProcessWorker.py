@@ -1,6 +1,8 @@
+import os
 import threading
 import traceback
 from multiprocessing import Queue, Process, current_process
+from pathlib import Path
 
 from django.utils.log import configure_logging
 from environ import environ
@@ -18,6 +20,7 @@ from mpl.Process.MPEqp import MPEqp
 from django.apps import apps
 from django.conf import settings
 import logging
+import re
 
 from mpl.Process.MPLListenerWorker import MPLListenerWorker
 
@@ -31,11 +34,17 @@ mpEqps: dict[str, MPEqp] = dict()
 
 
 def mplPWorker(moduleId: int, q: Queue, c: Queue):
-    setLogger("mpl", f'{BASE_DIR}/mpl/mplLog.log')
-    setLogger("mcp", f'{BASE_DIR}/mcp/mcpLog.log')
+    module = FdcEqpUseCase.getEqpModule(moduleId)
+    eqpName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", module.eqpName)
+    eqpModuleName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", module.name)
+    logDir = f'{BASE_DIR}/mpl/log/{eqpName}/{eqpModuleName}/'
+    Path(logDir).mkdir(parents=True, exist_ok=True)
+
+    setLogger("mpl", f'{logDir}mplLog.log')
+    setLogger("mcp", f'{logDir}mcpLog.log')
     loggerMpl = logging.getLogger('mpl')
     if not apps.apps_ready:
-        configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+        # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
         apps.populate(['mcp'])
     try:
         mplWorker = MPLWorker(moduleId, q, c)
@@ -91,9 +100,7 @@ def mplProcessWorker():
         try:
             fdcMpUseCase = FdcMpUseCase()
 
-            fdcEqpUseCase = FdcEqpUseCase()
-
-            eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
+            eqps = FdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
             for eqp in eqps:
                 mpEqps[eqp.code] = MPEqp(eqp)

@@ -19,13 +19,13 @@ class CapaEqp:
         self.__resDto = resDto
         self.__modules: list[CapaEqpModule] = list()
         self.__moduleRecv = RecvState.init
-        self.__eqpUseCase = FdcEqpUseCase()
+
         self.__loggerMpl = logging.getLogger('capa')
 
     def getModules(self) -> List[CapaEqpModule]:
         try:
             if self.__moduleRecv == RecvState.init:
-                modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
+                modules = FdcEqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
                 for module in modules:
                     if module.moduleType == EqpModuleType.capa.value:
                         self.__modules.append(CapaEqpModule(module))

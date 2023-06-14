@@ -79,11 +79,11 @@ class MPLListenerWorker:
 
     def createEqpModule(self, eqpId: int, eqpCode: str, eqpModuleId: int):
         if eqpCode not in self.mpEqps.keys():
-            eqp = self.__fdcEqpUseCase.getEqp(eqpId)
+            eqp = FdcEqpUseCase.getEqp(eqpId)
             self.mpEqps[eqpCode] = MPEqp(eqp)
         mpEqp = self.mpEqps.get(eqpCode)
         if mpEqp.getModule(eqpModuleId) is None:
-            res = self.__fdcEqpUseCase.getEqpModule(eqpModuleId)
+            res = FdcEqpUseCase.getEqpModule(eqpModuleId)
             mpEqpModule = MPEqpModule(res)
             mpEqp.addModule(mpEqpModule)
             process = Process(target=self.__mplPWorker,

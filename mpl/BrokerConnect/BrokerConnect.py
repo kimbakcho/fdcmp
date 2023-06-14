@@ -45,9 +45,9 @@ class ActiveMqConnect(BrokerConnect):
 
             self._c.subscribe(self.__coreInfo.commandSubject, env('MP_CORE_ID') + "_command")
         except Exception as e:
-            logging.getLogger("mpl").error(traceback.format_exc())
-            logging.getLogger("mpl").error(e.__str__())
-            logging.getLogger("mpl").error(traceback.format_stack())
+            logging.getLogger("brokerMessage").error(traceback.format_exc())
+            logging.getLogger("brokerMessage").error(e.__str__())
+            logging.getLogger("brokerMessage").error(traceback.format_stack())
             traceback.print_stack()
 
     def isConnect(self):

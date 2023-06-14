@@ -55,11 +55,11 @@ class CapaListenerWorker:
 
     def createEqpModule(self, eqpId: int, eqpCode: str, eqpModuleId: int):
         if eqpCode not in self.capaEqps.keys():
-            eqp = self.__fdcEqpUseCase.getEqp(eqpId)
+            eqp = FdcEqpUseCase.getEqp(eqpId)
             self.capaEqps[eqpCode] = CapaEqp(eqp)
         capaEqp = self.capaEqps.get(eqpCode)
         if capaEqp.getModule(eqpModuleId) is None:
-            res = self.__fdcEqpUseCase.getEqpModule(eqpModuleId)
+            res = FdcEqpUseCase.getEqpModule(eqpModuleId)
             if res.moduleType == EqpModuleType.capa.value:
                 capaEqpModule = CapaEqpModule(res)
                 capaEqp.addModule(capaEqpModule)

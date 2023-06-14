@@ -1,7 +1,9 @@
 import logging
+import multiprocessing
 import time
 import traceback
 from multiprocessing import Queue, Process
+from pathlib import Path
 
 from environ import environ
 
@@ -16,6 +18,7 @@ from capa.Process.CapaListenerWorker import CapaListenerWorker
 from capa.Process.CapaSchedulerWorker import CapaSchedulerWorker
 from fdcmp.ProcessLogger import setLogger
 from fdcmp.settings import BASE_DIR
+import re
 
 env = environ.Env()
 
@@ -25,14 +28,23 @@ capaEqps: dict[str, CapaEqp] = dict()
 
 
 def capaPWorker(moduleId: int, q: Queue):
-    setLogger("capa", f'{BASE_DIR}/capa/capaLog.log')
+    eqpModule = FdcEqpUseCase.getEqpModule(moduleId)
+    eqpName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", eqpModule.eqpName)
+    eqpModuleName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", eqpModule.eqpName)
+    logDir = f'{BASE_DIR}/capa/log/{eqpName}/{eqpModuleName}/'
+
+    Path(logDir).mkdir(parents=True, exist_ok=True)
+    setLogger("capa", f'{logDir}capaLog.log')
     logger = logging.getLogger("capa")
-    logger.info(f"start process moduleId={moduleId}")
+    process = multiprocessing.current_process()
+    logger.info(f"start process({process.pid}) moduleId={moduleId}")
+
     while True:
-        capaSchedulerWorker = CapaSchedulerWorker(moduleId)
+        capaSchedulerWorker = CapaSchedulerWorker(eqpModule)
         try:
             capaSchedulerWorker.start()
         except Exception as e:
+            logging.getLogger("capa").error(f'{eqpModule.eqpName}_{eqpModule.name}')
             logger = logging.getLogger("capa")
             logger.error(traceback.format_exc())
             logger.error(e.__str__())
@@ -46,9 +58,7 @@ def capaProcessWorker():
         try:
             fdcMpUseCase = FdcMpUseCase()
 
-            fdcEqpUseCase = FdcEqpUseCase()
-
-            eqps = fdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
+            eqps = FdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
             for eqp in eqps:
                 capaEqps[eqp.code] = CapaEqp(eqp)

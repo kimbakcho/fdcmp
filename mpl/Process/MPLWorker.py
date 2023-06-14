@@ -19,8 +19,8 @@ class MPLWorker:
         self.moduleId = moduleId
         self.__loggerMpl = logging.getLogger('mpl')
         self.__mplParserUtil = MPLParserUtil()
-        self.__eqpUseCase = FdcEqpUseCase()
-        module = self.__eqpUseCase.getEqpModule(id=self.moduleId)
+
+        module = FdcEqpUseCase.getEqpModule(id=self.moduleId)
         self.__module = MCPEqpModule(module)
         self.__context = Context()
         self.__context.setLogger(logging.getLogger("mcp"))

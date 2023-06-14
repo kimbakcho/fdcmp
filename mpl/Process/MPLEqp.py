@@ -18,7 +18,6 @@ class MPLEqp:
         self.__resDto = resDto
         self.__modules = []
         self.__moduleRecv = RecvState.init
-        self.__eqpUseCase = FdcEqpUseCase()
         self.__moduleLock = threading.Lock()
         self.__loggerMpl = logging.getLogger('mpl')
 
@@ -26,7 +25,7 @@ class MPLEqp:
         try:
             self.__moduleLock.acquire()
             if self.__moduleRecv == RecvState.init:
-                modules = self.__eqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
+                modules = FdcEqpUseCase.getEqpModuleList(FdcEqpModuleReqDto(eqp=self.id))
                 self.__modules = list(
                     map(lambda x: MCPEqpModule(x), modules)
                 )
