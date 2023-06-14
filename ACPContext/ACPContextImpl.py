@@ -20,20 +20,26 @@ class ACPContextImpl(ACPContext):
     def logMessage(self, message: str):
         self.logger.info(message)
 
-    def get_message(self):
+    def get_message(self) -> str:
         return self.__message
 
     def set_message(self, value: str):
         self.__message = value
 
-    def getEqpAlarmGroup(self, eqpCode: str):
+    def getEqpAlarmGroups(self, eqpCode: str) -> list[dict]:
         result = list()
         for item in ACPUseCase.getACPEQPAlarmGroups(eqpCode):
             result.append(asdict(item))
         return result
 
-    def getAlarmGroup(self, groupName: str):
-        return asdict(ACPUseCase.getACPAlarmGroup(groupName))
+    def getAlarmGroup(self, groupName: str) -> dict | None:
+        res = ACPUseCase.getACPAlarmGroup(groupName)
+        if res is not None:
+            return asdict(res)
+        return None
 
-    def getEqpInfo(self, eqpCode: str):
-        return asdict(FdcEqpUseCase.getEqpFromCode(eqpCode))
+    def getEqpInfo(self, eqpCode: str) -> dict | None:
+        res = FdcEqpUseCase.getEqpFromCode(eqpCode)
+        if res is not None:
+            return asdict(res)
+        return None

@@ -14,11 +14,11 @@ class ACPContext:
     def set_message(self, value: str):
         pass
 
-    def getEqpAlarmGroup(self, eqpCode: str) -> list[dict]:
+    def getEqpAlarmGroups(self, eqpCode: str) -> list[dict]:
         pass
 
-    def getAlarmGroup(self, groupName: str) -> dict:
+    def getAlarmGroup(self, groupName: str) -> dict|None:
         pass
 
-    def getEqpInfo(self, eqpCode: str) -> dict:
+    def getEqpInfo(self, eqpCode: str) -> dict|None:
         pass
