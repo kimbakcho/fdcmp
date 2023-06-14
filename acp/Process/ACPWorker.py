@@ -1,9 +1,11 @@
+import json
 import logging
 import traceback
 
 from ACPContext.ACPContextImpl import ACPContextImpl
 from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.ACP.UseCase import ACPUseCase
+from bFdcAPI.Enum import CommandModule, CommandAction
 
 
 class ACPWorker:
@@ -11,13 +13,13 @@ class ACPWorker:
         super().__init__()
         self.acp_code = ACPUseCase.getACPLogicCode()
         if not self.acp_code.logicCode:
-           return
-        self.com = compile(decoratorLogicCode(self.acp_code.logicCode),'<string>', mode='exec')
+            return
+        self.com = compile(decoratorLogicCode(self.acp_code.logicCode), '<string>', mode='exec')
         self.loggerAcp = logging.getLogger('acp')
 
     def messageParser(self, message: str):
         if not self.acp_code.logicCode:
-           return
+            return
         try:
             exec(self.com, None, locals())
             context = ACPContextImpl()
@@ -31,4 +33,10 @@ class ACPWorker:
             traceback.print_stack()
 
     def commandParser(self, message: str):
-        pass
+        loads = json.loads(message)
+        if loads["Module"] == CommandModule.acpModule.value \
+            and loads["Action"] == CommandAction.update.value \
+                and loads["ModuleType"] == "logicCode":
+            self.acp_code = ACPUseCase.getACPLogicCode()
+            self.com = compile(decoratorLogicCode(self.acp_code.logicCode), '<string>', mode='exec')
+
