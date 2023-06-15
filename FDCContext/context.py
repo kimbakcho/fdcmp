@@ -33,6 +33,7 @@ class Context:
         self.trace = {}
         self.conditions = {}
         self.etc = {}
+        self.contextHistory = list()
         self.currentFdcDataGroup: Optional[ObjectId] = None
 
     def setLogger(self, logger):

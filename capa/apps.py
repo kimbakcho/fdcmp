@@ -7,7 +7,7 @@ class CapaConfig(AppConfig):
 
     def ready(self):
         if 'runserver' in sys.argv or 'fdcmp.wsgi' in sys.argv or 'fdcmp.asgi:application' in sys.argv:
-            if 'runserver' in sys.argv:
+            if 'runserver' in sys.argv and "--noreload" not in sys.argv:
                 if not os.environ.get('RUN_MAIN'):
                     return
             from capa.Process.CapaProcessWorker import capaProcessWorker

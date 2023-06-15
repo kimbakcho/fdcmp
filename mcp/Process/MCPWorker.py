@@ -23,7 +23,7 @@ class McpWorker:
     def __init__(self) -> None:
         super().__init__()
         self.__maxHistorySize = 20
-        self.__contextHistory = list()
+
         self.__logger = logging.getLogger('mcp')
 
     def run(self, eqpModule: MCPEqpModule, context: Context):
@@ -77,9 +77,9 @@ class McpWorker:
                     self.__logger.error(e.__str__())
                     self.__logger.error(traceback.format_stack())
                     traceback.print_stack()
-            if self.__contextHistory.__len__() >= self.__maxHistorySize:
-                self.__contextHistory.pop(0)
-            self.mcpSaveWork(eqpModule, context, event, traceGroup, self.__contextHistory)
+            if context.contextHistory.__len__() >= self.__maxHistorySize:
+                context.contextHistory.pop(0)
+            self.mcpSaveWork(eqpModule, context, event, traceGroup)
             #If the context object contains a field that cannot be deep copied, it does not become deep copy.
             saveContext = Context()
             saveContext.mp = context.mp
@@ -89,7 +89,7 @@ class McpWorker:
             saveContext.conditions = context.conditions
             saveContext.currentFdcDataGroup = context.currentFdcDataGroup
 
-            self.__contextHistory.append(copy.deepcopy(saveContext))
+            context.contextHistory.append(copy.deepcopy(saveContext))
         except Exception as e:
             logger = logging.getLogger('mcp')
             logger.error(context.get_message())
@@ -99,16 +99,15 @@ class McpWorker:
             logger.error(traceback.format_stack())
             traceback.print_stack()
 
-    def isRunStateChange(self, contextHistory: list[Context], context) -> bool:
-        return (contextHistory.__len__() > 0 and (
-                contextHistory[-1].conditions.get(ConditionsBasic.IsRun.value)
+    def isRunStateChange(self, context) -> bool:
+        return (context.contextHistory.__len__() > 0 and (
+                context.contextHistory[-1].conditions.get(ConditionsBasic.IsRun.value)
                 != context.conditions.get(ConditionsBasic.IsRun.value))) \
-            or (contextHistory.__len__() == 0)
+            or (context.contextHistory.__len__() == 0)
 
     def mcpSaveWork(self, eqpModule: MCPEqpModule, context: Context,
                     event: None | MCPEqpEvent,
-                    traceGroup: None | McpEqpTraceGroup,
-                    contextHistory: list[Context]):
+                    traceGroup: None | McpEqpTraceGroup):
 
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
         saveTrace = {}
@@ -125,7 +124,7 @@ class McpWorker:
                     saveEvent[eventLVKey] = eventItem
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
-                and self.isRunStateChange(contextHistory, context) \
+                and self.isRunStateChange(context) \
                 and context.conditions[ConditionsBasic.IsRun.value]:
             if context.currentFdcDataGroup is not None:
                 ##Idle Fab Group End
@@ -161,7 +160,7 @@ class McpWorker:
                 )
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
-                and self.isRunStateChange(contextHistory, context) and \
+                and self.isRunStateChange(context) and \
                 not context.conditions[ConditionsBasic.IsRun.value]:
             self.fabDataGroupEnd(context, now)
             # IdleFabGroupStart
