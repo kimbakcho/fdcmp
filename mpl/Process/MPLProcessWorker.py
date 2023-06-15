@@ -38,7 +38,7 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     module = FdcEqpUseCase.getEqpModule(moduleId)
     eqpName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", module.eqpName)
     eqpModuleName = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", module.name)
-    logDir = f'{BASE_DIR}/mpl/log/{eqpName}/{eqpModuleName}/'
+    logDir = f'{BASE_DIR}/log/mpl/{eqpName}/{eqpModuleName}/'
     Path(logDir).mkdir(parents=True, exist_ok=True)
 
     setLogger("mpl", f'{logDir}mplLog.log')

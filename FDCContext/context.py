@@ -40,6 +40,10 @@ class Context:
         self.contextHistory = list()
         self.currentFdcDataGroup: Optional[ObjectId] = None
         self.__acpSetting = None
+        self.__eqpCode = None
+        self.__eqpName = None
+        self.__moduleName = None
+        self.__moduleCode = None
 
     def setLogger(self, logger):
         self.logger = logger
@@ -85,3 +89,27 @@ class Context:
             return
         acpBroker = ESBBrokerManager().getACPBroker(self.__acpSetting)
         acpBroker.sendMessage(msg)
+
+    def setEqpCode(self, eqpCode: str):
+        self.__eqpCode = eqpCode
+
+    def getEqpCode(self):
+        return self.__eqpCode
+
+    def setEqpName(self, eqpName: str):
+        self.__eqpName = eqpName
+
+    def getEqpName(self):
+        return self.__eqpName
+
+    def setModuleName(self, moduleName: str):
+        self.__moduleName = moduleName
+
+    def getModuleName(self):
+        return self.__moduleName
+
+    def setModuleCode(self, moduleCode: str):
+        self.__moduleCode = moduleCode
+
+    def getModuleCode(self):
+        return self.__moduleCode

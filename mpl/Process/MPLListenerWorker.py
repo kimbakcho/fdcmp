@@ -51,11 +51,17 @@ class MPLListenerWorker(ListenerWorker):
                 self.createEqpModule(r.get("Eqp"), r.get("EqpCode"), r.get("EqpModule"))
             elif r.get("Action") == CommandAction.delete.value:
                 self.deleteEqpModule(r.get("Eqp"), r.get("EqpCode"), r.get("EqpModule"))
+            elif r.get("Action") == CommandAction.update.value:
+                for module in self.mpEqps.get(r["EqpCode"]).getModules():
+                    module.commandQueue.put(message)
         elif r.get("Module") == CommandModule.eqp.value:
             if r.get("Action") == CommandAction.delete.value:
                 self.deleteEqp(r.get("Eqp"), r.get("EqpCode"))
             if r.get("Action") == CommandAction.update.value:
                 self.updateEqp(r.get("Eqp"), r.get("EqpCode"))
+                if r["EqpCode"] in self.mpEqps.keys():
+                    for module in self.mpEqps.get(r["EqpCode"]).getModules():
+                        module.commandQueue.put(message)
         elif r.get("Module") == CommandModule.mpl.value:
             if r.get("Type") == CommandType.mpLogic.value:
                 if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,

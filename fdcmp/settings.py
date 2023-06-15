@@ -52,42 +52,56 @@ LOGGING = {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/mpl/log/mplLog.log',
+            'filename': f'{BASE_DIR}/log/mpl/mplLog.log',
             'formatter': 'verbose'
         },
         'mcpLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/mcp/log/mcpLog.log',
+            'filename': f'{BASE_DIR}/log/mcp/mcpLog.log',
             'formatter': 'verbose'
         },
         'brokerMPLMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
             'maxBytes': 1024*1024*10,
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/mpl/BrokerLog/brokerMPLMessage.log',
+            'filename': f'{BASE_DIR}/log/mpl/BrokerLog/brokerMPLMessage.log',
             'formatter': 'verbose'
         },
         'brokerACPMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
             'maxBytes': 1024*1024*10,
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/acp/BrokerLog/brokerACPMessage.log',
+            'filename': f'{BASE_DIR}/log/acp/BrokerLog/brokerACPMessage.log',
             'formatter': 'verbose'
         },
         'capaLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/capa/log/capaLog.log',
+            'filename': f'{BASE_DIR}/log/capa/capaLog.log',
             'formatter': 'verbose'
         },
         'acpLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
-            'filename': f'{BASE_DIR}/acp/log/acpLog.log',
+            'filename': f'{BASE_DIR}/log/acp/acpLog.log',
+            'formatter': 'verbose'
+        },
+        'wRILLog': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'H',
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/log/wRecipeInterLock/wRILLog.log',
+            'formatter': 'verbose'
+        },
+        'brokerWRILMessageLog': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024*1024*10,
+            'backupCount': 240,
+            'filename': f'{BASE_DIR}/log/wRecipeInterLock/BrokerLog/brokerWRILMessage.log',
             'formatter': 'verbose'
         },
     },
@@ -126,6 +140,16 @@ LOGGING = {
             'propagate': False,
             'level': 'INFO',
         },
+        'wRIL': {
+            'handlers': ['console', 'wRILLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        'brokerWRILMessage': {
+            'handlers': ['brokerWRILMessageLog'],
+            'propagate': False,
+            'level': 'INFO',
+        },
         'initEqp': {
             'handlers': ['console', 'mplLog'],
             'propagate': True,
@@ -151,7 +175,8 @@ INSTALLED_APPS = [
     'mpl',
     'mcp',
     'capa',
-    'acp'
+    'acp',
+    'wRecipeInterLock'
 ]
 
 MIDDLEWARE = [
@@ -225,18 +250,7 @@ DATABASE_ROUTERS = ['fdcmp.DBRouter.DBRouter']
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+
 ]
 
 # Internationalization

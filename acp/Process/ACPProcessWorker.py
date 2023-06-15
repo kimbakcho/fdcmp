@@ -15,7 +15,7 @@ from fdcmp.settings import BASE_DIR
 from django.apps import apps
 
 def acpPWorker(q: Queue, c: Queue):
-    logPath = f'{BASE_DIR}/acp/log/acpLog.log'
+    logPath = f'{BASE_DIR}/log/acp/acpLog.log'
     setLogger("acp", logPath)
     loggerAcp = logging.getLogger('acp')
     try:

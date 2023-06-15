@@ -50,6 +50,7 @@ class ESBACPActiveMqBroker(ESBBroker):
             self.__c.connect(wait=True)
         self.__c.send(self.__acpSetting.subject, message)
 
+
     def sendCommandMessage(self, message: str):
         if not self.__c.is_connected():
             self.__c.connect(wait=True)

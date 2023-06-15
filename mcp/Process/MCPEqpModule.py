@@ -20,6 +20,7 @@ class MCPEqpModule:
         self.name = resDto.name
         self.eqp = resDto.eqp
         self.eqpName = resDto.eqpName
+        self.eqpCode = resDto.eqpCode
         self.id = resDto.id
         self.__resDto = resDto
         self.__eqpUseCase = FdcEqpUseCase()
@@ -80,3 +81,12 @@ class MCPEqpModule:
 
     def setConditionsAPIRecvState(self, state: RecvState):
         self.__conditionsRecvState = state
+
+    def reLoadBasicInfo(self):
+        module = FdcEqpUseCase.getEqpModule(id=self.id)
+        self.code = module.code
+        self.name = module.name
+        self.eqp = module.eqp
+        self.eqpName = module.eqpName
+        self.eqpCode = module.eqpCode
+        self.__resDto = module
