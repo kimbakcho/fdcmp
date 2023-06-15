@@ -34,7 +34,7 @@ class ESBBrokerManager:
         return None
 
     def getACPBroker(self, setting: ACPMessageCoreSettingResDto) -> Optional[ESBBroker]:
-        if not self.__acpBroker:
+        if self.__acpBroker:
             return self.__acpBroker
         else:
             if setting.brokerType == ESBBrokerType.ActiveMQ.value:
