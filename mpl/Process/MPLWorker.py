@@ -31,6 +31,10 @@ class MPLWorker:
     def messageParser(self, message: str):
         try:
             self.__context.set_message(message)
+            self.__context.setEqpCode(self.__module.eqpCode)
+            self.__context.setEqpName(self.__module.eqpName)
+            self.__context.setModuleCode(self.__module.code)
+            self.__context.setModuleName(self.__module.name)
             for logicItem in self.__mplParserUtil.getMpLogics():
                 try:
                     exec(logicItem.logicComPile, None, locals())
