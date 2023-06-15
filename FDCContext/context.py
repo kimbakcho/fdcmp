@@ -4,6 +4,10 @@ from typing import Dict, Optional
 
 from bson import ObjectId
 
+from ESB.ESBBrokerManager import ESBBrokerManager
+from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
+from bFdcAPI.ACP.UseCase import ACPUseCase
+
 
 class ConditionsBasic(Enum):
     IsRun = "IsRun"
@@ -24,10 +28,10 @@ class MpBasic(Enum):
 
 
 class Context:
-    def __init__(self, message: Optional[str] = None) -> None:
+    def __init__(self) -> None:
         self.debugMsgs = []
         super().__init__()
-        self.__message = message
+        self.__message = None
         self.mp = {}
         self.event = {}
         self.trace = {}
@@ -35,6 +39,7 @@ class Context:
         self.etc = {}
         self.contextHistory = list()
         self.currentFdcDataGroup: Optional[ObjectId] = None
+        self.__acpSetting = None
 
     def setLogger(self, logger):
         self.logger = logger
@@ -72,3 +77,10 @@ class Context:
     def debug(self, msg: str):
         self.debugMsgs.append(msg)
 
+    def setAPCMessageCoreSetting(self, apcSetting: ACPMessageCoreSettingResDto):
+        self.__acpSetting = apcSetting
+
+    def sendACPMessage(self, msg: str):
+        if not self.__acpSetting:
+            acpBroker = ESBBrokerManager().getACPBroker(self.__acpSetting)
+            acpBroker.sendMessage(msg)

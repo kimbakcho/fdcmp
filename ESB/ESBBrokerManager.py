@@ -22,6 +22,7 @@ class ESBBrokerManager:
     def __init__(self) -> None:
         super().__init__()
         self.__connects = dict()
+        self.__acpBroker = None
 
     def getBroker(self, core: CoreResDto) -> Optional[ESBBroker]:
         if core.id in self.__connects.keys():
@@ -33,6 +34,9 @@ class ESBBrokerManager:
         return None
 
     def getACPBroker(self, setting: ACPMessageCoreSettingResDto) -> Optional[ESBBroker]:
-        if setting.brokerType == ESBBrokerType.ActiveMQ.value:
-            return ESBACPActiveMqBroker(acpSetting=setting)
-        return None
+        if not self.__acpBroker:
+            return self.__acpBroker
+        else:
+            if setting.brokerType == ESBBrokerType.ActiveMQ.value:
+                self.__acpBroker = ESBACPActiveMqBroker(acpSetting=setting)
+                return self.__acpBroker
