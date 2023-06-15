@@ -82,5 +82,6 @@ class Context:
 
     def sendACPMessage(self, msg: str):
         if not self.__acpSetting:
-            acpBroker = ESBBrokerManager().getACPBroker(self.__acpSetting)
-            acpBroker.sendMessage(msg)
+            return
+        acpBroker = ESBBrokerManager().getACPBroker(self.__acpSetting)
+        acpBroker.sendMessage(msg)
