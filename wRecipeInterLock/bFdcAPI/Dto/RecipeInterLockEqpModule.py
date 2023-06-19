@@ -10,6 +10,7 @@ class RecipeInterLockEqpModuleResDto:
     orderIdx: int
     updateTime: str
     user: int
+    eqpName: str
 
 
 @dataclass

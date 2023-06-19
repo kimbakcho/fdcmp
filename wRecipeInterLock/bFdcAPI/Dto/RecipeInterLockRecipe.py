@@ -11,6 +11,10 @@ class RecipeInterLockRecipeResDto:
     useParamInterLock: bool
     paramInterLock: list
     user: int
+    eqpName: str
+    moduleName: str
+    operationName: str
+    operationCode: str
 
 
 @dataclass
