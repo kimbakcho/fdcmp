@@ -1,4 +1,5 @@
 import logging
+import multiprocessing
 import threading
 import time
 import traceback
@@ -17,6 +18,8 @@ def wrilPWorker(q: Queue, c: Queue):
     logPath = f'{BASE_DIR}/log/wRecipeInterLock/wRILLog.log'
     setLogger("wRIL", logPath)
     loggerWRIL = logging.getLogger('wRIL')
+    process = multiprocessing.current_process()
+    loggerWRIL.info(f"WRILWorker PID = {process.pid}")
     try:
         wrilWorker = WRILWorker()
         while True:
@@ -31,8 +34,8 @@ def wrilPWorker(q: Queue, c: Queue):
                     while not c.empty():
                         command = c.get()
                         wrilWorker.commandParser(command)
-                    if q.empty():
-                        time.sleep(0.1)
+                if q.empty():
+                    time.sleep(0.1)
             except Exception as e:
                 loggerWRIL.error(traceback.format_exc())
                 loggerWRIL.error(e.__str__())

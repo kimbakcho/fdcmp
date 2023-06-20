@@ -1,3 +1,4 @@
+import multiprocessing
 import os
 import threading
 import traceback
@@ -44,6 +45,8 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     setLogger("mpl", f'{logDir}mplLog.log')
     setLogger("mcp", f'{logDir}mcpLog.log')
     loggerMpl = logging.getLogger('mpl')
+    process = multiprocessing.current_process()
+    loggerMpl.info(f"start process({process.pid}) eqpName = {module.eqpName} moduleId={module.name}")
     if not apps.apps_ready:
         # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
         apps.populate(['mcp'])

@@ -17,7 +17,7 @@ class ActiveMqACPConnect(BrokerConnect):
     def connect(self):
         try:
             self._c = stomp.Connection([(self.__acpSetting.sourceIp, self.__acpSetting.sourcePort)], reconnect_attempts_max=-1,
-                                       reconnect_sleep_max=10.0)
+                                       reconnect_sleep_max=10.0, auto_content_length=False)
 
             self._c.set_listener("acp", ActiveMqACPListener(self.__acpSetting, self._acpListenerWork))
 

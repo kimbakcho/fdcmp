@@ -67,6 +67,8 @@ class WRILWorker:
                                     "operationCode": message["operationCode"],
                                     "operationName": rilRecipe.operationName,
                                     "alarmAction": ["sms", "email", "eqpLock"],
+                                    "lotId": message.get("lotId", ""),
+                                    "product": message.get("product", ""),
                                     "cause": cause
                                 }))
                                 return
@@ -84,6 +86,8 @@ class WRILWorker:
                                 "operationCode": message["operationCode"],
                                 "operationName": rilRecipe.operationName,
                                 "alarmAction": ["sms", "email", "eqpLock"],
+                                "lotId": message.get("lotId", ""),
+                                "product": message.get("product", ""),
                                 "cause": cause
                             }))
                             return

@@ -24,3 +24,4 @@ def messageBrokerConnectManage(broker: BrokerConnect, logger):
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
+        time.sleep(10)

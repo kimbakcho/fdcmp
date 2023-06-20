@@ -36,6 +36,17 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
+
+Path(f"{BASE_DIR}/log/mpl/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/mcp/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/mpl/BrokerLog/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/acp/BrokerLog/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/capa/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/acp/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/wRecipeInterLock/").mkdir(parents=True, exist_ok=True)
+Path(f"{BASE_DIR}/log/wRecipeInterLock/BrokerLog/").mkdir(parents=True, exist_ok=True)
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

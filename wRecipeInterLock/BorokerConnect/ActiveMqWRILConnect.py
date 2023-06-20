@@ -18,7 +18,7 @@ class ActiveMqWRILConnect(BrokerConnect):
     def connect(self):
         try:
             self._c = stomp.Connection([(self.__wrilSetting.sourceIp, self.__wrilSetting.sourcePort)], reconnect_attempts_max=-1,
-                                       reconnect_sleep_max=10.0)
+                                       reconnect_sleep_max=10.0, auto_content_length=False)
 
             self._c.set_listener("wril", ActiveMqWRILListener(self.__wrilSetting, self._wrilListenerWork))
 

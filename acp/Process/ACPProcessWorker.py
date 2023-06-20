@@ -1,7 +1,9 @@
 import logging
+import multiprocessing
 import threading
 import time
 import traceback
+from dataclasses import asdict
 from multiprocessing import Queue, Process
 
 from ESB.BrokerConnect import messageBrokerConnectManage
@@ -18,6 +20,8 @@ def acpPWorker(q: Queue, c: Queue):
     logPath = f'{BASE_DIR}/log/acp/acpLog.log'
     setLogger("acp", logPath)
     loggerAcp = logging.getLogger('acp')
+    process = multiprocessing.current_process()
+    loggerAcp.info(f"ACP Process PID: {process.pid}")
     try:
         acpWorker = ACPWorker()
         while True:
@@ -50,12 +54,10 @@ def acpProcessWorker():
     while True:
         try:
             acpSetting = ACPUseCase.getACPMessageCoreSetting()
-
             acpListenerWorker = ACPListenerWorker()
             connect = None
             if acpSetting.brokerType == ESBBrokerType.ActiveMQ.value:
                 connect = ActiveMqACPConnect(acpListenerWorker, acpSetting)
-
             threading.Thread(target=messageBrokerConnectManage,
                              args=[connect, logging.getLogger("brokerACPMessage")]).start()
 

@@ -27,7 +27,7 @@ class CapaActiveMqConnect(CapaBrokerConnect):
     def connect(self):
         try:
             self._c = stomp.Connection([(self.__coreInfo.ESBIp, self.__coreInfo.ESBPort)], reconnect_attempts_max=-1,
-                                       reconnect_sleep_max=10.0)
+                                       reconnect_sleep_max=10.0, auto_content_length=False)
 
             self._c.set_listener("mp", CapaActiveListener(self.__coreInfo, self._capaListenerWork))
 

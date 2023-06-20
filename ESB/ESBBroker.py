@@ -20,7 +20,7 @@ class ESBActiveMqBroker(ESBBroker):
     def __init__(self, coreInfo: CoreResDto) -> None:
         super().__init__()
         self.__coreInfo = coreInfo
-        self.__c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)])
+        self.__c = stomp.Connection([(coreInfo.ESBIp, coreInfo.ESBPort)], auto_content_length=False)
 
     def sendMessage(self, message: str):
         if not self.__c.is_connected():
@@ -43,7 +43,7 @@ class ESBACPActiveMqBroker(ESBBroker):
     def __init__(self, acpSetting: ACPMessageCoreSettingResDto) -> None:
         super().__init__()
         self.__acpSetting = acpSetting
-        self.__c = stomp.Connection([(acpSetting.sourceIp, acpSetting.sourcePort)])
+        self.__c = stomp.Connection([(acpSetting.sourceIp, acpSetting.sourcePort)], auto_content_length=False)
 
     def sendMessage(self, message: str):
         if not self.__c.is_connected():
