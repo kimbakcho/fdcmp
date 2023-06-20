@@ -35,6 +35,7 @@ class WRILWorker:
                                                operationCode=message["operationCode"], recipeName=message["recipe"]))
 
                 if rilRecipe is None:
+                    #TODO OperationName 추가 하기
                     self.loggerWRIL.info(message)
                     cause = "모듈에 등록 되지 않은 레시피가 진행되었습니다."
                     self.loggerWRIL.info(cause)
@@ -42,6 +43,7 @@ class WRILWorker:
                         "from": "WRIL",
                         "eqpCode": message["eqpCode"],
                         "moduleCode": message["moduleCode"],
+                        "operationCode": message["operationCode"],
                         "eqpName": module[0].eqpName,
                         "moduleName": module[0].moduleName,
                         "alarmAction": ["sms", "email", "eqpLock"],
