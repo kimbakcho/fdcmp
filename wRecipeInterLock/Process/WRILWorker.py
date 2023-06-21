@@ -52,7 +52,7 @@ class WRILWorker:
                         "moduleName": module[0].moduleName,
                         "alarmAction": ["sms", "email", "eqpLock"],
                         "cause": cause
-                    }))
+                    }, ensure_ascii=False))
                     return
 
                 if rilRecipe.useParamInterLock:
@@ -76,7 +76,7 @@ class WRILWorker:
                                     "lotId": message.get("lotId", ""),
                                     "product": message.get("product", ""),
                                     "cause": cause
-                                }))
+                                }, ensure_ascii=False))
                                 return
                         else:
                             self.loggerWRIL.info(message)
@@ -95,7 +95,7 @@ class WRILWorker:
                                 "lotId": message.get("lotId", ""),
                                 "product": message.get("product", ""),
                                 "cause": cause
-                            }))
+                            }, ensure_ascii=False))
                             return
 
 

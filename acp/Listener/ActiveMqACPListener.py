@@ -1,6 +1,7 @@
 import logging
 import traceback
 
+
 from stomp import ConnectionListener
 
 from ESB.ListenerWorker import ListenerWorker
@@ -13,6 +14,7 @@ class ActiveMqACPListener(ConnectionListener):
         self.__logger = logging.getLogger('brokerACPMessage')
         self.__acpSetting = acpSetting
         self.__acpListenerWorker = acpListenerWorker
+
 
     def on_connecting(self, host_and_port):
         self.__logger.info(f"ActiveMPListener on_connecting = {host_and_port}")
