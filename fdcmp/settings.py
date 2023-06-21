@@ -36,7 +36,6 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
-
 Path(f"{BASE_DIR}/log/mpl/").mkdir(parents=True, exist_ok=True)
 Path(f"{BASE_DIR}/log/mcp/").mkdir(parents=True, exist_ok=True)
 Path(f"{BASE_DIR}/log/mpl/BrokerLog/").mkdir(parents=True, exist_ok=True)
@@ -45,7 +44,6 @@ Path(f"{BASE_DIR}/log/capa/").mkdir(parents=True, exist_ok=True)
 Path(f"{BASE_DIR}/log/acp/").mkdir(parents=True, exist_ok=True)
 Path(f"{BASE_DIR}/log/wRecipeInterLock/").mkdir(parents=True, exist_ok=True)
 Path(f"{BASE_DIR}/log/wRecipeInterLock/BrokerLog/").mkdir(parents=True, exist_ok=True)
-
 
 LOGGING = {
     'version': 1,
@@ -64,56 +62,64 @@ LOGGING = {
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/mpl/mplLog.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'mcpLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/mcp/mcpLog.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'brokerMPLMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 1024*1024*10,
+            'maxBytes': 1024 * 1024 * 10,
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/mpl/BrokerLog/brokerMPLMessage.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'brokerACPMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 1024*1024*10,
+            'maxBytes': 1024 * 1024 * 10,
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/acp/BrokerLog/brokerACPMessage.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'capaLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/capa/capaLog.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'acpLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/acp/acpLog.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'wRILLog': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'H',
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/wRecipeInterLock/wRILLog.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
         'brokerWRILMessageLog': {
             'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 1024*1024*10,
+            'maxBytes': 1024 * 1024 * 10,
             'backupCount': 240,
             'filename': f'{BASE_DIR}/log/wRecipeInterLock/BrokerLog/brokerWRILMessage.log',
-            'formatter': 'verbose'
+            'formatter': 'verbose',
+            'encoding': 'utf8'
         },
     },
     'loggers': {

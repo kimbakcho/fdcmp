@@ -38,7 +38,6 @@ class WRILWorker:
                     self.loggerWRIL.info(message)
                     cause = "모듈에 등록 되지 않은 레시피가 진행되었습니다."
                     self.loggerWRIL.info(cause)
-                    message.get("lotId", "")
                     operationInfo = requests.get("http://10.20.10.114/mesapi/mes/operationInfo/", params={
                         "operationCode": message.get("operationCode", "")
                     })
