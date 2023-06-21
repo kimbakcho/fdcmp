@@ -35,15 +35,20 @@ class WRILWorker:
                                                operationCode=message["operationCode"], recipeName=message["recipe"]))
 
                 if rilRecipe is None:
-                    #TODO OperationName 추가 하기
                     self.loggerWRIL.info(message)
                     cause = "모듈에 등록 되지 않은 레시피가 진행되었습니다."
                     self.loggerWRIL.info(cause)
+                    message.get("lotId", "")
+                    operationInfo = requests.get("http://10.20.10.114/mesapi/mes/operationInfo/", params={
+                        "operationCode": message.get("operationCode", "")
+                    })
+                    operationInfo = operationInfo.json()
                     self.acpBroker.sendMessage(json.dumps({
                         "from": "WRIL",
-                        "eqpCode": message["eqpCode"],
-                        "moduleCode": message["moduleCode"],
-                        "operationCode": message["operationCode"],
+                        "eqpCode": message.get("eqpCode", ""),
+                        "moduleCode": message.get("moduleCode", ""),
+                        "operationCode": message.get("operationCode", ""),
+                        "operationName": operationInfo.get("operationName",""),
                         "eqpName": module[0].eqpName,
                         "moduleName": module[0].moduleName,
                         "alarmAction": ["sms", "email", "eqpLock"],
@@ -61,12 +66,12 @@ class WRILWorker:
                                 self.loggerWRIL.info(cause)
                                 self.acpBroker.sendMessage(json.dumps({
                                     "from": "WRIL",
-                                    "eqpCode": message["eqpCode"],
-                                    "moduleCode": message["moduleCode"],
-                                    "recipe": message["recipe"],
+                                    "eqpCode": message.get("eqpCode", ""),
+                                    "moduleCode": message.get("moduleCode", ""),
+                                    "recipe": message.get("recipe", ""),
                                     "eqpName": module[0].eqpName,
                                     "moduleName": module[0].moduleName,
-                                    "operationCode": message["operationCode"],
+                                    "operationCode": message.get("operationCode", ""),
                                     "operationName": rilRecipe.operationName,
                                     "alarmAction": ["sms", "email", "eqpLock"],
                                     "lotId": message.get("lotId", ""),
