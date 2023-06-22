@@ -34,6 +34,7 @@ class CommandType(Enum):
     tracelv = "tracelv"
     conditions = "conditions"
     mpLogic = "mpLogic"
+    alarm = "alarm"
 
 
 class CommandAction(Enum):

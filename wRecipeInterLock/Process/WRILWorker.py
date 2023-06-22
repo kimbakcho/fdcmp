@@ -23,6 +23,14 @@ class WRILWorker:
         try:
             message = json.loads(message)
 
+            eqpState = requests.get("http://10.20.10.114/mesapi/mes/eqpState/", {
+                "eqpCode": message["eqpCode"]
+            })
+
+            eqpState = eqpState.json()
+            if eqpState["lastEvent"] not in ["RUN", "WAIT", "WAIT1", "CONTROL_MODE"]:
+                return
+
             module = WRecipeInterLockUseCase.getRILModule(RecipeInterLockEqpModuleReqDto(
                 eqpCode=message["eqpCode"],
                 moduleCode=message["moduleCode"]
@@ -47,10 +55,11 @@ class WRILWorker:
                         "eqpCode": message.get("eqpCode", ""),
                         "moduleCode": message.get("moduleCode", ""),
                         "operationCode": message.get("operationCode", ""),
-                        "operationName": operationInfo.get("operationName",""),
+                        "operationName": operationInfo.get("operationName", ""),
                         "eqpName": module[0].eqpName,
                         "moduleName": module[0].moduleName,
-                        "alarmAction": ["sms", "email", "eqpLock"],
+                        "alarmAction": ["sms", "email", "eqpLock", "lotHold"],
+                        "lotId": message.get("lotId", ""),
                         "cause": cause
                     }, ensure_ascii=False))
                     return
@@ -91,7 +100,7 @@ class WRILWorker:
                                 "moduleName": module[0].moduleName,
                                 "operationCode": message["operationCode"],
                                 "operationName": rilRecipe.operationName,
-                                "alarmAction": ["sms", "email", "eqpLock"],
+                                "alarmAction": ["sms", "email", "eqpLock", "lotHold"],
                                 "lotId": message.get("lotId", ""),
                                 "product": message.get("product", ""),
                                 "cause": cause

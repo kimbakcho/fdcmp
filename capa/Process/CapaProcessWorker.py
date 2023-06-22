@@ -22,7 +22,7 @@ import re
 
 env = environ.Env()
 
-workProcesses = list()
+capaWorkProcesses = list()
 
 capaEqps: dict[str, CapaEqp] = dict()
 
@@ -37,7 +37,7 @@ def capaPWorker(moduleId: int, q: Queue):
     setLogger("capa", f'{logDir}capaLog.log')
     logger = logging.getLogger("capa")
     process = multiprocessing.current_process()
-    logger.info(f"start process({process.pid}) moduleId={moduleId}")
+    logger.info(f"start capa process({process.pid}) moduleId={moduleId}")
 
     while True:
         capaSchedulerWorker = CapaSchedulerWorker(eqpModule)
@@ -65,7 +65,7 @@ def capaProcessWorker():
 
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
-            capaListenerWorker = CapaListenerWorker(capaEqps, workProcesses, capaPWorker)
+            capaListenerWorker = CapaListenerWorker(capaEqps, capaWorkProcesses, capaPWorker)
 
             connect = None
             if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
@@ -76,7 +76,7 @@ def capaProcessWorker():
                     if module.moduleType == EqpModuleType.capa.value:
                         capaProcess = Process(target=capaPWorker, args=[module.id, module.messageQueue],
                                               name=f'{capaEqp.name}_{module.name}', daemon=True)
-                        workProcesses.append({"process": capaProcess, "eqp": f'{capaEqp.name}',
+                        capaWorkProcesses.append({"process": capaProcess, "eqp": f'{capaEqp.name}',
                                               "eqpId": capaEqp.id, "moduleId": module.id,
                                               "module": f'{module.name}'})
                         capaProcess.start()
@@ -90,4 +90,9 @@ def capaProcessWorker():
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
+            time.sleep(10)
+            while capaWorkProcesses.__len__() > 0:
+                process = capaWorkProcesses.pop()
+                process.kill()
+                process.kill.close()
             time.sleep(10)

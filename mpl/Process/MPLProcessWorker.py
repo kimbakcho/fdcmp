@@ -46,7 +46,7 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     setLogger("mcp", f'{logDir}mcpLog.log')
     loggerMpl = logging.getLogger('mpl')
     process = multiprocessing.current_process()
-    loggerMpl.info(f"start process({process.pid}) eqpName = {module.eqpName} moduleId={module.name}")
+    loggerMpl.info(f"start mpl process({process.pid}) eqpName = {module.eqpName} moduleId={module.name}")
     if not apps.apps_ready:
         # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
         apps.populate(['mcp'])
@@ -86,7 +86,6 @@ def mplProcessWorker():
     while True:
         try:
             fdcMpUseCase = FdcMpUseCase()
-
             eqps = FdcEqpUseCase.getEqpList(FdcEqpReqDto(core=env('MP_CORE_ID', int)))
 
             for eqp in eqps:
@@ -101,6 +100,8 @@ def mplProcessWorker():
                 connect = ActiveMqMPLConnect(mplListenerWorker, coreInfo)
             threading.Thread(target=messageBrokerConnectManage,
                              args=[connect, logging.getLogger("brokerMPLMessage")]).start()
+
+
             for mpEqp in mpEqps.values():
                 for module in mpEqp.getModules():
                     process = Process(target=mplPWorker, args=[module.id, module.messageQueue, module.commandQueue],
@@ -109,6 +110,7 @@ def mplProcessWorker():
                                           "eqpId": mpEqp.id, "moduleId": module.id,
                                           "module": f'{module.name}'})
                     process.start()
+
 
             if connect is not None:
                 connect.connect()
@@ -119,4 +121,9 @@ def mplProcessWorker():
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
+            while workProcesses.__len__() > 0:
+                process = workProcesses.pop()
+                process.kill()
+                process.kill.close()
             time.sleep(10)
+
