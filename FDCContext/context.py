@@ -6,7 +6,6 @@ from bson import ObjectId
 
 from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
-from bFdcAPI.ACP.UseCase import ACPUseCase
 
 
 class ConditionsBasic(Enum):
@@ -25,6 +24,7 @@ class MpBasic(Enum):
     IsAlarm = "IsAlarm"
     TraceGroupCode = "TraceGroupCode"
     EventCode = "EventCode"
+    AlarmCode = "AlarmCode"
 
 
 class Context:
@@ -34,6 +34,7 @@ class Context:
         self.__message = None
         self.mp = {}
         self.event = {}
+        self.alarm = {}
         self.trace = {}
         self.conditions = {}
         self.etc = {}
@@ -65,7 +66,11 @@ class Context:
             return self.event.get(eventGroup).get(eventName)
         else:
             return None
-
+    def getAlarmValue(self, alarmGroup, alarmName):
+        if alarmGroup in self.alarm.keys() and alarmName in self.alarm[alarmGroup].keys():
+            return self.alarm.get(alarmGroup).get(alarmName)
+        else:
+            return None
     def getConditionsValue(self, conditionsName):
         if conditionsName in self.conditions.keys():
             return self.conditions.get(conditionsName)
