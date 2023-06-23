@@ -66,6 +66,15 @@ class MPLWorker:
                                        CommandAction.delete.value, CommandAction.orderSwap.value]:
                     if r.get("EventCode") in self.__module.getEvents().keys():
                         self.__module.getEvents()[r.get("EventCode")].setEventLVAPIRecvState(RecvState.needReload)
+            if r.get("Type") == CommandType.alarm.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    self.__module.setAlarmAPIRecvState(RecvState.needReload)
+            elif r.get("Type") == CommandType.alarmlv.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
+                                       CommandAction.delete.value, CommandAction.orderSwap.value]:
+                    if r.get("AlarmCode") in self.__module.getAlarms().keys():
+                        self.__module.getAlarms()[r.get("AlarmCode")].setAlarmLVAPIRecvState(RecvState.needReload)
             elif r.get("Type") == CommandType.conditions.value:
                 if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
                                        CommandAction.delete.value, CommandAction.orderSwap.value]:

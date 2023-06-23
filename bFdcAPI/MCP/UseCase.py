@@ -2,6 +2,8 @@ from typing import List
 
 import requests
 
+from bFdcAPI.MCP.Dto.FdcMcpAlarm import FdcMcpAlarmResDto
+from bFdcAPI.MCP.Dto.FdcMcpAlarmLV import FdcMcpAlarmLVResDto
 from bFdcAPI.MCP.Dto.FdcMcpConditions import ConditionsResDto
 from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdcAPI.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
@@ -27,6 +29,22 @@ class FdcMcpUseCase:
         result: list[FdcMcpEventLVResDto] = list()
         for item in res.json():
             result.append(FdcMcpEventLVResDto(**item))
+        return result
+
+    @staticmethod
+    def getAlarmList(eqpModule: int) -> List[FdcMcpAlarmResDto]:
+        res = requests.get(f"{env('BFDC_URL')}/mcp/alarm/", params={"eqpModule": eqpModule})
+        result: list[FdcMcpAlarmResDto] = list()
+        for item in res.json():
+            result.append(FdcMcpAlarmResDto(**item))
+        return result
+
+    @staticmethod
+    def getAlarmLVList(alarm: int) -> List[FdcMcpAlarmLVResDto]:
+        res = requests.get(f"{env('BFDC_URL')}/mcp/alarmLV/", params={"alarm": alarm})
+        result: list[FdcMcpAlarmLVResDto] = list()
+        for item in res.json():
+            result.append(FdcMcpAlarmLVResDto(**item))
         return result
 
     @staticmethod

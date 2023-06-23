@@ -2,6 +2,7 @@ import logging
 import traceback
 
 from mcp.Process.Enum import FabGroupType
+from mcp.Process.MCPEqpAlarm import MCPEqpAlarm
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
 from mcp.Process.MCPEqpModule import MCPEqpModule
 from FDCContext.context import Context, MpBasic, ConditionsBasic
@@ -11,7 +12,7 @@ from datetime import datetime
 from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 import copy
 
-from mcp.models import EventHistory, FdcDataGroup, TraceData
+from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory
 
 from pytz import timezone
 
@@ -30,6 +31,7 @@ class McpWorker:
         try:
             event = None
             traceGroup = None
+            alarm = None
             if context.mp[MpBasic.IsEvent.value] \
                     and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
                 event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
@@ -40,6 +42,24 @@ class McpWorker:
                         if event.name not in context.event.keys():
                             context.event[event.name] = {}
                         context.event[event.name][logicItem.name] = runResult
+                    except Exception as e:
+                        self.__logger.error(context.get_message())
+                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(traceback.format_exc())
+                        self.__logger.error(e.__str__())
+                        self.__logger.error(traceback.format_stack())
+                        traceback.print_stack()
+
+            if context.mp[MpBasic.IsAlarm.value] \
+                    and context.mp[MpBasic.AlarmCode.value] in eqpModule.getAlarms().keys():
+                alarm = eqpModule.getAlarms()[context.mp[MpBasic.AlarmCode.value]]
+                for logicItem in alarm.getLogics(alarm.id):
+                    try:
+                        exec(logicItem.logicComPile, None, locals())
+                        runResult = locals().get("run")(context)
+                        if alarm.name not in context.alarm.keys():
+                            context.alarm[alarm.name] = {}
+                        context.alarm[alarm.name][logicItem.name] = runResult
                     except Exception as e:
                         self.__logger.error(context.get_message())
                         self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
@@ -65,6 +85,7 @@ class McpWorker:
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
+
             for conditions in eqpModule.getConditions():
                 try:
                     exec(conditions.logicComPile, None, locals())
@@ -79,11 +100,12 @@ class McpWorker:
                     traceback.print_stack()
             if context.contextHistory.__len__() >= self.__maxHistorySize:
                 context.contextHistory.pop(0)
-            self.mcpSaveWork(eqpModule, context, event, traceGroup)
-            #If the context object contains a field that cannot be deep copied, it does not become deep copy.
+            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup)
+            # If the context object contains a field that cannot be deep copied, it does not become deep copy.
             saveContext = Context()
             saveContext.mp = context.mp
             saveContext.event = context.event
+            saveContext.alarm = context.alarm
             saveContext.trace = context.trace
             saveContext.etc = context.etc
             saveContext.conditions = context.conditions
@@ -107,6 +129,7 @@ class McpWorker:
 
     def mcpSaveWork(self, eqpModule: MCPEqpModule, context: Context,
                     event: None | MCPEqpEvent,
+                    alarm: None | MCPEqpAlarm,
                     traceGroup: None | McpEqpTraceGroup):
 
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
@@ -122,6 +145,13 @@ class McpWorker:
                 if event.getEventLVs().get(eventLVKey).isSave:
                     eventItem = context.event.get(event.name).get(eventLVKey)
                     saveEvent[eventLVKey] = eventItem
+
+        saveAlarm = {}
+        if alarm is not None:
+            for alarmLVKey in alarm.getAlarmLVs().keys():
+                if alarm.getAlarmLVs().get(alarmLVKey).isSave:
+                    alarmItem = context.alarm.get(alarm.name).get(alarmLVKey)
+                    saveAlarm[alarmLVKey] = alarmItem
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and self.isRunStateChange(context) \
@@ -143,6 +173,20 @@ class McpWorker:
                                         value=saveEvent,
                                         context=context.get_simpleContext(),
                                         fdcDataGroup=context.currentFdcDataGroup)
+
+        if alarm is not None:
+            AlarmHistory.objects.create(alarmCode=context.mp[MpBasic.AlarmCode.value],
+                                        alarmName=alarm.name,
+                                        eqpId=eqpModule.eqp,
+                                        eqpName=eqpModule.eqpName,
+                                        eqpCode=context.mp[MpBasic.EqpCode.value],
+                                        eqpModuleId=eqpModule.id,
+                                        eqpModuleName=eqpModule.name,
+                                        updateTime=now,
+                                        value=saveAlarm,
+                                        context=context.get_simpleContext(),
+                                        fdcDataGroup=context.currentFdcDataGroup)
+
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and context.conditions[ConditionsBasic.IsRun.value]:
             if traceGroup is not None:

@@ -30,6 +30,20 @@ class EventHistory(models.Model):
     context = models.JSONField(default={})
     fdcDataGroup = models.GenericObjectIdField()
 
+class AlarmHistory(models.Model):
+    _id = models.ObjectIdField()
+    alarmCode = models.CharField(max_length=255)
+    alarmName = models.CharField(max_length=255)
+    updateTime = models.DateTimeField()
+    eqpId = models.IntegerField()
+    eqpCode = models.CharField(max_length=255)
+    eqpName = models.CharField(max_length=255)
+    eqpModuleId = models.IntegerField()
+    eqpModuleName = models.CharField(max_length=255)
+    value = models.JSONField(default={})
+    context = models.JSONField(default={})
+    fdcDataGroup = models.GenericObjectIdField()
+
 
 class TraceData(models.Model):
     _id = models.ObjectIdField()

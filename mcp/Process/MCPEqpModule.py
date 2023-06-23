@@ -9,6 +9,7 @@ import logging
 
 from bFdcAPI.MCP.UseCase import FdcMcpUseCase
 from fdcmp.Value import LogicItem
+from mcp.Process.MCPEqpAlarm import MCPEqpAlarm
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
 from bFdcAPI.Enum import RecvState
 from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
@@ -28,6 +29,8 @@ class MCPEqpModule:
         self.__loggerMcp = logging.getLogger('mcp')
         self.__events: dict[str, MCPEqpEvent] = dict()
         self.__eventsRecvState = RecvState.init
+        self.__alarms: dict[str, MCPEqpEvent] = dict()
+        self.__alarmsRecvState = RecvState.init
         self.__traceGroups: dict[str, McpEqpTraceGroup] = dict()
         self.__traceGroupRecvState = RecvState.init
         self.__conditionsRecvState = RecvState.init
@@ -48,6 +51,22 @@ class MCPEqpModule:
             self.__loggerMcp.error(traceback.print_stack())
             self.__eventsRecvState.error = RecvState.error
         return self.__events
+
+    def getAlarms(self) -> Dict[str, MCPEqpAlarm]:
+        try:
+            if self.__alarmsRecvState in [RecvState.init, RecvState.needReload]:
+                self.__alarms = dict[str, MCPEqpAlarm]()
+                for item in self.__fdcMcpUseCase.getAlarmList(self.id):
+                    self.__alarms[item.alarmCode] = MCPEqpAlarm(item)
+                self.__alarmsRecvState = RecvState.done
+        except Exception as e:
+            self.__loggerMcp.error(e.__str__())
+            self.__loggerMcp.error(traceback.print_stack())
+            self.__alarmsRecvState.error = RecvState.error
+        return self.__alarms
+
+    def setAlarmAPIRecvState(self, state: RecvState):
+        self.__alarmsRecvState = state
 
     def getTraceGroup(self) -> Dict[str, McpEqpTraceGroup]:
         try:
