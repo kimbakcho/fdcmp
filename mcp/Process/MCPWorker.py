@@ -32,7 +32,7 @@ class McpWorker:
             event = None
             traceGroup = None
             alarm = None
-            if context.mp[MpBasic.IsEvent.value] \
+            if context.mp.get(MpBasic.IsEvent.value,None) \
                     and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
                 event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
                 for logicItem in event.getLogics(event.id):
@@ -50,7 +50,7 @@ class McpWorker:
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            if context.mp[MpBasic.IsAlarm.value] \
+            if context.mp.get(MpBasic.IsAlarm.value, None) \
                     and context.mp[MpBasic.AlarmCode.value] in eqpModule.getAlarms().keys():
                 alarm = eqpModule.getAlarms()[context.mp[MpBasic.AlarmCode.value]]
                 for logicItem in alarm.getLogics(alarm.id):
@@ -68,7 +68,7 @@ class McpWorker:
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            if context.mp[MpBasic.IsTrace.value] \
+            if context.mp.get(MpBasic.IsTrace.value, None) \
                     and context.mp[MpBasic.TraceGroupCode.value] in eqpModule.getTraceGroup().keys():
                 traceGroup = eqpModule.getTraceGroup()[context.mp[MpBasic.TraceGroupCode.value]]
                 for logicItem in traceGroup.getTraceLogic():
