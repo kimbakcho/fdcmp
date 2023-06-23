@@ -15,19 +15,18 @@ class MCPDBConnect:
     def __new__(class_, *args, **kwargs):
         if not isinstance(class_._instance, class_):
             class_._instance = object.__new__(class_, *args, **kwargs)
-        return class_._instance
+            class_._instance._client = MongoClient(
+                host=env("MCP_DB_HOST"),
+                port=env("MCP_DB_PORT", int),
+                username=env("MCP_DB_USER_NAME"),
+                password=env("MCP_DB_PASS"),
+                authSource=env("MCP_DB_AUTH_SOURCE"),
+                authMechanism=env("MCP_DB_AUTH_MECHANISM"),
+                tz_aware=True,
+                connect=True
+            )
 
-    def __init__(self) -> None:
-        self._client = MongoClient(
-            host=env("MCP_DB_HOST"),
-            port=env("MCP_DB_PORT", int),
-            username=env("MCP_DB_USER_NAME"),
-            password=env("MCP_DB_PASS"),
-            authSource=env("MCP_DB_AUTH_SOURCE"),
-            authMechanism=env("MCP_DB_AUTH_MECHANISM"),
-            tz_aware=True,
-            connect=True
-        )
+        return class_._instance
 
     def getDBConnect(self):
         return self._client
