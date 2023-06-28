@@ -28,7 +28,6 @@ class ActiveMqWRILConnect(BrokerConnect):
 
             self._c.subscribe(self.__wrilSetting.commandSubject,  "wril_command")
 
-            self._c.disconnect()
         except Exception as e:
             logging.getLogger("brokerWRILMessage").error(traceback.format_exc())
             logging.getLogger("brokerWRILMessage").error(e.__str__())
