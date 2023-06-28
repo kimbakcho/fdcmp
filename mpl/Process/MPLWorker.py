@@ -35,6 +35,8 @@ class MPLWorker:
             self.__context.setEqpName(self.__module.eqpName)
             self.__context.setModuleCode(self.__module.code)
             self.__context.setModuleName(self.__module.name)
+            self.__context.debugMsgs.clear()
+            self.__context.setSPCData(None)
             for logicItem in self.__mplParserUtil.getMpLogics():
                 try:
                     exec(logicItem.logicComPile, None, locals())

@@ -12,7 +12,7 @@ from datetime import datetime
 from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 import copy
 
-from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory
+from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCData
 
 from pytz import timezone
 
@@ -32,7 +32,7 @@ class McpWorker:
             event = None
             traceGroup = None
             alarm = None
-            if context.mp.get(MpBasic.IsEvent.value,None) \
+            if context.mp.get(MpBasic.IsEvent.value, None) \
                     and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
                 event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
                 for logicItem in event.getLogics(event.id):
@@ -100,13 +100,14 @@ class McpWorker:
                     traceback.print_stack()
             if context.contextHistory.__len__() >= self.__maxHistorySize:
                 context.contextHistory.pop(0)
-            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup)
+            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup, context.getSPCData())
             # If the context object contains a field that cannot be deep copied, it does not become deep copy.
             saveContext = Context()
             saveContext.mp = context.mp
             saveContext.event = context.event
             saveContext.alarm = context.alarm
             saveContext.trace = context.trace
+            saveContext.spc = context.spc
             saveContext.etc = context.etc
             saveContext.conditions = context.conditions
             saveContext.currentFdcDataGroup = context.currentFdcDataGroup
@@ -130,7 +131,8 @@ class McpWorker:
     def mcpSaveWork(self, eqpModule: MCPEqpModule, context: Context,
                     event: None | MCPEqpEvent,
                     alarm: None | MCPEqpAlarm,
-                    traceGroup: None | McpEqpTraceGroup):
+                    traceGroup: None | McpEqpTraceGroup,
+                    spc: None | dict):
 
         now = datetime.now(tz=timezone(settings.TIME_ZONE))
         saveTrace = {}
@@ -202,6 +204,18 @@ class McpWorker:
                     updateTime=now,
                     fdcDataGroup=context.currentFdcDataGroup
                 )
+
+        if spc is not None:
+            SPCData.objects.create(
+                value=spc,
+                eqpId=eqpModule.eqp,
+                eqpName=eqpModule.eqpName,
+                eqpCode=context.mp[MpBasic.EqpCode.value],
+                eqpModuleId=eqpModule.id,
+                context=context.get_simpleContext(),
+                updateTime=now,
+                fdcDataGroup=context.currentFdcDataGroup
+            )
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and self.isRunStateChange(context) and \

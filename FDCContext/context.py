@@ -37,6 +37,7 @@ class Context:
         self.alarm = {}
         self.trace = {}
         self.conditions = {}
+        self.spc = None
         self.etc = {}
         self.contextHistory = list()
         self.currentFdcDataGroup: Optional[ObjectId] = None
@@ -118,3 +119,9 @@ class Context:
 
     def getModuleCode(self):
         return self.__moduleCode
+
+    def setSPCData(self, spc: dict | None):
+        self.spc = spc
+
+    def getSPCData(self):
+        return self.spc

@@ -57,3 +57,15 @@ class TraceData(models.Model):
     updateTime = models.DateTimeField()
     context = models.JSONField(default={})
     fdcDataGroup = models.GenericObjectIdField()
+
+
+class SPCData(models.Model):
+    _id = models.ObjectIdField()
+    value = models.JSONField(default={})
+    eqpId = models.IntegerField()
+    eqpCode = models.CharField(max_length=255)
+    eqpName = models.CharField(max_length=255)
+    eqpModuleId = models.IntegerField()
+    updateTime = models.DateTimeField()
+    context = models.JSONField(default={})
+    fdcDataGroup = models.GenericObjectIdField()
