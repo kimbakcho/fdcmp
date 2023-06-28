@@ -200,6 +200,7 @@ class McpWorker:
                     eqpName=eqpModule.eqpName,
                     eqpCode=context.mp[MpBasic.EqpCode.value],
                     eqpModuleId=eqpModule.id,
+                    eqpModuleName=eqpModule.name,
                     context=context.get_simpleContext(),
                     updateTime=now,
                     fdcDataGroup=context.currentFdcDataGroup
@@ -212,6 +213,7 @@ class McpWorker:
                 eqpName=eqpModule.eqpName,
                 eqpCode=context.mp[MpBasic.EqpCode.value],
                 eqpModuleId=eqpModule.id,
+                eqpModuleName=eqpModule.name,
                 context=context.get_simpleContext(),
                 updateTime=now,
                 fdcDataGroup=context.currentFdcDataGroup
