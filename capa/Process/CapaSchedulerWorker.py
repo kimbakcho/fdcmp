@@ -32,6 +32,10 @@ class CapaSchedulerWorker:
         if lists.__len__() > 0:
             trainValidData = CapaUseCase.getTrainValidData(self.module.id)
             trainValidDataContext = TrainValidDataContext()
+            trainValidDataContext.setEqpCode(self.module.eqpCode)
+            trainValidDataContext.setEqpName(self.module.eqpName)
+            trainValidDataContext.setEqpModuleCode(self.module.code)
+            trainValidDataContext.setEqpModuleName(self.module.name)
             if trainValidData.logicCode is not None and trainValidData.logicCode.__len__() > 0:
                 try:
                     com = compile(decoratorLogicCode(trainValidData.logicCode), '<string>', mode='exec')
@@ -55,6 +59,10 @@ class CapaSchedulerWorker:
             trainLogicContext = None
             if trainLogic.logic is not None and trainLogic.logic.__len__() > 0:
                 trainLogicContext = TrainLogicContext(self.module.id)
+                trainLogicContext.setEqpCode(self.module.eqpCode)
+                trainLogicContext.setEqpName(self.module.eqpName)
+                trainLogicContext.setEqpModuleCode(self.module.code)
+                trainLogicContext.setEqpModuleName(self.module.name)
                 try:
                     com = compile(decoratorLogicCode(trainLogic.logic), '<string>', mode='exec')
                     exec(com, None, locals())
@@ -75,6 +83,10 @@ class CapaSchedulerWorker:
             predictParamInfoContext = None
             if predictParamInfo.logic is not None and predictParamInfo.logic.__len__() > 0:
                 predictParamInfoContext = PredictParamInfoContext(self.module.id)
+                predictParamInfoContext.setEqpCode(self.module.eqpCode)
+                predictParamInfoContext.setEqpName(self.module.eqpName)
+                predictParamInfoContext.setEqpModuleCode(self.module.code)
+                predictParamInfoContext.setEqpModuleName(self.module.name)
                 try:
                     com = compile(decoratorLogicCode(predictParamInfo.logic), '<string>', mode='exec')
                     exec(com, None, locals())
@@ -101,6 +113,10 @@ class CapaSchedulerWorker:
             if predictParamInfo.schedulePredictParamInfo is not None and predictParamInfo.logic.__len__() > 0:
                 if predictLogic.logic is not None and predictLogic.logic.__len__() > 0:
                     predictLogicContext = PredictLogicContext(self.module.id)
+                    predictLogicContext.setEqpCode(self.module.eqpCode)
+                    predictLogicContext.setEqpName(self.module.eqpName)
+                    predictLogicContext.setEqpModuleCode(self.module.code)
+                    predictLogicContext.setEqpModuleName(self.module.name)
                     try:
                         com = compile(decoratorLogicCode(predictLogic.logic), '<string>', mode='exec')
                         exec(com, None, locals())

@@ -40,6 +40,31 @@ class TrainValidDataContext:
     def getTrainPeriodEnd(self):
         pass
 
+    def setEqpCode(self, value: str):
+        pass
+
+    def getEqpCode(self):
+        pass
+
+    def setEqpName(self, value: str):
+        pass
+
+    def getEqpName(self):
+        pass
+
+    def setEqpModuleCode(self, value: str):
+        pass
+
+    def getEqpModuleCode(self):
+        pass
+
+    def setEqpModuleName(self, value: str):
+        pass
+
+    def getEqpModuleName(self):
+        pass
+
+
 
 class TrainLogicModel:
     def __init__(self, model, name, type) -> None:
@@ -72,6 +97,29 @@ class TrainLogicContext:
     def getTrainedInfo(self) -> dict | None:
         pass
 
+    def setEqpCode(self, value: str):
+        pass
+
+    def getEqpCode(self):
+        pass
+
+    def setEqpName(self, value: str):
+        pass
+
+    def getEqpName(self):
+        pass
+
+    def setEqpModuleCode(self, value: str):
+        pass
+
+    def getEqpModuleCode(self):
+        pass
+
+    def setEqpModuleName(self, value: str):
+        pass
+
+    def getEqpModuleName(self):
+        pass
 
 class PredictParamInfoContext:
     def __init__(self, eqpModule: int) -> None:
@@ -115,6 +163,30 @@ class PredictParamInfoContext:
     def getTrainPeriodEnd(self) -> datetime.datetime:
         pass
 
+    def setEqpCode(self, value: str):
+        pass
+
+    def getEqpCode(self):
+        pass
+
+    def setEqpName(self, value: str):
+        pass
+
+    def getEqpName(self):
+        pass
+
+    def setEqpModuleCode(self, value: str):
+        pass
+
+    def getEqpModuleCode(self):
+        pass
+
+    def setEqpModuleName(self, value: str):
+        pass
+
+    def getEqpModuleName(self):
+        pass
+
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:
         pass
@@ -138,4 +210,28 @@ class PredictLogicContext:
         pass
 
     def getModel(self, name):
+        pass
+
+    def setEqpCode(self, value: str):
+        pass
+
+    def getEqpCode(self):
+        pass
+
+    def setEqpName(self, value: str):
+        pass
+
+    def getEqpName(self):
+        pass
+
+    def setEqpModuleCode(self, value: str):
+        pass
+
+    def getEqpModuleCode(self):
+        pass
+
+    def setEqpModuleName(self, value: str):
+        pass
+
+    def getEqpModuleName(self):
         pass

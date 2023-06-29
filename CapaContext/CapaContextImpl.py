@@ -42,6 +42,10 @@ class TrainValidDataContext(CapaContext.Context.TrainValidDataContext):
         self._validValue = dict()
         self._trainPeriodStart = None
         self._trainPeriodEnd = None
+        self._eqpCode = None
+        self._eqpName =None
+        self._eqpModuleCode = None
+        self._eqpModuleName = None
 
     def debug(self, msg: str):
         self.debugMsgs.append(msg)
@@ -79,6 +83,29 @@ class TrainValidDataContext(CapaContext.Context.TrainValidDataContext):
     def getTrainPeriodEnd(self):
         return self._trainPeriodEnd
 
+    def setEqpCode(self, value: str):
+        self._eqpCode = value
+
+    def getEqpCode(self):
+        return self._eqpCode
+
+    def setEqpName(self, value: str):
+        self._eqpName = value
+
+    def getEqpName(self):
+        return self._eqpName
+
+    def setEqpModuleCode(self, value: str):
+        self._eqpModuleCode = value
+
+    def getEqpModuleCode(self):
+        return self._eqpModuleCode
+
+    def setEqpModuleName(self, value: str):
+        self._eqpModuleName = value
+
+    def getEqpModuleName(self):
+        return self._eqpModuleName
 
 
 class TrainLogicContext(CapaContext.Context.TrainLogicContext):
@@ -90,6 +117,10 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
         self._trainedInfo = dict()
         self._eqpModule = eqpModule
         self._model = dict()
+        self._eqpCode = None
+        self._eqpName = None
+        self._eqpModuleCode = None
+        self._eqpModuleName = None
 
     def debug(self, msg: str) -> None:
         self.debugMsgs.append(msg)
@@ -114,6 +145,30 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
     def getTrainedInfo(self) -> dict | None:
         return self._trainedInfo
 
+    def setEqpCode(self, value: str):
+        self._eqpCode = value
+
+    def getEqpCode(self):
+        return self._eqpCode
+
+    def setEqpName(self, value: str):
+        self._eqpName = value
+
+    def getEqpName(self):
+        return self._eqpName
+
+    def setEqpModuleCode(self, value: str):
+        self._eqpModuleCode = value
+
+    def getEqpModuleCode(self):
+        return self._eqpModuleCode
+
+    def setEqpModuleName(self, value: str):
+        self._eqpModuleName = value
+
+    def getEqpModuleName(self):
+        return self._eqpModuleName
+
 
 class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
 
@@ -124,6 +179,10 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
         self._predictParamsInfo = dict()
         self._eqpModule = eqpModule
         self._etcInfo = dict()
+        self._eqpCode = None
+        self._eqpName = None
+        self._eqpModuleCode = None
+        self._eqpModuleName = None
 
     def debug(self, msg: str) -> None:
         self.debugMsgs.append(msg)
@@ -168,6 +227,30 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
         res = CapaUseCase.getTrainValidData(self._eqpModule)
         return datetime.datetime.fromisoformat(res.trainPeriodEnd)
 
+    def setEqpCode(self, value: str):
+        self._eqpCode = value
+
+    def getEqpCode(self):
+        return self._eqpCode
+
+    def setEqpName(self, value: str):
+        self._eqpName = value
+
+    def getEqpName(self):
+        return self._eqpName
+
+    def setEqpModuleCode(self, value: str):
+        self._eqpModuleCode = value
+
+    def getEqpModuleCode(self):
+        return self._eqpModuleCode
+
+    def setEqpModuleName(self, value: str):
+        self._eqpModuleName = value
+
+    def getEqpModuleName(self):
+        return self._eqpModuleName
+
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 
@@ -177,6 +260,10 @@ class PredictLogicContext(CapaContext.Context.PredictLogicContext):
         self._eqpModule = eqpModule
         self._model = None
         self._predictResult = dict()
+        self._eqpCode = None
+        self._eqpName = None
+        self._eqpModuleCode = None
+        self._eqpModuleName = None
 
     def debug(self, msg: str) -> None:
         self.debugMsgs.append(msg)
@@ -205,3 +292,27 @@ class PredictLogicContext(CapaContext.Context.PredictLogicContext):
             model = pickle.loads(model)
             return model
         raise Exception("can not deserialize")
+
+    def setEqpCode(self, value: str):
+        self._eqpCode = value
+
+    def getEqpCode(self):
+        return self._eqpCode
+
+    def setEqpName(self, value: str):
+        self._eqpName = value
+
+    def getEqpName(self):
+        return self._eqpName
+
+    def setEqpModuleCode(self, value: str):
+        self._eqpModuleCode = value
+
+    def getEqpModuleCode(self):
+        return self._eqpModuleCode
+
+    def setEqpModuleName(self, value: str):
+        self._eqpModuleName = value
+
+    def getEqpModuleName(self):
+        return self._eqpModuleName
