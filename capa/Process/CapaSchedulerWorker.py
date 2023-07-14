@@ -14,7 +14,6 @@ from bFdcAPI.Capa.UseCase import CapaUseCase
 import json
 
 from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
-from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 
 
 class CapaSchedulerWorker:

@@ -134,7 +134,7 @@ class McpWorker:
                     traceGroup: None | McpEqpTraceGroup,
                     spc: None | dict):
 
-        now = datetime.now(tz=timezone(settings.TIME_ZONE))
+        now = datetime.now()
         saveTrace = {}
         if traceGroup is not None:
             for traceKey in traceGroup.getTraceLVs().keys():
