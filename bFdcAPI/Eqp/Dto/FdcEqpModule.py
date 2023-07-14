@@ -18,3 +18,4 @@ class FdcEqpModuleResDto:
     updateTime: str
     orderIdx: int
     moduleType: str
+    operationRateUse: bool

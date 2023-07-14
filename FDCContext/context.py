@@ -37,7 +37,7 @@ class OperationStateReqDto:
     comment: str
     etcInfo: dict | list
     isHuman: bool
-    userName: bool | None
+    userName: str | None
     fromSite: str
     force: bool
 
