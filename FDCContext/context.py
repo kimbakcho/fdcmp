@@ -1,11 +1,14 @@
+from dataclasses import dataclass
 from enum import Enum
-
+from datetime import datetime
 from typing import Dict, Optional
 
 from bson import ObjectId
 
 from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
+from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
+from bFdcAPI.OperationRate.UseCase import OperationRateUseCase
 
 
 class ConditionsBasic(Enum):
@@ -27,6 +30,36 @@ class MpBasic(Enum):
     AlarmCode = "AlarmCode"
 
 
+@dataclass
+class OperationStateReqDto:
+    state: str
+    startTime: datetime
+    comment: str
+    etcInfo: dict | list
+    isHuman: bool
+    userName: bool | None
+    fromSite: str
+
+
+class OperationAPIModule:
+
+    def __init__(self, module: int) -> None:
+        self.module = module
+
+    def moduleStateUpdate(self, req: OperationStateReqDto):
+        reqDto = ModuleStateUpdateReqDto(
+            module=self.module,
+            userName=req.userName,
+            state=req.state,
+            isHuman=req.isHuman,
+            startTime=req.startTime.isoformat(),
+            fromSite=req.fromSite,
+            etcInfo=req.etcInfo,
+            comment=req.comment,
+        )
+        OperationRateUseCase.moduleStateUpdate(reqDto=reqDto)
+
+
 class Context:
     def __init__(self) -> None:
         self.debugMsgs = []
@@ -46,6 +79,7 @@ class Context:
         self.__eqpName = None
         self.__moduleName = None
         self.__moduleCode = None
+        self.__operationAPIModule = None
 
     def setLogger(self, logger):
         self.logger = logger
@@ -67,11 +101,13 @@ class Context:
             return self.event.get(eventGroup).get(eventName)
         else:
             return None
+
     def getAlarmValue(self, alarmGroup, alarmName):
         if alarmGroup in self.alarm.keys() and alarmName in self.alarm[alarmGroup].keys():
             return self.alarm.get(alarmGroup).get(alarmName)
         else:
             return None
+
     def getConditionsValue(self, conditionsName):
         if conditionsName in self.conditions.keys():
             return self.conditions.get(conditionsName)
@@ -125,3 +161,9 @@ class Context:
 
     def getSPCData(self):
         return self.spc
+
+    def setOperationAPIModule(self, apiModule: OperationAPIModule):
+        self.__operationAPIModule = apiModule
+
+    def getOperationAPIModule(self):
+        return self.__operationAPIModule

@@ -5,7 +5,7 @@ from bFdcAPI.ACP.UseCase import ACPUseCase
 from bFdcAPI.Enum import CommandType, CommandModule, CommandAction, RecvState
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from multiprocessing import Queue
-from FDCContext.context import Context
+from FDCContext.context import Context, OperationAPIModule
 from mpl.Process.MPLParserUtil import MPLParserUtil
 
 import logging
@@ -26,6 +26,7 @@ class MPLWorker:
         self.__context = Context()
         self.__context.setLogger(logging.getLogger("mcp"))
         self.__context.setAPCMessageCoreSetting(ACPUseCase.getACPMessageCoreSetting())
+        self.__context.setOperationAPIModule(OperationAPIModule(self.__module.id))
         self.__mcpWorker = McpWorker()
 
     def messageParser(self, message: str):
