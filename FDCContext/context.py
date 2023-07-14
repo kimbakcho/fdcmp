@@ -39,6 +39,7 @@ class OperationStateReqDto:
     isHuman: bool
     userName: bool | None
     fromSite: str
+    force: bool
 
 
 class OperationAPIModule:
@@ -56,6 +57,7 @@ class OperationAPIModule:
             fromSite=req.fromSite,
             etcInfo=req.etcInfo,
             comment=req.comment,
+            force=req.force
         )
         OperationRateUseCase.moduleStateUpdate(reqDto=reqDto)
 
