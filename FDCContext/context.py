@@ -49,7 +49,7 @@ class OperationAPIModule:
 
     def moduleStateUpdate(self, req: OperationStateReqDto):
         reqDto = ModuleStateUpdateReqDto(
-            module=self.module,
+            eqpModule=self.module,
             userName=req.userName,
             state=req.state,
             isHuman=req.isHuman,

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass
 class ModuleStateUpdateReqDto:
-    module: int
+    eqpModule: int
     state: str
     startTime: str
     comment: str
