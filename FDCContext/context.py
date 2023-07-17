@@ -32,24 +32,15 @@ class MpBasic(Enum):
     AlarmCode = "AlarmCode"
 
 
-class OperationApiMode(Enum):
-    TimeSplit = "TimeSplit"
-    SubStateChange = "SubStateChange"
-
-
 @dataclass
 class OperationStateReqDto:
-    state: str | None = field(default=None, init=False)
-    subState: str | None = field(default=None, init=False)
+    state: str | None
     startTime: datetime
     comment: str
-    etcInfo: dict | list
-    isHuman: bool
-    userName: str | None = field(default=None, init=False)
+    etcInfo: dict | list | None
+    userName: str | None
     fromSite: str
     force: bool
-    mode: OperationApiMode | None = field(default=None, init=False)
-
 
 class OperationAPIModule:
     Run = "Run"
@@ -63,16 +54,13 @@ class OperationAPIModule:
             eqpModule=self.module,
             userName=req.userName,
             state=req.state,
-            isHuman=req.isHuman,
+            isHuman=False,
             startTime=req.startTime.isoformat(),
             fromSite=req.fromSite,
             etcInfo=req.etcInfo,
             comment=req.comment,
             force=req.force,
-            mode=None,
         )
-        if req.mode:
-            reqDto.mode = req.mode.value
         OperationRateUseCase.moduleStateUpdate(reqDto=reqDto)
 
     def moduleStateDisplayInfoUpdate(self, info: dict | list | None):

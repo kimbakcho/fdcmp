@@ -7,7 +7,6 @@ from dataclasses import dataclass
 class ModuleStateUpdateReqDto:
     eqpModule: int
     state: str | None
-    subState: str | None
     startTime: str
     comment: str
     force: bool
@@ -15,4 +14,3 @@ class ModuleStateUpdateReqDto:
     isHuman: bool
     userName: bool | None
     fromSite: str
-    mode: str | None
