@@ -39,16 +39,16 @@ class OperationApiMode(Enum):
 
 @dataclass
 class OperationStateReqDto:
-    state: str | None = field(default=MISSING)
-    subState: str | None = field(default=MISSING)
+    state: str | None = field(default=None, init=False)
+    subState: str | None = field(default=None, init=False)
     startTime: datetime
     comment: str
     etcInfo: dict | list
     isHuman: bool
-    userName: str | None = field(default=MISSING)
+    userName: str | None = field(default=None, init=False)
     fromSite: str
     force: bool
-    mode: OperationApiMode | None = field(default=None)
+    mode: OperationApiMode | None = field(default=None, init=False)
 
 
 class OperationAPIModule:
@@ -69,7 +69,7 @@ class OperationAPIModule:
             etcInfo=req.etcInfo,
             comment=req.comment,
             force=req.force,
-            subState=req.subState,
+
             mode=None,
         )
         if req.mode:
