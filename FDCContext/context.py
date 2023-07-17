@@ -9,6 +9,7 @@ from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleStateDisplayInfoUpdateReqDto
+from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 from bFdcAPI.OperationRate.UseCase import OperationRateUseCase
 
@@ -41,6 +42,7 @@ class OperationStateReqDto:
     userName: str | None
     fromSite: str
     force: bool
+
 
 class OperationAPIModule:
     Run = "Run"
@@ -76,6 +78,13 @@ class OperationAPIModule:
             info=info
         )
         OperationRateUseCase.moduleStateContextInfoUpdate(reqDto=reqDto)
+
+    def moduleStateEtcInfoUpdate(self, info: dict | list | None):
+        reqDto = ModuleStateEtcInfoUpdateReqDto(
+            eqpModule=self.module,
+            info=info
+        )
+        OperationRateUseCase.moduleStateEtcInfoUpdate(reqDto=reqDto)
 
 
 class Context:
