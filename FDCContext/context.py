@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field, MISSING
 from enum import Enum
 from datetime import datetime
 from typing import Dict, Optional
@@ -37,18 +37,18 @@ class OperationApiMode(Enum):
     SubStateChange = "SubStateChange"
 
 
-@dataclass(kw_only=True)
+@dataclass
 class OperationStateReqDto:
-    state: str | None
-    subState: str | None
+    state: str | None = field(default=MISSING)
+    subState: str | None = field(default=MISSING)
     startTime: datetime
     comment: str
     etcInfo: dict | list
     isHuman: bool
-    userName: str | None
+    userName: str | None = field(default=MISSING)
     fromSite: str
     force: bool
-    mode: OperationApiMode | None
+    mode: OperationApiMode | None = field(default=None)
 
 
 class OperationAPIModule:
