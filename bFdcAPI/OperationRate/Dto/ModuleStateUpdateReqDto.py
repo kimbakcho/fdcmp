@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from FDCContext.context import OperationApiMode
+
 
 
 @dataclass
@@ -15,4 +15,4 @@ class ModuleStateUpdateReqDto:
     isHuman: bool
     userName: bool | None
     fromSite: str
-    mode: OperationApiMode | None
+    mode: str | None
