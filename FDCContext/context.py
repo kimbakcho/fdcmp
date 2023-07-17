@@ -68,8 +68,10 @@ class OperationAPIModule:
             comment=req.comment,
             force=req.force,
             subState=req.subState,
-            mode=req.mode
+            mode=None
         )
+        if req.mode:
+            reqDto.mode = req.mode.value
         OperationRateUseCase.moduleStateUpdate(reqDto=reqDto)
 
 
