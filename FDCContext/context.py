@@ -33,8 +33,6 @@ class MpBasic(Enum):
 class OperationApiMode(Enum):
     TimeSplit = "TimeSplit"
     SubStateChange = "SubStateChange"
-    DisPlayInfoChange = "DisPlayChangeInfo"
-    ContextInfoChange = "ContextInfoChange"
 
 
 @dataclass
@@ -49,7 +47,6 @@ class OperationStateReqDto:
     fromSite: str
     force: bool
     mode: OperationApiMode | None
-
 
 class OperationAPIModule:
     Run = "Run"
@@ -70,7 +67,7 @@ class OperationAPIModule:
             comment=req.comment,
             force=req.force,
             subState=req.subState,
-            mode=None
+            mode=None,
         )
         if req.mode:
             reqDto.mode = req.mode.value
