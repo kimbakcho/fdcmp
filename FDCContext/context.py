@@ -37,7 +37,7 @@ class OperationApiMode(Enum):
     SubStateChange = "SubStateChange"
 
 
-@dataclass
+@dataclass(kw_only=True)
 class OperationStateReqDto:
     state: str | None
     subState: str | None
