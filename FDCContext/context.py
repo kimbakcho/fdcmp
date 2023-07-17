@@ -44,6 +44,9 @@ class OperationStateReqDto:
 
 class OperationAPIModule:
 
+    Run = "Run"
+    Wait = "Wait"
+
     def __init__(self, module: int) -> None:
         self.module = module
 
