@@ -69,7 +69,6 @@ class OperationAPIModule:
             etcInfo=req.etcInfo,
             comment=req.comment,
             force=req.force,
-
             mode=None,
         )
         if req.mode:
