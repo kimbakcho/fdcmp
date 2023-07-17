@@ -33,6 +33,8 @@ class MpBasic(Enum):
 class OperationApiMode(Enum):
     TimeSplit = "TimeSplit"
     SubStateChange = "SubStateChange"
+    DisPlayInfoChange = "DisPlayChangeInfo"
+    ContextInfoChange = "ContextInfoChange"
 
 
 @dataclass
