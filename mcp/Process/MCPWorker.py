@@ -100,7 +100,7 @@ class McpWorker:
                     traceback.print_stack()
             if context.contextHistory.__len__() >= self.__maxHistorySize:
                 context.contextHistory.pop(0)
-            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup, context.getSPCData())
+            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup)
             # If the context object contains a field that cannot be deep copied, it does not become deep copy.
             saveContext = Context()
             saveContext.mp = context.mp
@@ -131,8 +131,7 @@ class McpWorker:
     def mcpSaveWork(self, eqpModule: MCPEqpModule, context: Context,
                     event: None | MCPEqpEvent,
                     alarm: None | MCPEqpAlarm,
-                    traceGroup: None | McpEqpTraceGroup,
-                    spc: None | dict):
+                    traceGroup: None | McpEqpTraceGroup):
 
         now = datetime.now()
         saveTrace = {}
@@ -209,9 +208,9 @@ class McpWorker:
                     fdcDataGroup=context.currentFdcDataGroup
                 )
 
-        if spc is not None:
+        if context.getSPCData() is not None:
             SPCData.objects.create(
-                value=spc,
+                value=context.getSPCData(),
                 eqpId=eqpModule.eqp,
                 eqpName=eqpModule.eqpName,
                 eqpCode=context.mp[MpBasic.EqpCode.value],
@@ -222,6 +221,7 @@ class McpWorker:
                 updateTime=now,
                 fdcDataGroup=context.currentFdcDataGroup
             )
+            context.setSPCData(None)
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and self.isRunStateChange(context) and \

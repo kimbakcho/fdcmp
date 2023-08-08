@@ -5,6 +5,8 @@ from bFdcAPI import env
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleStateDisplayInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
+from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto import \
+    ModuleStateModifyPlanProductionOutputReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 
 
@@ -24,3 +26,7 @@ class OperationRateUseCase:
     @staticmethod
     def moduleStateEtcInfoUpdate(reqDto: ModuleStateEtcInfoUpdateReqDto):
         requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateEtcInfoUpdate/", json=reqDto.__dict__)
+
+    @staticmethod
+    def moduleStateAddProductionOutput(reqDto: ModuleStateModifyPlanProductionOutputReqDto):
+        requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateAddProductionOutput/", json=reqDto.__dict__)

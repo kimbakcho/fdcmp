@@ -10,6 +10,8 @@ from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleStateDisplayInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
+from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto import \
+    ModuleStateModifyPlanProductionOutputReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 from bFdcAPI.OperationRate.UseCase import OperationRateUseCase
 
@@ -85,6 +87,13 @@ class OperationAPIModule:
             info=info
         )
         OperationRateUseCase.moduleStateEtcInfoUpdate(reqDto=reqDto)
+
+    def moduleStateAddProductionOutput(self, count: int):
+        reqDto = ModuleStateModifyPlanProductionOutputReqDto(
+            eqpModule=self.module,
+            count=count
+        )
+        OperationRateUseCase.moduleStateAddProductionOutput(reqDto)
 
 
 class Context:
