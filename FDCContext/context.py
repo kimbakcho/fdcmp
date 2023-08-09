@@ -132,6 +132,7 @@ class Context:
         self.__moduleName = None
         self.__moduleCode = None
         self.__operationAPIModule = None
+        self.__capaAPIModule = None
 
     def setLogger(self, logger):
         self.logger = logger
@@ -219,3 +220,9 @@ class Context:
 
     def getOperationAPIModule(self):
         return self.__operationAPIModule
+
+    def setCapaAPIModule(self, apiModule: CapaAPIModule):
+        self.__capaAPIModule = apiModule
+
+    def getCapaAPIModule(self):
+        return self.__capaAPIModule
