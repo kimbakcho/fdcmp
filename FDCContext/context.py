@@ -96,13 +96,6 @@ class OperationAPIModule:
         )
         OperationRateUseCase.moduleStateAddProductionOutput(reqDto)
 
-    def moduleStatePredictFinishTime(self, eqpModule: int, predictFinishTime: datetime):
-        reqDto = ModuleStatePredictFinishTimeUpdateReqDto(
-            eqpModule=eqpModule,
-            predictFinishTime=predictFinishTime.isoformat()
-        )
-        OperationRateUseCase.moduleStateUpdatePredictFinishTime(reqDto)
-
 
 class Context:
     def __init__(self) -> None:

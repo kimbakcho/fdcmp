@@ -31,7 +31,3 @@ class OperationRateUseCase:
     @staticmethod
     def moduleStateAddProductionOutput(reqDto: ModuleStateModifyPlanProductionOutputReqDto):
         requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateAddProductionOutput/", json=reqDto.__dict__)
-
-    @staticmethod
-    def moduleStateUpdatePredictFinishTime(reqDto: ModuleStatePredictFinishTimeUpdateReqDto):
-        requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateUpdatePredictFinishTime/", json=reqDto.__dict__)

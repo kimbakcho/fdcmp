@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="fdcmp",
-    version='0.0.96',
+    version='0.0.97',
     description="Fdc Message Parser",
     author="Fdc",
     author_email="XXXX@sfac.co.kr",
