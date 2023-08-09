@@ -12,6 +12,7 @@ from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleS
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto import \
     ModuleStateModifyPlanProductionOutputReqDto
+from bFdcAPI.OperationRate.Dto.ModuleStatePredictFinishTimeUpdateReqDto import ModuleStatePredictFinishTimeUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 from bFdcAPI.OperationRate.UseCase import OperationRateUseCase
 
@@ -94,6 +95,13 @@ class OperationAPIModule:
             count=count
         )
         OperationRateUseCase.moduleStateAddProductionOutput(reqDto)
+
+    def moduleStatePredictFinishTime(self, eqpModule: int, predictFinishTime: datetime):
+        reqDto = ModuleStatePredictFinishTimeUpdateReqDto(
+            eqpModule=eqpModule,
+            predictFinishTime=predictFinishTime.isoformat()
+        )
+        OperationRateUseCase.moduleStateUpdatePredictFinishTime(reqDto)
 
 
 class Context:

@@ -7,6 +7,7 @@ from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleS
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto import \
     ModuleStateModifyPlanProductionOutputReqDto
+from bFdcAPI.OperationRate.Dto.ModuleStatePredictFinishTimeUpdateReqDto import ModuleStatePredictFinishTimeUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 
 
@@ -30,3 +31,7 @@ class OperationRateUseCase:
     @staticmethod
     def moduleStateAddProductionOutput(reqDto: ModuleStateModifyPlanProductionOutputReqDto):
         requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateAddProductionOutput/", json=reqDto.__dict__)
+
+    @staticmethod
+    def moduleStateUpdatePredictFinishTime(reqDto: ModuleStatePredictFinishTimeUpdateReqDto):
+        requests.post(f"{env('BFDC_URL')}/operationRate/moduleStateUpdatePredictFinishTime/", json=reqDto.__dict__)
