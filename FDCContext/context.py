@@ -109,7 +109,10 @@ class CapaAPIModule:
             type=type,
             eqpModule__eqp__code=eqpCode
         )
-        return CapaUseCase.getCycleTime(reqDto)
+        result = CapaUseCase.getCycleTime(reqDto)
+        if result.__len__() > 0:
+            return result[0]
+        return None
 
 
 class Context:
