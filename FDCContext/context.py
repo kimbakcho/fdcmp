@@ -7,6 +7,8 @@ from bson import ObjectId
 
 from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeReqDto
+from bFdcAPI.Capa.UseCase import CapaUseCase
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleStateDisplayInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
@@ -95,6 +97,19 @@ class OperationAPIModule:
             count=count
         )
         OperationRateUseCase.moduleStateAddProductionOutput(reqDto)
+
+
+class CapaAPIModule:
+    def __init__(self, module: int) -> None:
+        self.module = module
+
+    def getCycleTime(self, eqpCode: str, recipe: str, type: str | None = None):
+        reqDto = CycleTimeReqDto(
+            recipe=recipe,
+            type=type,
+            eqpCode=eqpCode
+        )
+        return CapaUseCase.getCycleTime(reqDto)
 
 
 class Context:

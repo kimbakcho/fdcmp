@@ -3,7 +3,7 @@ import json
 import requests
 
 from bFdcAPI import env
-from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto, CycleTimeReqDto, CycleTimeManagerResDto
 from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
 from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataResDto, TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto, PredictParamInfoUpdateReqDto
@@ -79,3 +79,8 @@ class CapaUseCase:
     @staticmethod
     def updateCycleTime(reqDto: CycleTimeUpdateReqDto):
         requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/", reqDto.__dict__)
+
+    @staticmethod
+    def getCycleTime(reqDto: CycleTimeReqDto):
+        r = requests.get(f"{env('BFDC_URL')}/capa/predictLogicForEqpModule/", params=reqDto.__dict__)
+        return CycleTimeManagerResDto(**r.json())
