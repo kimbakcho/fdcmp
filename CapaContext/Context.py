@@ -3,6 +3,9 @@ from enum import Enum
 
 from pymongo import MongoClient
 
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto
+
+
 class TrainValidDataContext:
     def debug(self, msg: str):
         pass
@@ -65,7 +68,6 @@ class TrainValidDataContext:
         pass
 
 
-
 class TrainLogicModel:
     def __init__(self, model, name, type) -> None:
         self.model = model
@@ -76,6 +78,7 @@ class TrainLogicModel:
 class TrainLogicContext:
     def __init__(self, eqpModule: int) -> None:
         pass
+
     def debug(self, msg: str) -> None:
         pass
 
@@ -121,6 +124,12 @@ class TrainLogicContext:
     def getEqpModuleName(self):
         pass
 
+    def updateCycleTime(self, recipe: str, cycleTime: float | int, type: str | None = None,
+                        typeInfo: dict | None = None,
+                        conditionInfo: dict | None = None):
+        pass
+
+
 class PredictParamInfoContext:
     def __init__(self, eqpModule: int) -> None:
         pass
@@ -154,6 +163,7 @@ class PredictParamInfoContext:
 
     def getSchedulePredictParamInfo(self) -> dict:
         pass
+
     def getTrainedInfo(self) -> dict | None:
         pass
 
@@ -186,6 +196,7 @@ class PredictParamInfoContext:
 
     def getEqpModuleName(self):
         pass
+
 
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:

@@ -6,6 +6,8 @@ from pymongo import MongoClient
 import base64
 import json
 import pickle
+
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
 
 
@@ -43,7 +45,7 @@ class TrainValidDataContext(CapaContext.Context.TrainValidDataContext):
         self._trainPeriodStart = None
         self._trainPeriodEnd = None
         self._eqpCode = None
-        self._eqpName =None
+        self._eqpName = None
         self._eqpModuleCode = None
         self._eqpModuleName = None
 
@@ -169,6 +171,20 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
     def getEqpModuleName(self):
         return self._eqpModuleName
 
+    def updateCycleTime(self, recipe: str, cycleTime: float | int, type: str | None = None,
+                        typeInfo: dict | None = None,
+                        conditionInfo: dict | None = None):
+        reqDto = CycleTimeUpdateReqDto(
+            eqpModule=self._eqpModule,
+            recipe=recipe,
+            cycleTime=cycleTime,
+            type=type,
+            typeInfo=typeInfo,
+            isSystem=True,
+            conditionInfo=conditionInfo,
+        )
+        CapaUseCase.updateCycleTime(reqDto)
+
 
 class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
 
@@ -210,10 +226,10 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
     def getMCPDBConnect(self) -> MongoClient:
         return self._mcpDBConnect.getDBConnect()
 
-    def setSchedulePredictParamInfo(self, params: dict|list) -> None:
+    def setSchedulePredictParamInfo(self, params: dict | list) -> None:
         self._predictParamsInfo = params
 
-    def getSchedulePredictParamInfo(self) -> dict|list:
+    def getSchedulePredictParamInfo(self) -> dict | list:
         return self._predictParamsInfo
 
     def getTrainedInfo(self) -> dict | None:

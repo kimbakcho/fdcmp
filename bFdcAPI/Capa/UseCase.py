@@ -3,6 +3,7 @@ import json
 import requests
 
 from bFdcAPI import env
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto
 from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
 from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataResDto, TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto, PredictParamInfoUpdateReqDto
@@ -38,7 +39,7 @@ class CapaUseCase:
 
     @staticmethod
     def updatePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto) -> PredictParamInfoResDto:
-        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/",reqDto.__dict__)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/", reqDto.__dict__)
         return PredictParamInfoResDto(**r.json())
 
     @staticmethod
@@ -74,3 +75,7 @@ class CapaUseCase:
     def updateTrainSchedulerHistory(reqDto: TrainSchedulerHistoryUpdateReqDto):
         r = requests.patch(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/{reqDto.id}/", reqDto.__dict__)
         return TrainSchedulerHistoryResDto(**r.json())
+
+    @staticmethod
+    def updateCycleTime(reqDto: CycleTimeUpdateReqDto):
+        requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/", reqDto.__dict__)
