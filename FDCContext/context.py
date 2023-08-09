@@ -107,7 +107,7 @@ class CapaAPIModule:
         reqDto = CycleTimeReqDto(
             recipe=recipe,
             type=type,
-            eqpCode=eqpCode
+            eqpModule__eqp__code=eqpCode
         )
         return CapaUseCase.getCycleTime(reqDto)
 

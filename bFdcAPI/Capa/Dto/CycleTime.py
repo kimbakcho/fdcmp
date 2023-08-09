@@ -14,7 +14,7 @@ class CycleTimeUpdateReqDto:
 
 @dataclass
 class CycleTimeReqDto:
-    eqpCode: str
+    eqpModule__eqp__code: str
     recipe: str | None
     type: str | None
 
