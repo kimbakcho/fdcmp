@@ -82,7 +82,7 @@ class CapaUseCase:
 
     @staticmethod
     def getCycleTime(reqDto: CycleTimeReqDto):
-        r = requests.get(f"{env('BFDC_URL')}/capa/predictLogicForEqpModule/", params=reqDto.__dict__)
+        r = requests.get(f"{env('BFDC_URL')}/capa/cycleTimes/", params=reqDto.__dict__)
         result = list()
         for item in r.json():
             result.append(CycleTimeManagerResDto(**item))
