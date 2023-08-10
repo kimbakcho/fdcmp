@@ -16,6 +16,7 @@ from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto impor
     ModuleStateModifyPlanProductionOutputReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStatePredictFinishTimeUpdateReqDto import ModuleStatePredictFinishTimeUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
+from bFdcAPI.OperationRate.Dto.PerformanceOperationRateSaveReqDto import PerformanceOperationRateSaveReqDto
 from bFdcAPI.OperationRate.UseCase import OperationRateUseCase
 
 
@@ -97,6 +98,36 @@ class OperationAPIModule:
             count=count
         )
         OperationRateUseCase.moduleStateAddProductionOutput(reqDto)
+
+    def performanceOperationRateHistorySave(self,
+                                            startTime: datetime,
+                                            endTime: datetime,
+                                            predictCycleTime: float | int,
+                                            cycleTime: int | float,
+                                            lotId: list | None = None,
+                                            batchId: str | None = None,
+                                            recipe: str | None = None,
+                                            type: str | None = None,
+                                            typeInfo: dict | None = None,
+                                            contextInfo: dict | None = None,
+                                            waferCount: int | None = None,
+                                            batchCount: int | None = None):
+        reqDto = PerformanceOperationRateSaveReqDto(
+            eqpModule=self.module,
+            startTime=startTime.isoformat(),
+            endTime=endTime.isoformat(),
+            predictCycleTime=predictCycleTime,
+            cycleTime=cycleTime,
+            lotId=lotId,
+            batchId=batchId,
+            recipe=recipe,
+            type=type,
+            typeInfo=typeInfo,
+            contextInfo=contextInfo,
+            waferCount=waferCount,
+            batchCount=batchCount,
+        )
+        OperationRateUseCase.performanceOperationRateSave(reqDto)
 
 
 class CapaAPIModule:
