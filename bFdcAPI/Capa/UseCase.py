@@ -29,7 +29,7 @@ class CapaUseCase:
 
     @staticmethod
     def saveTrainValidData(reqDto: TrainValidDataUpdateReqDto):
-        requests.post(f"{env('BFDC_URL')}/capa/TrainValidDataSave/", json=reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/capa/trainValidDataSave/", json=reqDto.__dict__)
 
     @staticmethod
     def getPredictParamInfo(eqpModuleId: int) -> PredictParamInfoResDto | None:
@@ -66,7 +66,7 @@ class CapaUseCase:
 
     @staticmethod
     def saveTrainLogic(reqDto: TrainLogicUpdateReqDto) :
-        requests.post(f"{env('BFDC_URL')}/capa/trainLogic/", json=reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/capa/trainLogicSave/", json=reqDto.__dict__)
 
 
     @staticmethod
