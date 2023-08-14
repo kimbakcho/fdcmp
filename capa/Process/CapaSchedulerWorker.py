@@ -27,7 +27,6 @@ class CapaSchedulerWorker:
                                                                                          trainScheduler__eqpModule=self.module.id,
                                                                                          planTime__lte=datetime.now().isoformat()))
 
-
         if lists.__len__() > 0:
             trainValidData = CapaUseCase.getTrainValidData(self.module.id)
             trainValidDataContext = TrainValidDataContext()
@@ -42,11 +41,11 @@ class CapaSchedulerWorker:
                     runResult = locals().get("run")(trainValidDataContext)
                     trainValidDataContext.trainValidData = runResult
                     reqDto = TrainValidDataUpdateReqDto(id=trainValidData.id,
-                                                        trainData=json.dumps(trainValidDataContext.getTrainData()),
-                                                        validData=json.dumps(trainValidDataContext.getValidData()),
-                                                        trainPeriodStart=trainValidDataContext.getTrainPeriodStart(),
-                                                        trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd())
-                    CapaUseCase.updateTrainValidData(reqDto)
+                                                        trainData=trainValidDataContext.getTrainData(),
+                                                        validData=trainValidDataContext.getValidData(),
+                                                        trainPeriodStart=trainValidDataContext.getTrainPeriodStart().isoformat(),
+                                                        trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd().isoformat())
+                    CapaUseCase.saveTrainValidData(reqDto)
                 except Exception as e:
                     logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                     logging.getLogger("capa").error(traceback.format_exc())
@@ -69,8 +68,8 @@ class CapaSchedulerWorker:
                     trainModels = trainLogicContext.getTrainModels()
                     saveJson = self._getTrainModelToDict(trainModels)
                     trainedInfo = trainLogicContext.getTrainedInfo()
-                    CapaUseCase.updateTrainLogic(
-                        TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=json.dumps(saveJson), trainedInfo=json.dumps(trainedInfo)))
+                    CapaUseCase.saveTrainLogic(
+                        TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=saveJson, trainedInfo=trainedInfo))
                 except Exception as e:
                     logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
                     logging.getLogger("capa").error(traceback.format_exc())
@@ -90,13 +89,13 @@ class CapaSchedulerWorker:
                     com = compile(decoratorLogicCode(predictParamInfo.logic), '<string>', mode='exec')
                     exec(com, None, locals())
                     locals().get("run")(predictParamInfoContext)
-                    CapaUseCase.updatePredictParamInfo(PredictParamInfoUpdateReqDto(id=predictParamInfo.id,
-                                                                                    paramInfo=json.dumps(
-                                                                                        predictParamInfoContext.getPredictParamInfo()),
-                                                                                    etcInfo=json.dumps(
-                                                                                        predictParamInfoContext.getPredictEtcInfo()),
-                                                                                    schedulePredictParamInfo=json.dumps(
-                                                                                        predictParamInfoContext.getSchedulePredictParamInfo())))
+                    CapaUseCase.savePredictParamInfo(PredictParamInfoUpdateReqDto(id=predictParamInfo.id,
+                                                                                  paramInfo=
+                                                                                  predictParamInfoContext.getPredictParamInfo(),
+                                                                                  etcInfo=
+                                                                                  predictParamInfoContext.getPredictEtcInfo(),
+                                                                                  schedulePredictParamInfo=
+                                                                                  predictParamInfoContext.getSchedulePredictParamInfo()))
 
                 except Exception as e:
                     logging.getLogger("capa").error(f'{self.module.eqpName}_{self.module.name}')
@@ -134,28 +133,27 @@ class CapaSchedulerWorker:
                         traceback.print_stack()
 
             for item in lists:
-                CapaUseCase.updateTrainSchedulerHistory(TrainSchedulerHistoryUpdateReqDto(id=item.id, execute=True,
-                                                                                          executeTime=datetime.now().isoformat(),
-                                                                                          predictResult=json.dumps(predictResults),
-                                                                                          trainedModel=None,
-                                                                                          paramInfo=None))
+                CapaUseCase.updateTrainSchedulerHistory({
+                    "id": item.id,
+                    "execute": True,
+                    "executeTime": datetime.now().isoformat(),
+                    "predictResult": predictResults
+                })
                 if trainLogicContext is not None:
                     trainModels = trainLogicContext.getTrainModels()
                     saveJson = self._getTrainModelToDict(trainModels)
                     if saveJson is not None:
-                        CapaUseCase.updateTrainSchedulerHistory(
-                            TrainSchedulerHistoryUpdateReqDto(id=item.id, execute=None,
-                                                              executeTime=None,
-                                                              predictResult=None,
-                                                              trainedModel=json.dumps(saveJson),
-                                                              paramInfo=None))
+                        CapaUseCase.updateTrainSchedulerHistory({
+                            "id":item.id,
+                            "trainedModel": saveJson
+                        })
                 if predictParamInfoContext is not None and predictParamInfoContext.getSchedulePredictParamInfo() is not None:
                     CapaUseCase.updateTrainSchedulerHistory(
-                        TrainSchedulerHistoryUpdateReqDto(id=item.id, execute=None,
-                                                          executeTime=None,
-                                                          predictResult=None,
-                                                          trainedModel=None,
-                                                          paramInfo=json.dumps(predictParamInfoContext.getSchedulePredictParamInfo())))
+                        {
+                            "id":item.id,
+                            "paramInfo":predictParamInfoContext.getSchedulePredictParamInfo()
+                        }
+                    )
 
 
     def _getTrainModelToDict(self, trainModels) -> dict | None:

@@ -29,6 +29,10 @@ class CapaUseCase:
         return TrainValidDataResDto(**r.json())
 
     @staticmethod
+    def saveTrainValidData(reqDto: TrainValidDataUpdateReqDto):
+        requests.post(f"{env('BFDC_URL')}/capa/TrainValidDataSave/", json=reqDto.__dict__)
+
+    @staticmethod
     def getPredictParamInfo(eqpModuleId: int) -> PredictParamInfoResDto | None:
         r = requests.get(f"{env('BFDC_URL')}/capa/predictParamInfoForEqpModule/", params={
             "eqpModule": eqpModuleId
@@ -39,8 +43,13 @@ class CapaUseCase:
 
     @staticmethod
     def updatePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto) -> PredictParamInfoResDto:
-        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/", reqDto.__dict__)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/", json= reqDto.__dict__)
         return PredictParamInfoResDto(**r.json())
+
+    @staticmethod
+    def savePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto) :
+        requests.post(f"{env('BFDC_URL')}/capa/predictParamInfoSave/", json= reqDto.__dict__)
+
 
     @staticmethod
     def getTrainLogic(eqpModuleId: int) -> TrainLogicResDto | None:
@@ -53,8 +62,13 @@ class CapaUseCase:
 
     @staticmethod
     def updateTrainLogic(reqDto: TrainLogicUpdateReqDto) -> TrainLogicResDto:
-        r = requests.patch(f"{env('BFDC_URL')}/capa/trainLogic/{reqDto.id}/", reqDto.__dict__)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/trainLogic/{reqDto.id}/", json=reqDto.__dict__)
         return TrainLogicResDto(**r.json())
+
+    @staticmethod
+    def saveTrainLogic(reqDto: TrainLogicUpdateReqDto) :
+        requests.post(f"{env('BFDC_URL')}/capa/trainLogic/", json=reqDto.__dict__)
+
 
     @staticmethod
     def getPredictLogic(eqpModuleId: int) -> PredictLogicResDto:
@@ -72,13 +86,13 @@ class CapaUseCase:
         return result
 
     @staticmethod
-    def updateTrainSchedulerHistory(reqDto: TrainSchedulerHistoryUpdateReqDto):
-        r = requests.patch(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/{reqDto.id}/", reqDto.__dict__)
+    def updateTrainSchedulerHistory(reqDto: dict):
+        r = requests.patch(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/{reqDto['id']}/",json=reqDto)
         return TrainSchedulerHistoryResDto(**r.json())
 
     @staticmethod
     def updateCycleTime(reqDto: CycleTimeUpdateReqDto):
-        requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/", reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/",json= reqDto.__dict__)
 
     @staticmethod
     def getCycleTime(reqDto: CycleTimeReqDto):

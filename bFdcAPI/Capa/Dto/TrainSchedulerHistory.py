@@ -1,4 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Optional
+
+import dataclasses
 
 
 @dataclass
@@ -20,11 +23,11 @@ class TrainSchedulerHistoryResDto:
     paramInfo: dict | None
 
 
-@dataclass
+
 class TrainSchedulerHistoryUpdateReqDto:
     id: int
     execute: bool | None
     executeTime: str | None
-    predictResult: str | None
-    trainedModel: str | None
-    paramInfo: str | None
+    predictResult: dict = field()
+    OptrainedModel: dict = field(repr=False)
+    paramInfo: dict = field()
