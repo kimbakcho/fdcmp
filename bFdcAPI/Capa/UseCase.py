@@ -8,8 +8,7 @@ from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
 from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataResDto, TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto, PredictParamInfoUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicResDto, TrainLogicUpdateReqDto
-from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto, TrainSchedulerHistoryResDto, \
-    TrainSchedulerHistoryUpdateReqDto
+from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto, TrainSchedulerHistoryResDto
 
 
 class CapaUseCase:

@@ -8,10 +8,10 @@ from CapaContext.CapaContextImpl import TrainValidDataContext, TrainLogicContext
 from FDCContext.logicConverter import decoratorLogicCode
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicUpdateReqDto
-from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto, TrainSchedulerHistoryUpdateReqDto
+from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto
 from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataUpdateReqDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
-import json
+
 
 from bFdcAPI.Eqp.Dto.FdcEqpModule import FdcEqpModuleResDto
 

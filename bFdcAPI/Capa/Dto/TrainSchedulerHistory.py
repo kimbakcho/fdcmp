@@ -24,10 +24,3 @@ class TrainSchedulerHistoryResDto:
 
 
 
-class TrainSchedulerHistoryUpdateReqDto:
-    id: int
-    execute: bool | None
-    executeTime: str | None
-    predictResult: dict = field()
-    OptrainedModel: dict = field(repr=False)
-    paramInfo: dict = field()
