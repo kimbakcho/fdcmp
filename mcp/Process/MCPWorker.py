@@ -101,7 +101,7 @@ class McpWorker:
             if context.contextHistory.__len__() >= self.__maxHistorySize:
                 context.contextHistory.pop(0)
             self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup)
-            # If the context object contains a field that cannot be deep copied, it does not become deep copy.
+
             saveContext = Context()
             saveContext.mp = context.mp
             saveContext.event = context.event

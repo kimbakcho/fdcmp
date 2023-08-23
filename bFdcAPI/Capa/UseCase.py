@@ -90,6 +90,12 @@ class CapaUseCase:
         return TrainSchedulerHistoryResDto(**r.json())
 
     @staticmethod
+    def setupNextScheduler(eqpModule: int):
+        requests.post(f"{env('BFDC_URL')}/capa/setupNextScheduler/", {
+            "eqpModule": eqpModule
+        })
+
+    @staticmethod
     def updateCycleTime(reqDto: CycleTimeUpdateReqDto):
         requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/",json= reqDto.__dict__)
 

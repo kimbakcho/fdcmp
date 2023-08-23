@@ -3,9 +3,11 @@ from enum import Enum
 from datetime import datetime
 from typing import Dict, Optional
 
+import requests
 from bson import ObjectId
 
 from ESB.ESBBrokerManager import ESBBrokerManager
+from bFdcAPI import env
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 from bFdcAPI.Capa.Dto.CycleTime import CycleTimeReqDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
@@ -70,6 +72,20 @@ class OperationAPIModule:
             force=req.force,
         )
         OperationRateUseCase.moduleStateUpdate(reqDto=reqDto)
+
+    def wModuleStateUpdate(self, req: OperationStateReqDto):
+        reqDto = ModuleStateUpdateReqDto(
+            eqpModule=self.module,
+            userName=req.userName,
+            state=req.state,
+            isHuman=False,
+            startTime=req.startTime.isoformat(),
+            fromSite=req.fromSite,
+            etcInfo=req.etcInfo,
+            comment=req.comment,
+            force=req.force,
+        )
+        requests.post(f"{env('BFDC_URL')}/wOperationRate/moduleStateUpdate/", json=reqDto.__dict__)
 
     def moduleStateDisplayInfoUpdate(self, info: dict | list | None):
         reqDto = ModuleStateDisplayInfoUpdateReqDto(

@@ -154,6 +154,7 @@ class CapaSchedulerWorker:
                             "paramInfo":predictParamInfoContext.getSchedulePredictParamInfo()
                         }
                     )
+            CapaUseCase.setupNextScheduler(eqpModule=self.module.id)
 
 
     def _getTrainModelToDict(self, trainModels) -> dict | None:
