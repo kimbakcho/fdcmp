@@ -124,7 +124,7 @@ class TrainLogicContext:
     def getEqpModuleName(self):
         pass
 
-    def updateCycleTime(self, recipe: str, cycleTime: float | int, type: str | None = None,
+    def updateCycleTime(self, paramName: str, weight: float | int, type: str | None = None,
                         typeInfo: dict | None = None,
                         conditionInfo: dict | None = None):
         pass
