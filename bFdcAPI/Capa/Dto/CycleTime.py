@@ -4,10 +4,10 @@ from dataclasses import dataclass
 @dataclass
 class CycleTimeUpdateReqDto:
     eqpModule: int
-    recipe: None | str
+    paramName: None | str
     type: None | str
     isSystem: bool
-    cycleTime: float | int
+    weight: float | int
     typeInfo: None | dict
     conditionInfo: None | dict
 
@@ -15,7 +15,7 @@ class CycleTimeUpdateReqDto:
 @dataclass
 class CycleTimeReqDto:
     eqpModule__eqp__code: str
-    recipe: str | None
+    paramName: str | None
     type: str | None
 
 
@@ -23,8 +23,8 @@ class CycleTimeReqDto:
 class CycleTimeManagerResDto:
     id: int
     type: str | None
-    recipe: str | None
-    cycleTime: float | int
+    paramName: str | None
+    weight: float | int
     typeInfo: dict | None
     conditionInfo: dict | None
     eqpModule: int

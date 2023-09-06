@@ -150,9 +150,9 @@ class CapaAPIModule:
     def __init__(self, module: int) -> None:
         self.module = module
 
-    def getCycleTime(self, eqpCode: str, recipe: str, type: str | None = None):
+    def getCycleTime(self, eqpCode: str, paramName: str, type: str | None = None):
         reqDto = CycleTimeReqDto(
-            recipe=recipe,
+            paramName=paramName,
             type=type,
             eqpModule__eqp__code=eqpCode
         )
