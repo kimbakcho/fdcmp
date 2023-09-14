@@ -26,6 +26,7 @@ class CycleTimeManagerResDto:
     type: str | None
     paramName: str | None
     weight: float | int
+    modelWeight: float | int | None
     typeInfo: dict | None
     conditionInfo: dict | None
     eqpModule: int
