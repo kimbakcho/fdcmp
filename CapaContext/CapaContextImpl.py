@@ -171,13 +171,16 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
     def getEqpModuleName(self):
         return self._eqpModuleName
 
-    def updateCycleTime(self, paramName: str, weight: float | int, type: str | None = None,
+    def updateCycleTime(self, paramName: str, weight: float | int,
+                        modelWeight: float | int | None = None,
+                        type: str | None = None,
                         typeInfo: dict | None = None,
                         conditionInfo: dict | None = None):
         reqDto = CycleTimeUpdateReqDto(
             eqpModule=self._eqpModule,
             paramName=paramName,
             weight=weight,
+            modelWeight=modelWeight,
             type=type,
             typeInfo=typeInfo,
             isSystem=True,

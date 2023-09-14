@@ -8,6 +8,7 @@ class CycleTimeUpdateReqDto:
     type: None | str
     isSystem: bool
     weight: float | int
+    modelWeight: float | int | None
     typeInfo: None | dict
     conditionInfo: None | dict
 
