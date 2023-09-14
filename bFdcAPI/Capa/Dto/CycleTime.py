@@ -32,4 +32,5 @@ class CycleTimeManagerResDto:
     eqpModule: int
     updateDate: str | None
     systemUpdate: bool | None
+    modelUpdateDate: str | None
     user: str
