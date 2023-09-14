@@ -19,3 +19,4 @@ class FdcEqpModuleResDto:
     orderIdx: int
     moduleType: str
     operationRateUse: bool
+    moduleModelId: bool
