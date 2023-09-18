@@ -9,6 +9,7 @@ class CycleTimeUpdateReqDto:
     isSystem: bool
     weight: float | int
     modelWeight: float | int | None
+    performanceWeight: float | int | None
     typeInfo: None | dict
     conditionInfo: None | dict
 
@@ -25,6 +26,9 @@ class CycleTimeManagerResDto:
     id: int
     type: str | None
     paramName: str | None
+    performanceWeight: float | int | None
+    performanceWeightSystemUpdate: bool | None
+    performanceWeightUpdateDate: str | None
     weight: float | int
     modelWeight: float | int | None
     typeInfo: dict | None

@@ -126,6 +126,7 @@ class TrainLogicContext:
 
     def updateCycleTime(self, paramName: str, weight: float | int,
                         modelWeight: float | int | None = None,
+                        performanceWeight: float | int | None = None,
                         type: str | None = None,
                         typeInfo: dict | None = None,
                         conditionInfo: dict | None = None):
