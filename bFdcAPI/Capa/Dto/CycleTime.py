@@ -38,3 +38,4 @@ class CycleTimeManagerResDto:
     systemUpdate: bool | None
     modelUpdateDate: str | None
     user: str
+    acceptDocument: int | None
