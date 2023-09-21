@@ -39,3 +39,4 @@ class CycleTimeManagerResDto:
     modelUpdateDate: str | None
     user: str
     acceptDocument: int | None
+    userObj: int | None
