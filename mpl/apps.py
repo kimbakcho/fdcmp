@@ -13,7 +13,7 @@ class MplConfig(AppConfig):
             if 'runserver' in sys.argv and "--noreload" not in sys.argv:
                 if not os.environ.get('RUN_MAIN'):
                     return
-            logging.getLogger("wRIL").info("startService")
+            logging.getLogger("mpl").info("startService")
 
             from mpl.Process.MPLProcessWorker import mplProcessWorker
             mplProcessWorker()

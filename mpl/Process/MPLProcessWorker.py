@@ -1,15 +1,13 @@
 import multiprocessing
-import os
 import threading
 import traceback
 from multiprocessing import Queue, Process, current_process
 from pathlib import Path
 
-from django.utils.log import configure_logging
 from environ import environ
 import time
 
-from ESB.BrokerConnect import BrokerConnect, messageBrokerConnectManage
+from ESB.BrokerConnect import messageBrokerConnectManage
 from ESB.ESBBrokerManager import ESBBrokerType
 from bFdcAPI.Eqp.Dto.FdcEqp import FdcEqpReqDto
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
@@ -19,8 +17,6 @@ from fdcmp.settings import BASE_DIR
 from mpl.BrokerConnect.ActiveMqMPLConnect import ActiveMqMPLConnect
 from mpl.Process.MPLWorker import MPLWorker
 from mpl.Process.MPEqp import MPEqp
-from django.apps import apps
-from django.conf import settings
 import logging
 import re
 
@@ -47,9 +43,9 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     loggerMpl = logging.getLogger('mpl')
     process = multiprocessing.current_process()
     loggerMpl.info(f"start mpl process({process.pid}) eqpName = {module.eqpName} moduleId={module.name}")
-    if not apps.apps_ready:
+    # if not apps.apps_ready:
         # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
-        apps.populate(['mcp'])
+        # apps.populate(['mcp'])
     try:
         mplWorker = MPLWorker(moduleId, q, c)
         while True:

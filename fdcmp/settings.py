@@ -189,11 +189,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     'command',
-    'mpl',
-    'mcp',
     'capa',
     'acp',
-    'wRecipeInterLock'
+    'wRecipeInterLock',
+    'mpl',
+    'mcp',
 ]
 
 MIDDLEWARE = [

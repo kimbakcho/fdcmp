@@ -81,7 +81,7 @@ class CapaUseCase:
         r = requests.get(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/", params=reqDto.__dict__)
         result = list()
         for item in r.json()["results"]:
-            result.append(TrainSchedulerHistoryResDto(**item))
+                result.append(TrainSchedulerHistoryResDto(**item))
         return result
 
     @staticmethod

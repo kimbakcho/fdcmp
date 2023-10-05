@@ -40,9 +40,10 @@ def capaPWorker(moduleId: int, q: Queue):
     logger.info(f"start capa process({process.pid}) moduleId={moduleId}")
 
     while True:
-        capaSchedulerWorker = CapaSchedulerWorker(eqpModule)
         try:
+            capaSchedulerWorker = CapaSchedulerWorker(eqpModule)
             capaSchedulerWorker.start()
+            time.sleep(60)
         except Exception as e:
             logging.getLogger("capa").error(f'{eqpModule.eqpName}_{eqpModule.name}')
             logger = logging.getLogger("capa")
@@ -50,7 +51,8 @@ def capaPWorker(moduleId: int, q: Queue):
             logger.error(e.__str__())
             logger.error(traceback.format_stack())
             traceback.print_stack()
-        time.sleep(60)
+            time.sleep(60)
+
 
 
 def capaProcessWorker():
@@ -74,8 +76,10 @@ def capaProcessWorker():
             for capaEqp in capaEqps.values():
                 for module in capaEqp.getModules():
                     if module.moduleType == EqpModuleType.capa.value:
-                        capaProcess = Process(target=capaPWorker, args=[module.id, module.messageQueue],
-                                              name=f'{capaEqp.name}_{module.name}', daemon=True)
+                        capaProcess = Process(target=capaPWorker,
+                                              args=[module.id, module.messageQueue],
+                                              name=f'{capaEqp.name}_{module.name}',
+                                              daemon=True)
                         capaWorkProcesses.append({"process": capaProcess, "eqp": f'{capaEqp.name}',
                                               "eqpId": capaEqp.id, "moduleId": module.id,
                                               "module": f'{module.name}'})
