@@ -7,7 +7,7 @@ import base64
 import json
 import pickle
 
-from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto, CycleTimeReqDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
 
 
@@ -337,3 +337,15 @@ class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 
     def getEqpModuleName(self):
         return self._eqpModuleName
+
+    def getCycleTime(self, eqpCode: str, paramName: str, type: str | None = None):
+        reqDto = CycleTimeReqDto(
+            paramName=paramName,
+            type=type,
+            eqpModule__eqp__code=eqpCode
+        )
+        result = CapaUseCase.getCycleTime(reqDto)
+        if result.__len__() > 0:
+            return result[0]
+        return None
+

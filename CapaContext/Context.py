@@ -249,3 +249,6 @@ class PredictLogicContext:
 
     def getEqpModuleName(self):
         pass
+
+    def getCycleTime(self, eqpCode: str, paramName: str, type: str | None = None):
+        pass
