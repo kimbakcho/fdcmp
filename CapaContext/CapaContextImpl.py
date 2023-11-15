@@ -272,6 +272,15 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
     def getEqpModuleName(self):
         return self._eqpModuleName
 
+    def getModel(self, name):
+        trainedModels = CapaUseCase.getTrainLogic(self._eqpModule).trainedModel
+        trainModelDict = trainedModels[name]
+        if trainModelDict["type"] == "pickle":
+            base64Model = trainModelDict["model"]
+            model = base64.b64decode(base64Model)
+            model = pickle.loads(model)
+            return model
+        raise Exception("can not deserialize")
 
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 

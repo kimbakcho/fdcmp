@@ -200,6 +200,9 @@ class PredictParamInfoContext:
     def getEqpModuleName(self):
         pass
 
+    def getModel(self, name):
+        pass
+
 
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:
