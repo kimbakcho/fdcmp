@@ -282,6 +282,18 @@ class PredictParamInfoContext(CapaContext.Context.PredictParamInfoContext):
             return model
         raise Exception("can not deserialize")
 
+    def getCycleTime(self, eqpCode: str, paramName: str, type: str | None = None):
+        reqDto = CycleTimeReqDto(
+            paramName=paramName,
+            type=type,
+            eqpModule__eqp__code=eqpCode
+        )
+        result = CapaUseCase.getCycleTime(reqDto)
+        if result.__len__() > 0:
+            return result[0]
+        return None
+
+
 class PredictLogicContext(CapaContext.Context.PredictLogicContext):
 
     def __init__(self, eqpModule: int) -> None:

@@ -203,6 +203,9 @@ class PredictParamInfoContext:
     def getModel(self, name):
         pass
 
+    def getCycleTime(self, eqpCode: str, paramName: str, type: str | None = None):
+        pass
+
 
 class PredictLogicContext:
     def __init__(self, eqpModule: int) -> None:
