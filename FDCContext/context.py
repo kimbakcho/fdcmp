@@ -16,7 +16,6 @@ from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleS
 from bFdcAPI.OperationRate.Dto.ModuleStateEtcInfoUpdateReqDto import ModuleStateEtcInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateModifyPlanProductionOutputReqDto import \
     ModuleStateModifyPlanProductionOutputReqDto
-from bFdcAPI.OperationRate.Dto.ModuleStatePredictFinishTimeUpdateReqDto import ModuleStatePredictFinishTimeUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateUpdateReqDto import ModuleStateUpdateReqDto
 from bFdcAPI.OperationRate.Dto.PerformanceOperationRateSaveReqDto import PerformanceOperationRateSaveReqDto
 from bFdcAPI.OperationRate.UseCase import OperationRateUseCase

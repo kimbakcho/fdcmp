@@ -2,7 +2,6 @@ import json
 
 import requests
 
-from Util.NpEncoder import NpEncoder
 from bFdcAPI import env
 from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto, CycleTimeReqDto, CycleTimeManagerResDto
 from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
@@ -10,6 +9,7 @@ from bFdcAPI.Capa.Dto.TrainValidData import TrainValidDataResDto, TrainValidData
 from bFdcAPI.Capa.Dto.PredictParamInfo import PredictParamInfoResDto, PredictParamInfoUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainLogic import TrainLogicResDto, TrainLogicUpdateReqDto
 from bFdcAPI.Capa.Dto.TrainSchedulerHistory import TrainSchedulerHistoryListReqDto, TrainSchedulerHistoryResDto
+from bFdcAPI.NpEncoder import NpEncoder
 
 
 class CapaUseCase:
