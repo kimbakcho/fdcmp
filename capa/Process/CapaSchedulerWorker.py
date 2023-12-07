@@ -19,6 +19,7 @@ class CapaSchedulerWorker:
 
     @staticmethod
     def start(module: FdcEqpModuleResDto,schedulerHistoryId: int):
+        logging.getLogger("capa").info(f"{module.eqpName} Capa Train Start")
         trainValidData = CapaUseCase.getTrainValidData(module.id)
         trainValidDataContext = TrainValidDataContext()
         trainValidDataContext.setEqpCode(module.eqpCode)
@@ -27,6 +28,7 @@ class CapaSchedulerWorker:
         trainValidDataContext.setEqpModuleName(module.name)
         if trainValidData.logicCode is not None and trainValidData.logicCode.__len__() > 0:
             try:
+                logging.getLogger("capa").info(f"{module.eqpName} Capa trainValidData Start")
                 com = compile(decoratorLogicCode(trainValidData.logicCode), '<string>', mode='exec')
                 exec(com, None, locals())
                 runResult = locals().get("run")(trainValidDataContext)
@@ -37,6 +39,7 @@ class CapaSchedulerWorker:
                                                     trainPeriodStart=trainValidDataContext.getTrainPeriodStart().isoformat(),
                                                     trainPeriodEnd=trainValidDataContext.getTrainPeriodEnd().isoformat())
                 CapaUseCase.saveTrainValidData(reqDto)
+                logging.getLogger("capa").info(f"{module.eqpName} Capa trainValidData End")
             except Exception as e:
                 logging.getLogger("capa").error(f'{module.eqpName}_{module.name}')
                 logging.getLogger("capa").error(traceback.format_exc())
@@ -53,6 +56,7 @@ class CapaSchedulerWorker:
             trainLogicContext.setEqpModuleCode(module.code)
             trainLogicContext.setEqpModuleName(module.name)
             try:
+                logging.getLogger("capa").info(f"{module.eqpName} Capa trainLogic Start")
                 com = compile(decoratorLogicCode(trainLogic.logic), '<string>', mode='exec')
                 exec(com, None, locals())
                 locals().get("run")(trainLogicContext)
@@ -61,6 +65,7 @@ class CapaSchedulerWorker:
                 trainedInfo = trainLogicContext.getTrainedInfo()
                 CapaUseCase.saveTrainLogic(
                     TrainLogicUpdateReqDto(id=trainLogic.id, trainedModel=saveJson, trainedInfo=trainedInfo))
+                logging.getLogger("capa").info(f"{module.eqpName} Capa trainLogic End")
             except Exception as e:
                 logging.getLogger("capa").error(f'{module.eqpName}_{module.name}')
                 logging.getLogger("capa").error(traceback.format_exc())
@@ -77,6 +82,7 @@ class CapaSchedulerWorker:
             predictParamInfoContext.setEqpModuleCode(module.code)
             predictParamInfoContext.setEqpModuleName(module.name)
             try:
+                logging.getLogger("capa").info(f"{module.eqpName} Capa predictParam Start")
                 com = compile(decoratorLogicCode(predictParamInfo.logic), '<string>', mode='exec')
                 exec(com, None, locals())
                 locals().get("run")(predictParamInfoContext)
@@ -87,7 +93,7 @@ class CapaSchedulerWorker:
                                                                               predictParamInfoContext.getPredictEtcInfo(),
                                                                               schedulePredictParamInfo=
                                                                               predictParamInfoContext.getSchedulePredictParamInfo()))
-
+                logging.getLogger("capa").info(f"{module.eqpName} Capa predictParam End")
             except Exception as e:
                 logging.getLogger("capa").error(f'{module.eqpName}_{module.name}')
                 logging.getLogger("capa").error(traceback.format_exc())
@@ -139,6 +145,7 @@ class CapaSchedulerWorker:
                     "trainedModel": saveJson
                 })
         CapaUseCase.setupNextScheduler(eqpModule=module.id)
+        logging.getLogger("capa").info(f"{module.eqpName} Capa Train End")
 
     @staticmethod
     def _getTrainModelToDict(trainModels) -> dict | None:
