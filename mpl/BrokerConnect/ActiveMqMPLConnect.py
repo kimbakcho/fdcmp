@@ -16,7 +16,6 @@ class ActiveMqMPLConnect(BrokerConnect):
     def __init__(self, mplListenerWork: ListenerWorker, coreInfo: CoreResDto) -> None:
         self._mplListenerWork = mplListenerWork
         self.__coreInfo = coreInfo
-
     def connect(self):
         try:
             self._c = stomp.Connection([(self.__coreInfo.ESBIp, self.__coreInfo.ESBPort)], reconnect_attempts_max=-1,

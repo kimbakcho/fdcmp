@@ -2,6 +2,7 @@ import json
 
 import requests
 
+from Util.NpEncoder import NpEncoder
 from bFdcAPI import env
 from bFdcAPI.Capa.Dto.CycleTime import CycleTimeUpdateReqDto, CycleTimeReqDto, CycleTimeManagerResDto
 from bFdcAPI.Capa.Dto.PredictLogic import PredictLogicResDto
@@ -29,7 +30,8 @@ class CapaUseCase:
 
     @staticmethod
     def saveTrainValidData(reqDto: TrainValidDataUpdateReqDto):
-        requests.post(f"{env('BFDC_URL')}/capa/trainValidDataSave/", json=reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/capa/trainValidDataSave/", data=json.dumps(reqDto.__dict__, cls=NpEncoder),
+                      headers={"Content-Type": "application/json"})
 
     @staticmethod
     def getPredictParamInfo(eqpModuleId: int) -> PredictParamInfoResDto | None:
@@ -42,13 +44,13 @@ class CapaUseCase:
 
     @staticmethod
     def updatePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto) -> PredictParamInfoResDto:
-        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/", json= reqDto.__dict__)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/predictParamInfo/{reqDto.id}/", json=reqDto.__dict__)
         return PredictParamInfoResDto(**r.json())
 
     @staticmethod
-    def savePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto) :
-        requests.post(f"{env('BFDC_URL')}/capa/predictParamInfoSave/", json= reqDto.__dict__)
-
+    def savePredictParamInfo(reqDto: PredictParamInfoUpdateReqDto):
+        requests.post(f"{env('BFDC_URL')}/capa/predictParamInfoSave/", data=json.dumps(reqDto.__dict__, cls=NpEncoder),
+                      headers={"Content-Type": "application/json"})
 
     @staticmethod
     def getTrainLogic(eqpModuleId: int) -> TrainLogicResDto | None:
@@ -61,13 +63,15 @@ class CapaUseCase:
 
     @staticmethod
     def updateTrainLogic(reqDto: TrainLogicUpdateReqDto) -> TrainLogicResDto:
-        r = requests.patch(f"{env('BFDC_URL')}/capa/trainLogic/{reqDto.id}/", json=reqDto.__dict__)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/trainLogic/{reqDto.id}/",
+                           data=json.dumps(reqDto.__dict__, cls=NpEncoder),
+                           headers={"Content-Type": "application/json"})
         return TrainLogicResDto(**r.json())
 
     @staticmethod
-    def saveTrainLogic(reqDto: TrainLogicUpdateReqDto) :
-        requests.post(f"{env('BFDC_URL')}/capa/trainLogicSave/", json=reqDto.__dict__)
-
+    def saveTrainLogic(reqDto: TrainLogicUpdateReqDto):
+        requests.post(f"{env('BFDC_URL')}/capa/trainLogicSave/", data=json.dumps(reqDto.__dict__, cls=NpEncoder),
+                      headers={"Content-Type": "application/json"})
 
     @staticmethod
     def getPredictLogic(eqpModuleId: int) -> PredictLogicResDto:
@@ -81,12 +85,15 @@ class CapaUseCase:
         r = requests.get(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/", params=reqDto.__dict__)
         result = list()
         for item in r.json()["results"]:
-                result.append(TrainSchedulerHistoryResDto(**item))
+            result.append(TrainSchedulerHistoryResDto(**item))
         return result
 
     @staticmethod
     def updateTrainSchedulerHistory(reqDto: dict):
-        r = requests.patch(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/{reqDto['id']}/",json=reqDto)
+        r = requests.patch(f"{env('BFDC_URL')}/capa/trainSchedulerHistory/{reqDto['id']}/",
+                           data=json.dumps(reqDto, cls=NpEncoder),
+                           headers={"Content-Type": "application/json"}
+                           )
         return TrainSchedulerHistoryResDto(**r.json())
 
     @staticmethod
@@ -97,12 +104,13 @@ class CapaUseCase:
 
     @staticmethod
     def updateCycleTime(reqDto: CycleTimeUpdateReqDto):
-        requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/",json= reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/capa/cycleTimeUpdate/", data=json.dumps(reqDto.__dict__, cls=NpEncoder),
+                      headers={"Content-Type": "application/json"})
 
     @staticmethod
     def getCycleTime(reqDto: CycleTimeReqDto):
         r = requests.get(f"{env('BFDC_URL')}/capa/cycleTimes/", params=reqDto.__dict__)
         result = list()
         for item in r.json():
-            result.append(CycleTimeManagerResDto(**item))
+            result.append(item)
         return result
