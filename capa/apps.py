@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 import sys
 import os
+import threading
 class CapaConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'capa'
@@ -11,4 +12,4 @@ class CapaConfig(AppConfig):
                 if not os.environ.get('RUN_MAIN'):
                     return
             from capa.Process.CapaProcessWorker import capaProcessWorker
-            capaProcessWorker()
+            threading.Thread(target=capaProcessWorker,daemon=True).start()
