@@ -9,7 +9,7 @@ from bson import ObjectId
 from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI import env
 from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
-from bFdcAPI.Capa.Dto.CycleTime import CycleTimeReqDto
+from bFdcAPI.Capa.Dto.CycleTime import CycleTimeReqDto, CycleTimeManagerResDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
 from bFdcAPI.OperationRate.Dto.ModuleStateDisplayInfoUpdateReqDto import ModuleStateDisplayInfoUpdateReqDto
@@ -157,7 +157,7 @@ class CapaAPIModule:
         )
         result = CapaUseCase.getCycleTime(reqDto)
         if result.__len__() > 0:
-            return result[0]
+            return CycleTimeManagerResDto(**result[0])
         return None
 
 
