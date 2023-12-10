@@ -26,7 +26,7 @@ class MCPEqpAlarm:
 
     def getLogics(self, alarm: int) -> List[LogicItem]:
         try:
-            if self.__logicsRecvState in [RecvState.init, RecvState.needReload]:
+            if self.__logicsRecvState in [RecvState.init, RecvState.needReload, RecvState.error]:
                 self.__logics = list()
                 self.__alarmLVs = dict[str, FdcMcpAlarmLVResDto]()
                 for alarmLV in self.__fdcMcpUseCase.getAlarmLVList(alarm):

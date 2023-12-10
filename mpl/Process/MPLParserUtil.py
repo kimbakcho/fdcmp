@@ -25,7 +25,7 @@ class MPLParserUtil:
 
     def getMpLogics(self) -> List[LogicItem]:
         try:
-            if self.__MPLogicRecvState in [RecvState.init, RecvState.needReload]:
+            if self.__MPLogicRecvState in [RecvState.init, RecvState.needReload, RecvState.error]:
                 self.__mpLogics = list[LogicItem]()
                 for mpl in self.__mpUseCase.getMPL():
                     if mpl.logicCode is not None:

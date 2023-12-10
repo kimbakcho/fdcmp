@@ -85,7 +85,7 @@ class MCPEqpModule:
 
     def getConditions(self) -> List[LogicItem]:
         try:
-            if self.__conditionsRecvState in [RecvState.init, RecvState.needReload]:
+            if self.__conditionsRecvState in [RecvState.init, RecvState.needReload, RecvState.error]:
                 self.__conditions = list[LogicItem]()
                 for conditions in self.__fdcMcpUseCase.getConditions(self.id):
                     if conditions.logicCode is not None:

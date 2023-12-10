@@ -26,7 +26,7 @@ class McpEqpTraceGroup:
 
     def getTraceLogic(self):
         try:
-            if self.__traceLVRecvState in [RecvState.init, RecvState.needReload]:
+            if self.__traceLVRecvState in [RecvState.init, RecvState.needReload, RecvState.error]:
                 self.__logicItems = list[LogicItem]()
                 self.__traceLVs = dict[str, TraceLVResDto]()
                 for traceLV in self.__mcpUseCase.getTraceLVList(self.id):
