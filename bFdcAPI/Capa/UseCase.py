@@ -14,9 +14,10 @@ from bFdcAPI.NpEncoder import NpEncoder
 
 class CapaUseCase:
     @staticmethod
-    def getTrainValidData(eqpModuleId: int) -> TrainValidDataResDto | None:
+    def getTrainValidData(eqpModuleId: int,simpleResponse: None|bool = False) -> TrainValidDataResDto | None:
         r = requests.get(f"{env('BFDC_URL')}/capa/trainValidDataForEqpModule/", params={
-            "eqpModule": eqpModuleId
+            "eqpModule": eqpModuleId,
+            "simpleResponse": simpleResponse
         })
 
         if not r.ok:

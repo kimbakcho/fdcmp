@@ -25,9 +25,9 @@ def capaProcessWorker():
                                                 trainScheduler__eqpModule=None,
                                                 planTime__lte=datetime.now().isoformat()))
             for scheduler in schedulerList:
-
                 module = FdcEqpUseCase.getEqpModule(scheduler.trainScheduler.eqpModule)
                 CapaUseCase.updateTrainSchedulerHistory({"id": scheduler.id, "execute": True, "executeTime": datetime.now().isoformat()})
+                CapaUseCase.setupNextScheduler(eqpModule=module.id)
                 pools.apply_async(func=CapaSchedulerWorker.start, args=[module, scheduler.id])
             time.sleep(10)
         except Exception as e:

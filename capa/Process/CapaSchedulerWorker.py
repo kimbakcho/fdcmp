@@ -20,7 +20,7 @@ class CapaSchedulerWorker:
     @staticmethod
     def start(module: FdcEqpModuleResDto,schedulerHistoryId: int):
         logging.getLogger("capa").info(f"{module.eqpName} Capa Train Start")
-        trainValidData = CapaUseCase.getTrainValidData(module.id)
+        trainValidData = CapaUseCase.getTrainValidData(module.id, simpleResponse=True)
         trainValidDataContext = TrainValidDataContext()
         trainValidDataContext.setEqpCode(module.eqpCode)
         trainValidDataContext.setEqpName(module.eqpName)
@@ -144,7 +144,7 @@ class CapaSchedulerWorker:
                     "id":schedulerHistoryId,
                     "trainedModel": saveJson
                 })
-        CapaUseCase.setupNextScheduler(eqpModule=module.id)
+        # CapaUseCase.setupNextScheduler(eqpModule=module.id)
         logging.getLogger("capa").info(f"{module.eqpName} Capa Train End")
 
     @staticmethod
