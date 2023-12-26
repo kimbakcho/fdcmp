@@ -7,6 +7,7 @@ class PerformanceOperationRateSaveReqDto:
     startTime: str
     endTime: str
     predictCycleTime: int | float
+    dueSec: int | None
     lotId: list | None
     batchId: str | None
     recipe: str | None
