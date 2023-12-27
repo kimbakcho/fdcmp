@@ -253,7 +253,7 @@ class McpWorker:
                 fdcDataGroup.context = context.get_simpleContext()
                 fdcDataGroup.etc = context.etc
                 fdcDataGroup.endTime = now
-                fdcDataGroup.betweenTimeSec = (fdcDataGroup.endTime - fdcDataGroup.startTime).seconds
+                fdcDataGroup.betweenTimeSec = int((fdcDataGroup.endTime - fdcDataGroup.startTime).total_seconds())
                 fdcDataGroup.save()
                 context.currentFdcDataGroup = None
             else:
