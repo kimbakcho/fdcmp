@@ -17,3 +17,4 @@ class PerformanceOperationRateSaveReqDto:
     waferCount: int | None
     batchCount: int | None
     cycleTime: int | float
+    realCycleTime: int | float | None
