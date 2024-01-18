@@ -118,7 +118,7 @@ class OperationAPIModule:
                                             startTime: datetime,
                                             endTime: datetime,
                                             predictCycleTime: float | int,
-                                            cycleTime: int | float,
+                                            cycleTime: int | float | None = None,
                                             realCycleTime: int | float | None = None,
                                             dueSec: int | None = None,
                                             lotId: list | None = None,

@@ -16,5 +16,5 @@ class PerformanceOperationRateSaveReqDto:
     contextInfo: dict | None
     waferCount: int | None
     batchCount: int | None
-    cycleTime: int | float
+    cycleTime: int | float | None
     realCycleTime: int | float | None
