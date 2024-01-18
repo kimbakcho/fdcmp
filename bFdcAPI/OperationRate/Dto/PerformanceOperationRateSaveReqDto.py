@@ -7,6 +7,7 @@ class PerformanceOperationRateSaveReqDto:
     startTime: str
     endTime: str
     predictCycleTime: int | float
+    initStartTime: str | None
     dueSec: int | None
     lotId: list | None
     batchId: str | None
@@ -18,3 +19,5 @@ class PerformanceOperationRateSaveReqDto:
     batchCount: int | None
     cycleTime: int | float | None
     realCycleTime: int | float | None
+    productionCycleTime: int | float | None
+

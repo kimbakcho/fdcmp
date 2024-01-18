@@ -118,8 +118,10 @@ class OperationAPIModule:
                                             startTime: datetime,
                                             endTime: datetime,
                                             predictCycleTime: float | int,
+                                            initStartTime: datetime | None = None,
                                             cycleTime: int | float | None = None,
                                             realCycleTime: int | float | None = None,
+                                            productionCycleTime: int | float | None = None,
                                             dueSec: int | None = None,
                                             lotId: list | None = None,
                                             batchId: str | None = None,
@@ -129,13 +131,17 @@ class OperationAPIModule:
                                             contextInfo: dict | None = None,
                                             waferCount: int | None = None,
                                             batchCount: int | None = None):
+        if initStartTime is not None:
+            initStartTime = initStartTime.isoformat()
         reqDto = PerformanceOperationRateSaveReqDto(
             eqpModule=self.module,
+            initStartTime=initStartTime,
             startTime=startTime.isoformat(),
             endTime=endTime.isoformat(),
             predictCycleTime=predictCycleTime,
             cycleTime=cycleTime,
             realCycleTime=realCycleTime,
+            productionCycleTime=productionCycleTime,
             lotId=lotId,
             dueSec=dueSec,
             batchId=batchId,
