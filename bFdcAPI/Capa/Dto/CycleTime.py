@@ -30,7 +30,10 @@ class CycleTimeManagerResDto:
     performanceWeight: float | int | None
     performanceWeightSystemUpdate: bool | None
     performanceWeightUpdateDate: str | None
+    performanceTrainWeight: float | int | None
+    performanceTrainWeightUpdateDate: str | None
     weight: float | int
+    stdWeight: float | int | None
     modelWeight: float | int | None
     typeInfo: dict | None
     conditionInfo: dict | None
