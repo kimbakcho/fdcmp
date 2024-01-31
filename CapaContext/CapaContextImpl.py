@@ -174,6 +174,7 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
     def updateCycleTime(self, paramName: str, weight: float | int,
                         modelWeight: float | int | None = None,
                         performanceWeight: float | int | None = None,
+                        stdWeight: float | int | None = None,
                         type: str | None = None,
                         typeInfo: dict | None = None,
                         conditionInfo: dict | None = None):
@@ -183,6 +184,7 @@ class TrainLogicContext(CapaContext.Context.TrainLogicContext):
             weight=weight,
             modelWeight=modelWeight,
             performanceWeight=performanceWeight,
+            stdWeight=stdWeight,
             type=type,
             typeInfo=typeInfo,
             isSystem=True,

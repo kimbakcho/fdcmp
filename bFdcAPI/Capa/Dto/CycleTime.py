@@ -10,6 +10,7 @@ class CycleTimeUpdateReqDto:
     weight: float | int
     modelWeight: float | int | None
     performanceWeight: float | int | None
+    stdWeight: float | int | None
     typeInfo: None | dict
     conditionInfo: None | dict
 
