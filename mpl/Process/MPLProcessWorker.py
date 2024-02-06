@@ -4,6 +4,7 @@ import traceback
 from multiprocessing import Queue, Process, current_process
 from pathlib import Path
 
+from django.apps import apps
 from environ import environ
 import time
 
@@ -43,9 +44,15 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     loggerMpl = logging.getLogger('mpl')
     process = multiprocessing.current_process()
     loggerMpl.info(f"start mpl process({process.pid}) eqpName = {module.eqpName} moduleId={module.name}")
-    # if not apps.apps_ready:
-        # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
-        # apps.populate(['mcp'])
+    try:
+        if not apps.apps_ready:
+            # configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+            apps.populate(['mcp'])
+    except Exception as e:
+        loggerMpl.error(traceback.format_exc())
+        loggerMpl.error(e.__str__())
+        loggerMpl.error(traceback.format_stack())
+        traceback.print_stack()
     try:
         mplWorker = MPLWorker(moduleId, q, c)
         while True:

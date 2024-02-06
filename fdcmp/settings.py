@@ -193,7 +193,7 @@ INSTALLED_APPS = [
     'acp',
     'wRecipeInterLock',
     'mpl',
-    'mcp',
+    'mcp'
 ]
 
 MIDDLEWARE = [
