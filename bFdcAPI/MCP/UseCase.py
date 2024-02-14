@@ -14,6 +14,11 @@ from bFdcAPI import env
 
 
 class FdcMcpUseCase:
+
+    @staticmethod
+    def getInitList(eqpModule: int) -> List[dict]:
+        res = requests.get(f"{env('BFDC_URL')}/mcp/init/", params={"eqpModule": eqpModule})
+        return res.json()
     @staticmethod
     def getEventList(eqpModule: int) -> List[FdcMcpEventResDto]:
 
