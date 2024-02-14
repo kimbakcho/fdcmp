@@ -36,6 +36,7 @@ class CommandType(Enum):
     mpLogic = "mpLogic"
     alarm = "alarm"
     alarmlv = "alarmlv"
+    init = "init"
 
 
 class CommandAction(Enum):
@@ -43,3 +44,4 @@ class CommandAction(Enum):
     update = "update"
     orderSwap = "orderSwap"
     delete = "delete"
+    moduleRestart = "moduleRestart"
