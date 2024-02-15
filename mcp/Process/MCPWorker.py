@@ -14,10 +14,6 @@ import copy
 
 from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCData
 
-from pytz import timezone
-
-from fdcmp import settings
-
 
 class McpWorker:
 

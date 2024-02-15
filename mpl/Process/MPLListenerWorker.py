@@ -20,17 +20,17 @@ class MPLListenerWorker(ListenerWorker):
         self.__mplUtil = MPLParserUtil()
         self.__fdcEqpUseCase = FdcEqpUseCase()
         self.__mplPWorker = mplPWorker
+        self.__context = Context()
 
     def onMessage(self, message: str):
-        context = Context()
-        context.set_message(message)
+        self.__context.set_message(message)
         for logicItem in self.__mplUtil.getMpLogics():
             exec(logicItem.logicComPile, None, locals())
-            runResult = locals().get("run")(context)
-            context.mp[logicItem.name] = runResult
+            runResult = locals().get("run")(self.__context)
+            self.__context.mp[logicItem.name] = runResult
             if logicItem.name == "EqpCode":
-                if context.mp[logicItem.name] in self.mpEqps.keys():
-                    for module in self.mpEqps.get(context.mp[logicItem.name]).getModules():
+                if self.__context.mp[logicItem.name] in self.mpEqps.keys():
+                    for module in self.mpEqps.get(self.__context.mp[logicItem.name]).getModules():
                         module.messageQueue.put(message)
                 break
 
@@ -54,6 +54,12 @@ class MPLListenerWorker(ListenerWorker):
             elif r.get("Action") == CommandAction.update.value:
                 for module in self.mpEqps.get(r["EqpCode"]).getModules():
                     module.commandQueue.put(message)
+            elif r.get("Action") == CommandAction.moduleRestart.value:
+                if r["EqpCode"] in self.mpEqps.keys():
+                    for module in self.mpEqps.get(r["EqpCode"]).getModules():
+                        if "EqpModule" in r.keys():
+                            if module.id == r["EqpModule"]:
+                                module.commandQueue.put(message)
         elif r.get("Module") == CommandModule.eqp.value:
             if r.get("Action") == CommandAction.delete.value:
                 self.deleteEqp(r.get("Eqp"), r.get("EqpCode"))
@@ -89,6 +95,8 @@ class MPLListenerWorker(ListenerWorker):
                     if process["process"].is_alive():
                         process["process"].kill()
 
+
+
     def createEqpModule(self, eqpId: int, eqpCode: str, eqpModuleId: int):
         if eqpCode not in self.mpEqps.keys():
             eqp = FdcEqpUseCase.getEqp(eqpId)
@@ -120,3 +128,4 @@ class MPLListenerWorker(ListenerWorker):
                         time.sleep(0.1)
                         if stopItem["process"].is_alive():
                             stopItem["process"].kill()
+

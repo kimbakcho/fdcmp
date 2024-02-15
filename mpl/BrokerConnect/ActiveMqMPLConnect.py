@@ -35,4 +35,7 @@ class ActiveMqMPLConnect(BrokerConnect):
             traceback.print_stack()
 
     def isConnect(self):
-        return self._c.is_connected()
+        if self.__dict__.get("_c"):
+            return self._c.is_connected()
+        else:
+            return False

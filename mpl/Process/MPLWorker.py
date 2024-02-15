@@ -15,12 +15,15 @@ import logging
 
 class MPLWorker:
     def __init__(self, moduleId: int, q: Queue, c: Queue) -> None:
-        from mcp.Process.MCPEqpModule import MCPEqpModule
-        from mcp.Process.MCPWorker import McpWorker
         self.q = q
         self.c = c
         self.moduleId = moduleId
         self.__loggerMpl = logging.getLogger('mpl')
+        self.moduleInit()
+
+    def moduleInit(self):
+        from mcp.Process.MCPEqpModule import MCPEqpModule
+        from mcp.Process.MCPWorker import McpWorker
         self.__mplParserUtil = MPLParserUtil()
 
         module = FdcEqpUseCase.getEqpModule(id=self.moduleId)
@@ -35,7 +38,6 @@ class MPLWorker:
         self.__context.setOperationAPIModule(OperationAPIModule(self.__module.id))
         self.__context.setCapaAPIModule(CapaAPIModule(self.__module.id))
         self.initRun()
-
         self.__mcpWorker = McpWorker()
 
     def initRun(self):
@@ -52,6 +54,13 @@ class MPLWorker:
                     self.__loggerMpl.error(e.__str__())
                     self.__loggerMpl.error(traceback.format_stack())
                     traceback.print_stack()
+
+    def reloadModule(self):
+        del self.__mplParserUtil
+        del self.__module
+        del self.__context
+        del self.__mcpWorker
+        self.moduleInit()
 
     def messageParser(self, message: str):
         try:
@@ -132,3 +141,5 @@ class MPLWorker:
         elif r.get("Module") == CommandModule.eqpModule.value:
             if r.get("Action") in [CommandAction.update.value]:
                 self.__module.reLoadBasicInfo()
+            elif r.get("Action") in [CommandAction.moduleRestart.value]:
+                self.reloadModule()
