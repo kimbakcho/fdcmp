@@ -17,102 +17,110 @@ from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCD
 
 class McpWorker:
 
-    def __init__(self) -> None:
+    def __init__(self, context: Context,eqpModule: MCPEqpModule) -> None:
         super().__init__()
         self.__maxHistorySize = 20
-
         self.__logger = logging.getLogger('mcp')
+        self.context = context
+        self.eqpModule = eqpModule
+        self.threadingMap = dict()
 
-    def run(self, eqpModule: MCPEqpModule, context: Context):
+    def __del__(self):
+        pass
+
+    def initTreading(self):
+        pass
+
+    def run(self):
         try:
             event = None
             traceGroup = None
             alarm = None
-            if context.mp.get(MpBasic.IsEvent.value, None) \
-                    and context.mp[MpBasic.EventCode.value] in eqpModule.getEvents().keys():
-                event = eqpModule.getEvents()[context.mp[MpBasic.EventCode.value]]
+            if self.context.mp.get(MpBasic.IsEvent.value, None) \
+                    and self.context.mp[MpBasic.EventCode.value] in self.eqpModule.getEvents().keys():
+                event = self.eqpModule.getEvents()[self.context.mp[MpBasic.EventCode.value]]
                 for logicItem in event.getLogics(event.id):
                     try:
                         exec(logicItem.logicComPile, None, locals())
-                        runResult = locals().get("run")(context)
-                        if event.name not in context.event.keys():
-                            context.event[event.name] = {}
-                        context.event[event.name][logicItem.name] = runResult
+                        runResult = locals().get("run")(self.context)
+                        if event.name not in self.context.event.keys():
+                            self.context.event[event.name] = {}
+                        self.context.event[event.name][logicItem.name] = runResult
                     except Exception as e:
-                        self.__logger.error(context.get_message())
-                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(self.context.get_message())
+                        self.__logger.error(f'{self.eqpModule.eqpName}_{self.eqpModule.name} {logicItem.name}')
                         self.__logger.error(traceback.format_exc())
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            if context.mp.get(MpBasic.IsAlarm.value, None) \
-                    and context.mp[MpBasic.AlarmCode.value] in eqpModule.getAlarms().keys():
-                alarm = eqpModule.getAlarms()[context.mp[MpBasic.AlarmCode.value]]
+            if self.context.mp.get(MpBasic.IsAlarm.value, None) \
+                    and self.context.mp[MpBasic.AlarmCode.value] in self.eqpModule.getAlarms().keys():
+                alarm = self.eqpModule.getAlarms()[self.context.mp[MpBasic.AlarmCode.value]]
                 for logicItem in alarm.getLogics(alarm.id):
                     try:
                         exec(logicItem.logicComPile, None, locals())
-                        runResult = locals().get("run")(context)
-                        if alarm.name not in context.alarm.keys():
-                            context.alarm[alarm.name] = {}
-                        context.alarm[alarm.name][logicItem.name] = runResult
+                        runResult = locals().get("run")(self.context)
+                        if alarm.name not in self.context.alarm.keys():
+                            self.context.alarm[alarm.name] = {}
+                        self.context.alarm[alarm.name][logicItem.name] = runResult
                     except Exception as e:
-                        self.__logger.error(context.get_message())
-                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(self.context.get_message())
+                        self.__logger.error(f'{self.eqpModule.eqpName}_{self.eqpModule.name} {logicItem.name}')
                         self.__logger.error(traceback.format_exc())
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            if context.mp.get(MpBasic.IsTrace.value, None) \
-                    and context.mp[MpBasic.TraceGroupCode.value] in eqpModule.getTraceGroup().keys():
-                traceGroup = eqpModule.getTraceGroup()[context.mp[MpBasic.TraceGroupCode.value]]
+            if self.context.mp.get(MpBasic.IsTrace.value, None) \
+                    and self.context.mp[MpBasic.TraceGroupCode.value] in self.eqpModule.getTraceGroup().keys():
+                traceGroup = self.eqpModule.getTraceGroup()[self.context.mp[MpBasic.TraceGroupCode.value]]
                 for logicItem in traceGroup.getTraceLogic():
                     try:
                         exec(logicItem.logicComPile, None, locals())
-                        runResult = locals().get("run")(context)
-                        if traceGroup.name not in context.trace.keys():
-                            context.trace[traceGroup.name] = {}
-                        context.trace[traceGroup.name][logicItem.name] = runResult
+                        runResult = locals().get("run")(self.context)
+                        if traceGroup.name not in self.context.trace.keys():
+                            self.context.trace[traceGroup.name] = {}
+                        self.context.trace[traceGroup.name][logicItem.name] = runResult
                     except Exception as e:
-                        self.__logger.error(context.get_message())
-                        self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {logicItem.name}')
+                        self.__logger.error(self.context.get_message())
+                        self.__logger.error(f'{self.eqpModule.eqpName}_{self.eqpModule.name} {logicItem.name}')
                         self.__logger.error(traceback.format_exc())
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
 
-            for conditions in eqpModule.getConditions():
+            for conditions in self.eqpModule.getConditions():
                 try:
                     exec(conditions.logicComPile, None, locals())
-                    runResult = locals().get("run")(context)
-                    context.conditions[conditions.name] = runResult
+                    runResult = locals().get("run")(self.context)
+                    self.context.conditions[conditions.name] = runResult
                 except Exception as e:
-                    self.__logger.error(context.get_message())
-                    self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name} {conditions.name}')
+                    self.__logger.error(self.context.get_message())
+                    self.__logger.error(f'{self.eqpModule.eqpName}_{self.eqpModule.name} {conditions.name}')
                     self.__logger.error(traceback.format_exc())
                     self.__logger.error(e.__str__())
                     self.__logger.error(traceback.format_stack())
                     traceback.print_stack()
-            if context.contextHistory.__len__() >= self.__maxHistorySize:
-                context.contextHistory.pop(0)
-            self.mcpSaveWork(eqpModule, context, event, alarm, traceGroup)
+            if self.context.contextHistory.__len__() >= self.__maxHistorySize:
+                self.context.contextHistory.pop(0)
+            self.mcpSaveWork(self.eqpModule, self.context, event, alarm, traceGroup)
 
             saveContext = Context()
-            saveContext.mp = context.mp
-            saveContext.event = context.event
-            saveContext.alarm = context.alarm
-            saveContext.trace = context.trace
-            saveContext.spc = context.spc
-            saveContext.etc = context.etc
-            saveContext.conditions = context.conditions
-            saveContext.currentFdcDataGroup = context.currentFdcDataGroup
+            saveContext.mp = self.context.mp
+            saveContext.event = self.context.event
+            saveContext.alarm = self.context.alarm
+            saveContext.trace = self.context.trace
+            saveContext.spc = self.context.spc
+            saveContext.etc = self.context.etc
+            saveContext.conditions = self.context.conditions
+            saveContext.currentFdcDataGroup = self.context.currentFdcDataGroup
 
-            context.contextHistory.append(copy.deepcopy(saveContext))
+            self.context.contextHistory.append(copy.deepcopy(saveContext))
         except Exception as e:
             logger = logging.getLogger('mcp')
-            logger.error(context.get_message())
-            self.__logger.error(f'{eqpModule.eqpName}_{eqpModule.name}')
+            logger.error(self.context.get_message())
+            self.__logger.error(f'{self.eqpModule.eqpName}_{self.eqpModule.name}')
             logger.error(traceback.format_exc())
             logger.error(e.__str__())
             logger.error(traceback.format_stack())

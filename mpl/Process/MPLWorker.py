@@ -38,7 +38,7 @@ class MPLWorker:
         self.__context.setOperationAPIModule(OperationAPIModule(self.__module.id))
         self.__context.setCapaAPIModule(CapaAPIModule(self.__module.id))
         self.initRun()
-        self.__mcpWorker = McpWorker()
+        self.__mcpWorker = McpWorker(self.__context,self.__module)
 
     def initRun(self):
         inits = FdcMcpUseCase.getInitList(eqpModule=self.moduleId)
@@ -83,7 +83,7 @@ class MPLWorker:
                     self.__loggerMpl.error(e.__str__())
                     self.__loggerMpl.error(traceback.format_stack())
                     traceback.print_stack()
-            self.__mcpWorker.run(self.__module, self.__context)
+            self.__mcpWorker.run()
         except Exception as e:
             self.__loggerMpl.error(traceback.format_exc())
             self.__loggerMpl.error(e.__str__())

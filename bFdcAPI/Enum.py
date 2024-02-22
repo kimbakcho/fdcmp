@@ -37,6 +37,7 @@ class CommandType(Enum):
     alarm = "alarm"
     alarmlv = "alarmlv"
     init = "init"
+    threadingLoop = "threadingLoop"
 
 
 class CommandAction(Enum):
