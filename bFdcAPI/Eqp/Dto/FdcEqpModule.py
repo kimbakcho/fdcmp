@@ -20,3 +20,4 @@ class FdcEqpModuleResDto:
     moduleType: str
     operationRateUse: bool
     moduleModelId: bool
+    mcpModelName: str | None
