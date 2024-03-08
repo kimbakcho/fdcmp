@@ -128,6 +128,11 @@ class MPLWorker:
                 if r.get("Action") in [CommandAction.create.value, CommandAction.update.value,
                                        CommandAction.delete.value, CommandAction.orderSwap.value]:
                     self.initRun()
+            elif r.get("Type") == CommandType.threadingLoop.value:
+                if r.get("Action") in [CommandAction.create.value, CommandAction.update.value]:
+                    self.__mcpWorker.createOrUpdateThreading(r.get("Id"))
+                elif r.get("Action") in [CommandAction.delete.value]:
+                    self.__mcpWorker.deleteThreading(r.get("Name"))
 
         elif r.get("Module") == CommandModule.mpl.value:
             if r.get("Type") == CommandType.mpLogic.value:

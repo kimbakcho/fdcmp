@@ -1,6 +1,7 @@
 import logging
 import traceback
 
+from bFdcAPI.MCP.UseCase import FdcMcpUseCase
 from mcp.Process.Enum import FabGroupType
 from mcp.Process.MCPEqpAlarm import MCPEqpAlarm
 from mcp.Process.MCPEqpEvent import MCPEqpEvent
@@ -12,6 +13,7 @@ from datetime import datetime
 from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 import copy
 
+from mcp.Process.MCPThread import MCPThread
 from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCData
 
 
@@ -23,13 +25,41 @@ class McpWorker:
         self.__logger = logging.getLogger('mcp')
         self.context = context
         self.eqpModule = eqpModule
-        self.threadingMap = dict()
+        self.threadingMap: dict[str,MCPThread] = dict()
+        self.initThreading()
 
     def __del__(self):
-        pass
+        for key in list(self.threadingMap.keys()):
+            pop = self.threadingMap.pop(key)
+            pop.stop()
 
-    def initTreading(self):
-        pass
+    def initThreading(self):
+        for key in list(self.threadingMap.keys()):
+            pop = self.threadingMap.pop(key)
+            pop.stop()
+        items = FdcMcpUseCase.getThreadingLoops(self.eqpModule.id)
+        for item in items:
+            if item.logicCode is not None:
+                mcp_thread = MCPThread(self.context, item)
+                self.threadingMap[item.name] = mcp_thread
+                self.threadingMap[item.name].startLoop()
+
+    def createOrUpdateThreading(self, threadLoopId: int):
+        threadLoop = FdcMcpUseCase.getThreadingLoop(threadLoopId)
+        if threadLoop.name in list(self.threadingMap.keys()):
+            popItem = self.threadingMap.pop(threadLoop.name)
+            popItem.stop()
+
+        if threadLoop.logicCode is not None:
+            mcp_thread = MCPThread(self.context, threadLoop)
+            self.threadingMap[threadLoop.name] = mcp_thread
+            self.threadingMap[threadLoop.name].startLoop()
+
+    def deleteThreading(self, threadLoopName: str):
+
+        if threadLoopName in list(self.threadingMap.keys()):
+            popItem = self.threadingMap.pop(threadLoopName)
+            popItem.stop()
 
     def run(self):
         try:

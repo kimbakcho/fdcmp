@@ -7,6 +7,7 @@ from bFdcAPI.MCP.Dto.FdcMcpAlarmLV import FdcMcpAlarmLVResDto
 from bFdcAPI.MCP.Dto.FdcMcpConditions import ConditionsResDto
 from bFdcAPI.MCP.Dto.FdcMcpEvent import FdcMcpEventResDto
 from bFdcAPI.MCP.Dto.FdcMcpEventLV import FdcMcpEventLVResDto
+from bFdcAPI.MCP.Dto.FdcMcpThread import ThreadingLoopResDto
 from bFdcAPI.MCP.Dto.FdcMcpTraceGroup import FdcMcpTraceGroupResDto
 from bFdcAPI.MCP.Dto.FdcMcpTraceLV import TraceLVResDto
 
@@ -75,3 +76,17 @@ class FdcMcpUseCase:
         for item in res.json():
             result.append(ConditionsResDto(**item))
         return result
+
+    @staticmethod
+    def getThreadingLoops(eqpModule: int)->list[ThreadingLoopResDto]:
+        res = requests.get(f"{env('BFDC_URL')}/mcp/threadingLoops/", params={"eqpModule": eqpModule})
+        result: list[ThreadingLoopResDto] = list()
+        for item in res.json():
+            result.append(ThreadingLoopResDto(**item))
+        return result
+
+    @staticmethod
+    def getThreadingLoop(id: int) -> ThreadingLoopResDto:
+        res = requests.get(f"{env('BFDC_URL')}/mcp/threadingLoop/{id}/")
+        item = res.json()
+        return ThreadingLoopResDto(**item)
