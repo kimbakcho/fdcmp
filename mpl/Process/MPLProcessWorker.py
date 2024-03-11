@@ -86,6 +86,7 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
 
 
 def mplProcessWorker():
+    connect = None
     while True:
         try:
             fdcMpUseCase = FdcMpUseCase()
@@ -97,12 +98,11 @@ def mplProcessWorker():
             coreInfo = fdcMpUseCase.getCore(env('MP_CORE_ID', int))
 
             mplListenerWorker = MPLListenerWorker(mpEqps, workProcesses, mplPWorker)
-
-            connect = None
-            if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
-                connect = ActiveMqMPLConnect(mplListenerWorker, coreInfo)
-            threading.Thread(target=messageBrokerConnectManage,
-                             args=[connect, logging.getLogger("brokerMPLMessage")]).start()
+            if connect is None:
+                if coreInfo.brokerType == ESBBrokerType.ActiveMQ.value:
+                    connect = ActiveMqMPLConnect(mplListenerWorker, coreInfo)
+                threading.Thread(target=messageBrokerConnectManage,
+                                 args=[connect, logging.getLogger("brokerMPLMessage")]).start()
 
 
             for mpEqp in mpEqps.values():
@@ -119,6 +119,7 @@ def mplProcessWorker():
                 connect.connect()
             return
         except Exception as e:
+
             logger = logging.getLogger("mpl")
             logger.error(traceback.format_exc())
             logger.error(e.__str__())
