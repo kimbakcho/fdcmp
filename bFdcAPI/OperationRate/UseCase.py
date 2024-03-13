@@ -35,4 +35,4 @@ class OperationRateUseCase:
 
     @staticmethod
     def performanceOperationRateSave(reqDto: PerformanceOperationRateSaveReqDto):
-        requests.post(f"{env('BFDC_URL')}/operationRate/performanceOperationRateHistorySave/",reqDto.__dict__)
+        requests.post(f"{env('BFDC_URL')}/operationRate/performanceOperationRateHistorySave/", json=reqDto.__dict__)
