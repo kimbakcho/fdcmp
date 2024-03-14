@@ -54,25 +54,29 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
         loggerMpl.error(traceback.format_stack())
         traceback.print_stack()
     try:
+        loggerMpl.info(f"startInit 1")
+        loopCount = 0
         mplWorker = MPLWorker(moduleId, q, c)
+        loggerMpl.info(f"startInit 2")
         while True:
             try:
                 if not q.empty():
                     try:
-                        message = q.get()
-                        loggerMpl.debug("mplPWorker Message")
-                        loggerMpl.debug(message)
+                        message = q.get(timeout=10)
                         mplWorker.messageParser(message)
                     except Exception as e:
                         loggerMpl.error(e.__str__())
                         loggerMpl.error(traceback.print_stack())
-
                 while not c.empty():
-                    command = c.get()
+                    command = c.get(timeout=10)
                     mplWorker.commandParser(command)
                     loggerMpl.info(f'command[{current_process().name}]={command}')
                 if q.empty():
                     time.sleep(0.1)
+                loopCount = loopCount + 1
+                if loopCount > 600:
+                    loggerMpl.info(f"alive module")
+                    loopCount = 0
             except Exception as e:
                 loggerMpl.error(traceback.format_exc())
                 loggerMpl.error(e.__str__())
