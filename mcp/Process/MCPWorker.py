@@ -210,18 +210,6 @@ class McpWorker:
                 "context": context.get_simpleContext(),
                 "fdcDataGroup": context.currentFdcDataGroup
             })
-            # EventHistory.objects.create(eventCode=context.mp[MpBasic.EventCode.value],
-            #                             eventName=event.name,
-            #                             eqpId=eqpModule.eqp,
-            #                             eqpName=eqpModule.eqpName,
-            #                             eqpCode=context.mp[MpBasic.EqpCode.value],
-            #                             eqpModuleId=eqpModule.id,
-            #                             eqpModuleCode=eqpModule.code,
-            #                             eqpModuleName=eqpModule.name,
-            #                             updateTime=now,
-            #                             value=saveEvent,
-            #                             context=context.get_simpleContext(),
-            #                             fdcDataGroup=context.currentFdcDataGroup)
 
         if alarm is not None:
             self.mongoService.insert("mcp_alarmhistory", {
@@ -238,18 +226,6 @@ class McpWorker:
                 "context": context.get_simpleContext(),
                 "fdcDataGroup": context.currentFdcDataGroup
             })
-            # AlarmHistory.objects.create(alarmCode=context.mp[MpBasic.AlarmCode.value],
-            #                             alarmName=alarm.name,
-            #                             eqpId=eqpModule.eqp,
-            #                             eqpName=eqpModule.eqpName,
-            #                             eqpCode=context.mp[MpBasic.EqpCode.value],
-            #                             eqpModuleId=eqpModule.id,
-            #                             eqpModuleCode=eqpModule.code,
-            #                             eqpModuleName=eqpModule.name,
-            #                             updateTime=now,
-            #                             value=saveAlarm,
-            #                             context=context.get_simpleContext(),
-            #                             fdcDataGroup=context.currentFdcDataGroup)
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and context.conditions[ConditionsBasic.IsRun.value]:
@@ -268,21 +244,6 @@ class McpWorker:
                     "updateTime": now,
                     "fdcDataGroup": context.currentFdcDataGroup
                 })
-                # TraceData.objects.create(
-                #     traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
-                #     traceGroupName=traceGroup.name,
-                #     value=saveTrace,
-                #     eqpId=eqpModule.eqp,
-                #     eqpName=eqpModule.eqpName,
-                #     eqpCode=context.mp[MpBasic.EqpCode.value],
-                #     eqpModuleId=eqpModule.id,
-                #     eqpModuleCode=eqpModule.code,
-                #     eqpModuleName=eqpModule.name,
-                #     context=context.get_simpleContext(),
-                #     updateTime=now,
-                #     fdcDataGroup=context.currentFdcDataGroup
-                # )
-
         if context.getSPCData() is not None:
             self.mongoService.insert("mcp_spcdata", {
                 "value": context.getSPCData(),
@@ -296,18 +257,7 @@ class McpWorker:
                 "updateTime": now,
                 "fdcDataGroup": context.currentFdcDataGroup
             })
-            # SPCData.objects.create(
-            #     value=context.getSPCData(),
-            #     eqpId=eqpModule.eqp,
-            #     eqpName=eqpModule.eqpName,
-            #     eqpCode=context.mp[MpBasic.EqpCode.value],
-            #     eqpModuleId=eqpModule.id,
-            #     eqpModuleCode=eqpModule.code,
-            #     eqpModuleName=eqpModule.name,
-            #     context=context.get_simpleContext(),
-            #     updateTime=now,
-            #     fdcDataGroup=context.currentFdcDataGroup
-            # )
+
             context.setSPCData(None)
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
@@ -331,18 +281,7 @@ class McpWorker:
             "startTime": now,
             "etc": context.etc
         })
-        # fdcDataGroup = FdcDataGroup.objects.create(
-        #     eqpModuleName=eqpModule.name,
-        #     eqpModuleCode=eqpModule.code,
-        #     eqpModuleId=eqpModule.id,
-        #     context=context.get_simpleContext(),
-        #     eqpId=eqpModule.eqp,
-        #     eqpName=eqpModule.eqpName,
-        #     eqpCode=context.mp[MpBasic.EqpCode.value],
-        #     groupType=groupType.value,
-        #     startTime=now,
-        #     etc=context.etc
-        # )
+
         context.currentFdcDataGroup = fdcDataGroup
 
     def fabDataGroupEnd(self, context: Context, now: datetime):

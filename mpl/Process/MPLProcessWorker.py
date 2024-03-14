@@ -99,7 +99,6 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
                 loopCount = loopCount + 1
                 if loopCount > 600:
                     FdcEqpUseCase.sendEqpModuleAliveSignal(module.id)
-                    loggerMpl.info(f"alive module")
                     loopCount = 0
             except Exception as e:
                 loggerMpl.error(traceback.format_exc())
