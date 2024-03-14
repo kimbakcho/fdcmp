@@ -21,3 +21,5 @@ class FdcEqpModuleResDto:
     operationRateUse: bool
     moduleModelId: bool
     mcpModelName: str | None
+    aliveTime: str | None
+    isDebug: bool

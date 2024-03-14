@@ -13,25 +13,28 @@ from datetime import datetime
 from mcp.Process.MCPEqpTraceGroup import McpEqpTraceGroup
 import copy
 
+from mcp.Process.MCPMongoService import MCPMongoService
 from mcp.Process.MCPThread import MCPThread
 from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCData
 
 
 class McpWorker:
 
-    def __init__(self, context: Context,eqpModule: MCPEqpModule) -> None:
+    def __init__(self, context: Context, eqpModule: MCPEqpModule) -> None:
         super().__init__()
         self.__maxHistorySize = 20
         self.__logger = logging.getLogger('mcp')
         self.context = context
         self.eqpModule = eqpModule
-        self.threadingMap: dict[str,MCPThread] = dict()
+        self.threadingMap: dict[str, MCPThread] = dict()
         self.initThreading()
+        self.mongoService = MCPMongoService()
 
     def __del__(self):
         for key in list(self.threadingMap.keys()):
             pop = self.threadingMap.pop(key)
             pop.stop()
+        self.mongoService.close()
 
     def initThreading(self):
         for key in list(self.threadingMap.keys()):
@@ -83,7 +86,6 @@ class McpWorker:
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
-
             if self.context.mp.get(MpBasic.IsAlarm.value, None) \
                     and self.context.mp[MpBasic.AlarmCode.value] in self.eqpModule.getAlarms().keys():
                 alarm = self.eqpModule.getAlarms()[self.context.mp[MpBasic.AlarmCode.value]]
@@ -101,7 +103,6 @@ class McpWorker:
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
-
             if self.context.mp.get(MpBasic.IsTrace.value, None) \
                     and self.context.mp[MpBasic.TraceGroupCode.value] in self.eqpModule.getTraceGroup().keys():
                 traceGroup = self.eqpModule.getTraceGroup()[self.context.mp[MpBasic.TraceGroupCode.value]]
@@ -119,7 +120,6 @@ class McpWorker:
                         self.__logger.error(e.__str__())
                         self.__logger.error(traceback.format_stack())
                         traceback.print_stack()
-
             for conditions in self.eqpModule.getConditions():
                 try:
                     exec(conditions.logicComPile, None, locals())
@@ -132,10 +132,10 @@ class McpWorker:
                     self.__logger.error(e.__str__())
                     self.__logger.error(traceback.format_stack())
                     traceback.print_stack()
+
             if self.context.contextHistory.__len__() >= self.__maxHistorySize:
                 self.context.contextHistory.pop(0)
             self.mcpSaveWork(self.eqpModule, self.context, event, alarm, traceGroup)
-
             saveContext = Context()
             saveContext.mp = self.context.mp
             saveContext.event = self.context.event
@@ -145,7 +145,6 @@ class McpWorker:
             saveContext.etc = self.context.etc
             saveContext.conditions = self.context.conditions
             saveContext.currentFdcDataGroup = self.context.currentFdcDataGroup
-
             self.context.contextHistory.append(copy.deepcopy(saveContext))
         except Exception as e:
             logger = logging.getLogger('mcp')
@@ -197,64 +196,118 @@ class McpWorker:
             self.fabDataGroupStart(eqpModule, context, now, FabGroupType.Run)
 
         if event is not None:
-            EventHistory.objects.create(eventCode=context.mp[MpBasic.EventCode.value],
-                                        eventName=event.name,
-                                        eqpId=eqpModule.eqp,
-                                        eqpName=eqpModule.eqpName,
-                                        eqpCode=context.mp[MpBasic.EqpCode.value],
-                                        eqpModuleId=eqpModule.id,
-                                        eqpModuleCode=eqpModule.code,
-                                        eqpModuleName=eqpModule.name,
-                                        updateTime=now,
-                                        value=saveEvent,
-                                        context=context.get_simpleContext(),
-                                        fdcDataGroup=context.currentFdcDataGroup)
+            self.mongoService.insert("mcp_eventhistory", {
+                "eventCode": context.mp[MpBasic.EventCode.value],
+                "eventName": event.name,
+                "eqpId": eqpModule.eqp,
+                "eqpName": eqpModule.eqpName,
+                "eqpCode": context.mp[MpBasic.EqpCode.value],
+                "eqpModuleId": eqpModule.id,
+                "eqpModuleCode": eqpModule.code,
+                "eqpModuleName": eqpModule.name,
+                "updateTime": now,
+                "value": saveEvent,
+                "context": context.get_simpleContext(),
+                "fdcDataGroup": context.currentFdcDataGroup
+            })
+            # EventHistory.objects.create(eventCode=context.mp[MpBasic.EventCode.value],
+            #                             eventName=event.name,
+            #                             eqpId=eqpModule.eqp,
+            #                             eqpName=eqpModule.eqpName,
+            #                             eqpCode=context.mp[MpBasic.EqpCode.value],
+            #                             eqpModuleId=eqpModule.id,
+            #                             eqpModuleCode=eqpModule.code,
+            #                             eqpModuleName=eqpModule.name,
+            #                             updateTime=now,
+            #                             value=saveEvent,
+            #                             context=context.get_simpleContext(),
+            #                             fdcDataGroup=context.currentFdcDataGroup)
 
         if alarm is not None:
-            AlarmHistory.objects.create(alarmCode=context.mp[MpBasic.AlarmCode.value],
-                                        alarmName=alarm.name,
-                                        eqpId=eqpModule.eqp,
-                                        eqpName=eqpModule.eqpName,
-                                        eqpCode=context.mp[MpBasic.EqpCode.value],
-                                        eqpModuleId=eqpModule.id,
-                                        eqpModuleCode=eqpModule.code,
-                                        eqpModuleName=eqpModule.name,
-                                        updateTime=now,
-                                        value=saveAlarm,
-                                        context=context.get_simpleContext(),
-                                        fdcDataGroup=context.currentFdcDataGroup)
+            self.mongoService.insert("mcp_alarmhistory", {
+                "alarmCode": context.mp[MpBasic.AlarmCode.value],
+                "alarmName": alarm.name,
+                "eqpId": eqpModule.eqp,
+                "eqpName": eqpModule.eqpName,
+                "eqpCode": context.mp[MpBasic.EqpCode.value],
+                "eqpModuleId": eqpModule.id,
+                "eqpModuleCode": eqpModule.code,
+                "eqpModuleName": eqpModule.name,
+                "updateTime": now,
+                "value": saveAlarm,
+                "context": context.get_simpleContext(),
+                "fdcDataGroup": context.currentFdcDataGroup
+            })
+            # AlarmHistory.objects.create(alarmCode=context.mp[MpBasic.AlarmCode.value],
+            #                             alarmName=alarm.name,
+            #                             eqpId=eqpModule.eqp,
+            #                             eqpName=eqpModule.eqpName,
+            #                             eqpCode=context.mp[MpBasic.EqpCode.value],
+            #                             eqpModuleId=eqpModule.id,
+            #                             eqpModuleCode=eqpModule.code,
+            #                             eqpModuleName=eqpModule.name,
+            #                             updateTime=now,
+            #                             value=saveAlarm,
+            #                             context=context.get_simpleContext(),
+            #                             fdcDataGroup=context.currentFdcDataGroup)
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and context.conditions[ConditionsBasic.IsRun.value]:
             if traceGroup is not None:
-                TraceData.objects.create(
-                    traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
-                    traceGroupName=traceGroup.name,
-                    value=saveTrace,
-                    eqpId=eqpModule.eqp,
-                    eqpName=eqpModule.eqpName,
-                    eqpCode=context.mp[MpBasic.EqpCode.value],
-                    eqpModuleId=eqpModule.id,
-                    eqpModuleCode=eqpModule.code,
-                    eqpModuleName=eqpModule.name,
-                    context=context.get_simpleContext(),
-                    updateTime=now,
-                    fdcDataGroup=context.currentFdcDataGroup
-                )
+                self.mongoService.insert("mcp_tracedata", {
+                    "traceGroupCode": context.mp[MpBasic.TraceGroupCode.value],
+                    "traceGroupName": traceGroup.name,
+                    "value": saveTrace,
+                    "eqpId": eqpModule.eqp,
+                    "eqpName": eqpModule.eqpName,
+                    "eqpCode": context.mp[MpBasic.EqpCode.value],
+                    "eqpModuleId": eqpModule.id,
+                    "eqpModuleCode": eqpModule.code,
+                    "eqpModuleName": eqpModule.name,
+                    "context": context.get_simpleContext(),
+                    "updateTime": now,
+                    "fdcDataGroup": context.currentFdcDataGroup
+                })
+                # TraceData.objects.create(
+                #     traceGroupCode=context.mp[MpBasic.TraceGroupCode.value],
+                #     traceGroupName=traceGroup.name,
+                #     value=saveTrace,
+                #     eqpId=eqpModule.eqp,
+                #     eqpName=eqpModule.eqpName,
+                #     eqpCode=context.mp[MpBasic.EqpCode.value],
+                #     eqpModuleId=eqpModule.id,
+                #     eqpModuleCode=eqpModule.code,
+                #     eqpModuleName=eqpModule.name,
+                #     context=context.get_simpleContext(),
+                #     updateTime=now,
+                #     fdcDataGroup=context.currentFdcDataGroup
+                # )
 
         if context.getSPCData() is not None:
-            SPCData.objects.create(
-                value=context.getSPCData(),
-                eqpId=eqpModule.eqp,
-                eqpName=eqpModule.eqpName,
-                eqpCode=context.mp[MpBasic.EqpCode.value],
-                eqpModuleId=eqpModule.id,
-                eqpModuleCode=eqpModule.code,
-                eqpModuleName=eqpModule.name,
-                context=context.get_simpleContext(),
-                updateTime=now,
-                fdcDataGroup=context.currentFdcDataGroup
-            )
+            self.mongoService.insert("mcp_spcdata", {
+                "value": context.getSPCData(),
+                "eqpId": eqpModule.eqp,
+                "eqpName": eqpModule.eqpName,
+                "eqpCode": context.mp[MpBasic.EqpCode.value],
+                "eqpModuleId": eqpModule.id,
+                "eqpModuleCode": eqpModule.code,
+                "eqpModuleName": eqpModule.name,
+                "context": context.get_simpleContext(),
+                "updateTime": now,
+                "fdcDataGroup": context.currentFdcDataGroup
+            })
+            # SPCData.objects.create(
+            #     value=context.getSPCData(),
+            #     eqpId=eqpModule.eqp,
+            #     eqpName=eqpModule.eqpName,
+            #     eqpCode=context.mp[MpBasic.EqpCode.value],
+            #     eqpModuleId=eqpModule.id,
+            #     eqpModuleCode=eqpModule.code,
+            #     eqpModuleName=eqpModule.name,
+            #     context=context.get_simpleContext(),
+            #     updateTime=now,
+            #     fdcDataGroup=context.currentFdcDataGroup
+            # )
             context.setSPCData(None)
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
@@ -266,29 +319,42 @@ class McpWorker:
 
     def fabDataGroupStart(self, eqpModule: MCPEqpModule, context: Context,
                           now: datetime, groupType: FabGroupType):
-        fdcDataGroup = FdcDataGroup.objects.create(
-            eqpModuleName=eqpModule.name,
-            eqpModuleCode=eqpModule.code,
-            eqpModuleId=eqpModule.id,
-            context=context.get_simpleContext(),
-            eqpId=eqpModule.eqp,
-            eqpName=eqpModule.eqpName,
-            eqpCode=context.mp[MpBasic.EqpCode.value],
-            groupType=groupType.value,
-            startTime=now,
-            etc=context.etc
-        )
-        context.currentFdcDataGroup = fdcDataGroup._id
+        fdcDataGroup = self.mongoService.insert("mcp_fdcdatagroup", {
+            "eqpModuleName": eqpModule.name,
+            "eqpModuleCode": eqpModule.code,
+            "eqpModuleId": eqpModule.id,
+            "context": context.get_simpleContext(),
+            "eqpId": eqpModule.eqp,
+            "eqpName": eqpModule.eqpName,
+            "eqpCode": context.mp[MpBasic.EqpCode.value],
+            "groupType": groupType.value,
+            "startTime": now,
+            "etc": context.etc
+        })
+        # fdcDataGroup = FdcDataGroup.objects.create(
+        #     eqpModuleName=eqpModule.name,
+        #     eqpModuleCode=eqpModule.code,
+        #     eqpModuleId=eqpModule.id,
+        #     context=context.get_simpleContext(),
+        #     eqpId=eqpModule.eqp,
+        #     eqpName=eqpModule.eqpName,
+        #     eqpCode=context.mp[MpBasic.EqpCode.value],
+        #     groupType=groupType.value,
+        #     startTime=now,
+        #     etc=context.etc
+        # )
+        context.currentFdcDataGroup = fdcDataGroup
 
     def fabDataGroupEnd(self, context: Context, now: datetime):
         if context.currentFdcDataGroup is not None:
-            if FdcDataGroup.objects.filter(_id=context.currentFdcDataGroup).count() > 0:
-                fdcDataGroup = FdcDataGroup.objects.get(_id=context.currentFdcDataGroup)
-                fdcDataGroup.context = context.get_simpleContext()
-                fdcDataGroup.etc = context.etc
-                fdcDataGroup.endTime = now
-                fdcDataGroup.betweenTimeSec = int((fdcDataGroup.endTime - fdcDataGroup.startTime).total_seconds())
-                fdcDataGroup.save()
+            findItem = self.mongoService.find_one("mcp_fdcdatagroup", {"_id": context.currentFdcDataGroup})
+            if findItem is not None:
+                self.mongoService.update_one("mcp_fdcdatagroup",{"_id": context.currentFdcDataGroup},{
+                    "context": context.get_simpleContext(),
+                    "etc": context.etc,
+                    "endTime": now,
+                    "betweenTimeSec": int((now - findItem.get("startTime")).total_seconds())
+                })
                 context.currentFdcDataGroup = None
             else:
                 context.currentFdcDataGroup = None

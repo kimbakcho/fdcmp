@@ -56,25 +56,49 @@ def mplPWorker(moduleId: int, q: Queue, c: Queue):
     try:
         loggerMpl.info(f"startInit 1")
         loopCount = 0
-        mplWorker = MPLWorker(moduleId, q, c)
-        loggerMpl.info(f"startInit 2")
         while True:
             try:
+                mplWorker = MPLWorker(moduleId, q, c)
+                loggerMpl.info(f"startInit 2")
+                FdcEqpUseCase.sendEqpModuleAliveSignal(module.id)
+                break
+            except Exception as e:
+                loggerMpl.error(traceback.format_exc())
+                loggerMpl.error(e.__str__())
+                loggerMpl.error(traceback.format_stack())
+                traceback.print_stack()
+                time.sleep(1)
+
+        while True:
+            try:
+                if module.isDebug:
+                    loggerMpl.info("mplPWorker1")
                 if not q.empty():
                     try:
                         message = q.get(timeout=10)
+                        if module.isDebug:
+                            loggerMpl.info("mplPWorker2")
                         mplWorker.messageParser(message)
+                        if module.isDebug:
+                            loggerMpl.info("mplPWorker3")
                     except Exception as e:
                         loggerMpl.error(e.__str__())
                         loggerMpl.error(traceback.print_stack())
                 while not c.empty():
+                    if module.isDebug:
+                        loggerMpl.info("mplPWorker4")
                     command = c.get(timeout=10)
+                    if module.isDebug:
+                        loggerMpl.info("mplPWorker5")
                     mplWorker.commandParser(command)
+                    if module.isDebug:
+                        loggerMpl.info("mplPWorker6")
                     loggerMpl.info(f'command[{current_process().name}]={command}')
                 if q.empty():
                     time.sleep(0.1)
                 loopCount = loopCount + 1
                 if loopCount > 600:
+                    FdcEqpUseCase.sendEqpModuleAliveSignal(module.id)
                     loggerMpl.info(f"alive module")
                     loopCount = 0
             except Exception as e:

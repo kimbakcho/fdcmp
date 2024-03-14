@@ -27,6 +27,7 @@ class MPLWorker:
         self.__mplParserUtil = MPLParserUtil()
 
         module = FdcEqpUseCase.getEqpModule(id=self.moduleId)
+        self.moduleObj = module
         self.__module = MCPEqpModule(module)
         self.__context = Context()
         self.__context.setEqpCode(self.__module.eqpCode)
@@ -71,9 +72,17 @@ class MPLWorker:
             self.__context.setModuleName(self.__module.name)
             self.__context.debugMsgs.clear()
             self.__context.setSPCData(None)
+            if self.moduleObj.isDebug:
+                self.__loggerMpl.info("messageParser1")
+                self.__loggerMpl.info(message)
             for logicItem in self.__mplParserUtil.getMpLogics():
                 try:
+                    if self.moduleObj.isDebug:
+                        self.__loggerMpl.info("messageParser2")
+                        self.__loggerMpl.info(logicItem.name)
                     exec(logicItem.logicComPile, None, locals())
+                    if self.moduleObj.isDebug:
+                        self.__loggerMpl.info("messageParser3")
                     runResult = locals().get("run")(self.__context)
                     self.__context.mp[logicItem.name] = runResult
                 except Exception as e:
@@ -83,7 +92,11 @@ class MPLWorker:
                     self.__loggerMpl.error(e.__str__())
                     self.__loggerMpl.error(traceback.format_stack())
                     traceback.print_stack()
+            if self.moduleObj.isDebug:
+                self.__loggerMpl.info("messageParser4")
             self.__mcpWorker.run()
+            if self.moduleObj.isDebug:
+                self.__loggerMpl.info("messageParser5")
         except Exception as e:
             self.__loggerMpl.error(traceback.format_exc())
             self.__loggerMpl.error(e.__str__())

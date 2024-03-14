@@ -45,3 +45,9 @@ class FdcEqpUseCase:
     def getEqpModule(id) -> FdcEqpModuleResDto:
         res = requests.get(f"{env('BFDC_URL')}/eqp/module/{id}/", timeout=30)
         return FdcEqpModuleResDto(**res.json())
+
+    @staticmethod
+    def sendEqpModuleAliveSignal(id):
+        res = requests.post(f"{env('BFDC_URL')}/eqp/module/eqpModuleAliveSignal/",data={
+            "id": id
+        }, timeout=30)
