@@ -15,7 +15,6 @@ import os
 import environ
 from pathlib import Path
 
-import fdcmp.DBRouter
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -190,8 +189,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'command',
     'capa',
-    'acp',
-    'wRecipeInterLock',
+    # 'acp',
+    # 'wRecipeInterLock',
     'mpl',
     'mcp'
 ]
@@ -236,32 +235,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'MPL_DB': {
-        'ENGINE': 'djongo',
-        'NAME': 'fdc',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': env('MCP_DB_HOST'),
-            'port': env('MCP_DB_PORT', int),
-            'username': env('MCP_DB_USER_NAME'),
-            'password': env('MCP_DB_PASS'),
-            'authSource': env('MCP_DB_AUTH_SOURCE'),
-            'authMechanism': env('MCP_DB_AUTH_MECHANISM')
-        },
-        'LOGGING': {
-            'version': 1,
-            'loggers': {
-                'djongo': {
-                    'level': 'DEBUG',
-                    'propagate': False,
-                }
-            },
-            'disable_existing_loggers': False
-        },
-    }
 }
 
-DATABASE_ROUTERS = ['fdcmp.DBRouter.DBRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

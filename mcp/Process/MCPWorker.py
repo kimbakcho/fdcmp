@@ -15,7 +15,6 @@ import copy
 
 from mcp.Process.MCPMongoService import MCPMongoService
 from mcp.Process.MCPThread import MCPThread
-from mcp.models import EventHistory, FdcDataGroup, TraceData, AlarmHistory, SPCData
 
 
 class McpWorker:
