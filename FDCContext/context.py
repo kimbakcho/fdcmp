@@ -8,7 +8,7 @@ from bson import ObjectId
 
 from ESB.ESBBrokerManager import ESBBrokerManager
 from bFdcAPI import env
-from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
+from bFdcAPI.ACP.UseCase import ACPUseCase
 from bFdcAPI.Capa.Dto.CycleTime import CycleTimeReqDto, CycleTimeManagerResDto
 from bFdcAPI.Capa.UseCase import CapaUseCase
 from bFdcAPI.OperationRate.Dto.ModuleStateContextInfoUpdateReqDto import ModuleStateContextInfoUpdateReqDto
@@ -185,7 +185,6 @@ class Context:
         self.etc = {}
         self.contextHistory = list()
         self.currentFdcDataGroup: Optional[ObjectId] = None
-        self.__acpSetting = None
         self.__eqpCode = None
         self.__eqpName = None
         self.__moduleName = None
@@ -235,14 +234,8 @@ class Context:
     def debug(self, msg: str):
         self.debugMsgs.append(msg)
 
-    def setAPCMessageCoreSetting(self, apcSetting: ACPMessageCoreSettingResDto):
-        self.__acpSetting = apcSetting
-
-    def sendACPMessage(self, msg: str):
-        if not self.__acpSetting:
-            return
-        acpBroker = ESBBrokerManager().getACPBroker(self.__acpSetting)
-        acpBroker.sendMessage(msg)
+    def sendACPMessage(self, msg: dict):
+        ACPUseCase.AcpRun(msg)
 
     def setEqpCode(self, eqpCode: str):
         self.__eqpCode = eqpCode

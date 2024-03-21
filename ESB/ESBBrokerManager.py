@@ -1,8 +1,7 @@
 from enum import Enum
 from typing import Optional
 
-from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker, ESBACPActiveMqBroker
-from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
+from ESB.ESBBroker import ESBBroker, ESBActiveMqBroker
 from bFdcAPI.MP.Dto.Core import CoreResDto
 
 
@@ -18,7 +17,6 @@ class ESBBrokerManager:
         if not isinstance(class_._instance, class_):
             class_._instance = object.__new__(class_, *args, **kwargs)
             class_._instance.__connects = dict()
-            class_._instance.__acpBroker = None
         return class_._instance
 
 
@@ -32,10 +30,3 @@ class ESBBrokerManager:
         return None
 
 
-    def getACPBroker(self, setting: ACPMessageCoreSettingResDto) -> Optional[ESBBroker]:
-        if self.__acpBroker:
-            return self.__acpBroker
-        else:
-            if setting.brokerType == ESBBrokerType.ActiveMQ.value:
-                self.__acpBroker = ESBACPActiveMqBroker(acpSetting=setting)
-                return self.__acpBroker

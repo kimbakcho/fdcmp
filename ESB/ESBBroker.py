@@ -1,6 +1,5 @@
 import stomp
 
-from bFdcAPI.ACP.Dto.ACPMessageCoreSetting import ACPMessageCoreSettingResDto
 from bFdcAPI.MP.Dto.Core import CoreResDto
 
 
@@ -37,21 +36,3 @@ class ESBActiveMqBroker(ESBBroker):
             self.__c.connect(wait=True)
         self.__c.send(self.__coreInfo.capaSubject, message)
 
-
-class ESBACPActiveMqBroker(ESBBroker):
-
-    def __init__(self, acpSetting: ACPMessageCoreSettingResDto) -> None:
-        super().__init__()
-        self.__acpSetting = acpSetting
-        self.__c = stomp.Connection([(acpSetting.sourceIp, acpSetting.sourcePort)], auto_content_length=False)
-
-    def sendMessage(self, message: str):
-        if not self.__c.is_connected():
-            self.__c.connect(wait=True)
-        self.__c.send(self.__acpSetting.subject, message)
-
-
-    def sendCommandMessage(self, message: str):
-        if not self.__c.is_connected():
-            self.__c.connect(wait=True)
-        self.__c.send(self.__acpSetting.commandSubject, message)
