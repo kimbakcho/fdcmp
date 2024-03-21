@@ -1,4 +1,3 @@
-import threading
 import traceback
 
 from FDCContext.logicConverter import decoratorLogicCode

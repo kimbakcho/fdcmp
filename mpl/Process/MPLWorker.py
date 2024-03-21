@@ -35,7 +35,6 @@ class MPLWorker:
         self.__context.setModuleCode(self.__module.code)
         self.__context.setModuleName(self.__module.name)
         self.__context.setLogger(logging.getLogger("mcp"))
-        self.__context.setAPCMessageCoreSetting(ACPUseCase.getACPMessageCoreSetting())
         self.__context.setOperationAPIModule(OperationAPIModule(self.__module.id))
         self.__context.setCapaAPIModule(CapaAPIModule(self.__module.id))
         self.initRun()
