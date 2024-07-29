@@ -195,8 +195,9 @@ class Context:
     def setLogger(self, logger):
         self.logger = logger
 
+
     def logMessage(self, message: str):
-        self.logger.info(message)
+        self.logger.info(f"{self.__eqpName}_{self.__moduleName} {message}")
 
     def get_simpleContext(self) -> Dict:
         return {"MP": self.mp, "conditions": self.conditions}

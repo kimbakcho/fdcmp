@@ -23,5 +23,13 @@ class MCPMongoService:
     def update_one(self,collect, filter, updateQuery):
         return self.client[self.dbName][collect].update_one(filter,{"$set": updateQuery})
 
+    def list_indexes(self, collection):
+        return self.client[self.dbName][collection].list_indexes()
+
+    def create_index(self, collection, index_name, index, expireAfterSeconds=None):
+        if expireAfterSeconds is not None:
+            return self.client[self.dbName][collection].create_index(index, name=index_name, expireAfterSeconds=expireAfterSeconds)
+        return self.client[self.dbName][collection].create_index(index, name=index_name)
+
     def close(self):
         self.client.close()

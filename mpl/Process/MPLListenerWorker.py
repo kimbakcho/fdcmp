@@ -6,6 +6,7 @@ from bFdcAPI.Enum import CommandModule, CommandAction, CommandType, RecvState
 from bFdcAPI.Eqp.UseCase import FdcEqpUseCase
 from mpl.Process.MPEqp import MPEqp
 from mpl.Process.MPEqpModule import MPEqpModule
+from mpl.Process.MPLMessageLogger import MPLMessageLogger
 from mpl.Process.MPLParserUtil import MPLParserUtil
 from FDCContext.context import Context
 import json
@@ -21,6 +22,8 @@ class MPLListenerWorker(ListenerWorker):
         self.__fdcEqpUseCase = FdcEqpUseCase()
         self.__mplPWorker = mplPWorker
         self.__context = Context()
+        self.__MPLMessageLogger = MPLMessageLogger()
+        self.__MPLMessageLogger.startProcess()
 
     def onMessage(self, message: str):
         self.__context.set_message(message)
@@ -32,7 +35,13 @@ class MPLListenerWorker(ListenerWorker):
                 if self.__context.mp[logicItem.name] in self.mpEqps.keys():
                     for module in self.mpEqps.get(self.__context.mp[logicItem.name]).getModules():
                         module.messageQueue.put(message, timeout=10)
+                self.__MPLMessageLogger.messageQueue.put({
+                    "EqpCode": self.__context.mp.get("EqpCode"),
+                    "Message": message,
+                }, timeout=10)
                 break
+
+
 
     def onCommandMessage(self, message: str):
         r = json.loads(message)

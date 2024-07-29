@@ -18,7 +18,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-environ.Env.read_env(os.path.join(BASE_DIR, '.env.local'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env.real'))
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)

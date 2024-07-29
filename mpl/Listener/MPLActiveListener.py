@@ -37,7 +37,7 @@ class MPLActiveListener(ConnectionListener):
 
     def on_message(self, frame):
         try:
-            self.__logger.info(frame.body)
+            # self.__logger.info(frame.body)
             if frame.headers['destination'] == self.__core.subject:
                 self.__mplListenerWorker.onMessage(frame.body)
             elif frame.headers['destination'] == self.__core.commandSubject:
