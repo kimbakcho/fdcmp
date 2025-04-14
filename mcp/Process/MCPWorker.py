@@ -228,7 +228,7 @@ class McpWorker:
 
         if ConditionsBasic.IsRun.value in context.conditions.keys() \
                 and context.conditions[ConditionsBasic.IsRun.value]:
-            if traceGroup is not None:
+            if (traceGroup is not None) and (saveTrace.keys().__len__() > 0):
                 self.mongoService.insert("mcp_tracedata", {
                     "traceGroupCode": context.mp[MpBasic.TraceGroupCode.value],
                     "traceGroupName": traceGroup.name,
